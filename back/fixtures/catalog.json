@@ -1,0 +1,5717 @@
+{
+  "shops": [
+    {
+      "name": "art-of-tea",
+      "title": "Art Of Tea",
+      "country": "Россия",
+      "city": "Москва",
+      "site": "https://example.com/art-of-tea",
+      "description": "Магазин с упором на тайваньские улуны и габу. Свои закупки у фермеров Алишаня и Наньтоу.",
+      "founded_year": 2014
+    },
+    {
+      "name": "daochain",
+      "title": "DaoChain",
+      "country": "Россия",
+      "city": "Санкт-Петербург",
+      "site": "https://example.com/daochain",
+      "description": "Специализируются на красных чаях Юньнани и Фуцзяни, много авторских партий.",
+      "founded_year": 2017
+    },
+    {
+      "name": "gorny-list",
+      "title": "Горный лист",
+      "country": "Россия",
+      "city": "Екатеринбург",
+      "site": "https://example.com/gorny-list",
+      "description": "Большой ассортимент пуэров разных лет, собственное хранение.",
+      "founded_year": 2011
+    },
+    {
+      "name": "bely-zhuravl",
+      "title": "Белый журавль",
+      "country": "Россия",
+      "city": "Казань",
+      "site": "https://example.com/bely-zhuravl",
+      "description": "Небольшая лавка: зелёные и белые чаи свежих сборов, быстро обновляют партии.",
+      "founded_year": 2019
+    },
+    {
+      "name": "tea-harbor",
+      "title": "Tea Harbor",
+      "country": "Россия",
+      "city": "Владивосток",
+      "site": "https://example.com/tea-harbor",
+      "description": "Широкий ассортимент «на каждый день», хорошие травяные сборы.",
+      "founded_year": 2016
+    }
+  ],
+  "teas": [
+    {
+      "key": "t1",
+      "category": "gaba",
+      "title": "Габа Алишань",
+      "region": "Тайвань, Алишань",
+      "description": "Классическая тайваньская габа с глубокой прожаркой.",
+      "offers": [
+        {
+          "shop": "art-of-tea",
+          "price": 1450,
+          "weight": 50,
+          "harvestYear": 2025,
+          "harvestSeason": "spring"
+        },
+        {
+          "shop": "tea-harbor",
+          "price": 1190,
+          "weight": 50,
+          "harvestYear": 2024,
+          "harvestSeason": "autumn"
+        }
+      ]
+    },
+    {
+      "key": "t2",
+      "category": "gaba",
+      "title": "Габа Красная",
+      "region": "Тайвань, Наньтоу",
+      "description": "Габа красной ферментации, сладкая и плотная.",
+      "offers": [
+        {
+          "shop": "art-of-tea",
+          "price": 1300,
+          "weight": 50,
+          "harvestYear": 2024,
+          "harvestSeason": "autumn"
+        }
+      ]
+    },
+    {
+      "key": "t3",
+      "category": "oolong",
+      "title": "Дун Дин",
+      "region": "Тайвань, Наньтоу",
+      "description": "Среднепрожаренный улун с ореховым профилем.",
+      "offers": [
+        {
+          "shop": "art-of-tea",
+          "price": 1200,
+          "weight": 50,
+          "harvestYear": 2025,
+          "harvestSeason": "spring"
+        },
+        {
+          "shop": "bely-zhuravl",
+          "price": 1350,
+          "weight": 50,
+          "harvestYear": 2025,
+          "harvestSeason": "spring"
+        }
+      ]
+    },
+    {
+      "key": "t4",
+      "category": "red",
+      "title": "Ми Сян Хун Ча",
+      "region": "Тайвань",
+      "description": "Красный чай из листа, покусанного цикадками.",
+      "offers": [
+        {
+          "shop": "art-of-tea",
+          "price": 1100,
+          "weight": 50,
+          "harvestYear": 2024,
+          "harvestSeason": "summer"
+        }
+      ]
+    },
+    {
+      "key": "t5",
+      "category": "green",
+      "title": "Би Ло Чунь",
+      "region": "Цзянсу",
+      "description": "Нежный зелёный чай с фруктовыми нотами.",
+      "offers": [
+        {
+          "shop": "art-of-tea",
+          "price": 900,
+          "weight": 50,
+          "harvestYear": 2025,
+          "harvestSeason": "spring"
+        },
+        {
+          "shop": "bely-zhuravl",
+          "price": 1050,
+          "weight": 50,
+          "harvestYear": 2025,
+          "harvestSeason": "spring"
+        }
+      ]
+    },
+    {
+      "key": "t6",
+      "category": "red",
+      "title": "Дянь Хун «Золотые почки»",
+      "region": "Юньнань, Фэнцин",
+      "description": "Типсовый красный чай, плотный и сладкий.",
+      "offers": [
+        {
+          "shop": "daochain",
+          "price": 1250,
+          "weight": 50,
+          "harvestYear": 2025,
+          "harvestSeason": "spring"
+        },
+        {
+          "shop": "tea-harbor",
+          "price": 1090,
+          "weight": 50,
+          "harvestYear": 2025,
+          "harvestSeason": "spring"
+        }
+      ]
+    },
+    {
+      "key": "t7",
+      "category": "red",
+      "title": "Цзинь Цзюнь Мэй",
+      "region": "Фуцзянь, Уишань",
+      "description": "Элитный красный чай из почек.",
+      "offers": [
+        {
+          "shop": "daochain",
+          "price": 2100,
+          "weight": 50,
+          "harvestYear": 2025,
+          "harvestSeason": "spring"
+        }
+      ]
+    },
+    {
+      "key": "t8",
+      "category": "red",
+      "title": "Лапсанг Сушонг",
+      "region": "Фуцзянь, Тунмугуань",
+      "description": "Копчёный на сосне красный чай.",
+      "offers": [
+        {
+          "shop": "daochain",
+          "price": 800,
+          "weight": 50,
+          "harvestYear": 2024,
+          "harvestSeason": "autumn"
+        }
+      ]
+    },
+    {
+      "key": "t9",
+      "category": "shu",
+      "title": "Шу «Менхай 2018»",
+      "region": "Юньнань, Менхай",
+      "description": "Ровный повседневный шу.",
+      "offers": [
+        {
+          "shop": "daochain",
+          "price": 1900,
+          "weight": 357,
+          "harvestYear": 2018,
+          "harvestSeason": null
+        },
+        {
+          "shop": "gorny-list",
+          "price": 2300,
+          "weight": 357,
+          "harvestYear": 2018,
+          "harvestSeason": null
+        }
+      ]
+    },
+    {
+      "key": "t10",
+      "category": "gaba",
+      "title": "Габа Чайная",
+      "region": "Тайвань",
+      "description": "Лёгкая габа светлой обжарки.",
+      "offers": [
+        {
+          "shop": "daochain",
+          "price": 1100,
+          "weight": 50,
+          "harvestYear": 2024,
+          "harvestSeason": "spring"
+        }
+      ]
+    },
+    {
+      "key": "t11",
+      "category": "shu",
+      "title": "Шу «Гунтин 2015»",
+      "region": "Юньнань, Бульан",
+      "description": "Выдержанный шу из почек, бархатный и чистый.",
+      "offers": [
+        {
+          "shop": "gorny-list",
+          "price": 3200,
+          "weight": 357,
+          "harvestYear": 2015,
+          "harvestSeason": null
+        }
+      ]
+    },
+    {
+      "key": "t12",
+      "category": "shu",
+      "title": "Шу «Лао Ча Тоу»",
+      "region": "Юньнань",
+      "description": "Самородки, очень плотный настой.",
+      "offers": [
+        {
+          "shop": "gorny-list",
+          "price": 1400,
+          "weight": 100,
+          "harvestYear": 2019,
+          "harvestSeason": null
+        }
+      ]
+    },
+    {
+      "key": "t13",
+      "category": "sheng",
+      "title": "Шен «Ико 2012»",
+      "region": "Юньнань, Ико",
+      "description": "Выдержанный шен с медовой сладостью.",
+      "offers": [
+        {
+          "shop": "gorny-list",
+          "price": 4800,
+          "weight": 357,
+          "harvestYear": 2012,
+          "harvestSeason": null
+        }
+      ]
+    },
+    {
+      "key": "t14",
+      "category": "oolong",
+      "title": "Да Хун Пао",
+      "region": "Фуцзянь, Уишань",
+      "description": "Утёсный улун средней прожарки.",
+      "offers": [
+        {
+          "shop": "gorny-list",
+          "price": 1600,
+          "weight": 50,
+          "harvestYear": 2024,
+          "harvestSeason": null
+        },
+        {
+          "shop": "art-of-tea",
+          "price": 980,
+          "weight": 50,
+          "harvestYear": 2024,
+          "harvestSeason": null
+        }
+      ]
+    },
+    {
+      "key": "t15",
+      "category": "red",
+      "title": "Дянь Хун классический",
+      "region": "Юньнань",
+      "description": "Повседневный красный.",
+      "offers": [
+        {
+          "shop": "gorny-list",
+          "price": 700,
+          "weight": 50,
+          "harvestYear": 2024,
+          "harvestSeason": "spring"
+        }
+      ]
+    },
+    {
+      "key": "t16",
+      "category": "green",
+      "title": "Лунцзин",
+      "region": "Чжэцзян, Ханчжоу",
+      "description": "Ранний сбор до Цинмина, яркий и свежий.",
+      "offers": [
+        {
+          "shop": "bely-zhuravl",
+          "price": 1700,
+          "weight": 50,
+          "harvestYear": 2025,
+          "harvestSeason": "spring"
+        }
+      ]
+    },
+    {
+      "key": "t17",
+      "category": "green",
+      "title": "Тай Пин Хоу Куй",
+      "region": "Аньхой",
+      "description": "Крупнолистовой зелёный с орхидеей.",
+      "offers": [
+        {
+          "shop": "bely-zhuravl",
+          "price": 1500,
+          "weight": 50,
+          "harvestYear": 2025,
+          "harvestSeason": "spring"
+        }
+      ]
+    },
+    {
+      "key": "t18",
+      "category": "white",
+      "title": "Бай Хао Инь Чжэнь",
+      "region": "Фуцзянь, Фудин",
+      "description": "Серебряные иглы из почек.",
+      "offers": [
+        {
+          "shop": "bely-zhuravl",
+          "price": 2400,
+          "weight": 50,
+          "harvestYear": 2025,
+          "harvestSeason": "spring"
+        }
+      ]
+    },
+    {
+      "key": "t19",
+      "category": "white",
+      "title": "Бай Му Дань",
+      "region": "Фуцзянь, Чжэнхэ",
+      "description": "Белый пион, мягкий и сладкий.",
+      "offers": [
+        {
+          "shop": "bely-zhuravl",
+          "price": 950,
+          "weight": 50,
+          "harvestYear": 2024,
+          "harvestSeason": "spring"
+        }
+      ]
+    },
+    {
+      "key": "t20",
+      "category": "oolong",
+      "title": "Те Гуань Инь",
+      "region": "Фуцзянь, Аньси",
+      "description": "Свежий светлый улун.",
+      "offers": [
+        {
+          "shop": "bely-zhuravl",
+          "price": 1100,
+          "weight": 50,
+          "harvestYear": 2025,
+          "harvestSeason": "spring"
+        },
+        {
+          "shop": "art-of-tea",
+          "price": 1250,
+          "weight": 50,
+          "harvestYear": 2025,
+          "harvestSeason": "spring"
+        }
+      ]
+    },
+    {
+      "key": "t21",
+      "category": "herbal",
+      "title": "Иван-чай с чабрецом",
+      "region": "Алтай",
+      "description": "Ферментированный иван-чай с чабрецом.",
+      "offers": [
+        {
+          "shop": "tea-harbor",
+          "price": 450,
+          "weight": 100,
+          "harvestYear": 2025,
+          "harvestSeason": null
+        }
+      ]
+    },
+    {
+      "key": "t22",
+      "category": "herbal",
+      "title": "Ройбуш с апельсином",
+      "region": "ЮАР",
+      "description": "Без кофеина, на вечер.",
+      "offers": [
+        {
+          "shop": "tea-harbor",
+          "price": 390,
+          "weight": 100,
+          "harvestYear": 2025,
+          "harvestSeason": null
+        }
+      ]
+    },
+    {
+      "key": "t23",
+      "category": "red",
+      "title": "Ассам TGFOP",
+      "region": "Индия, Ассам",
+      "description": "Крепкий завтрачный чай.",
+      "offers": [
+        {
+          "shop": "tea-harbor",
+          "price": 550,
+          "weight": 100,
+          "harvestYear": 2024,
+          "harvestSeason": null
+        }
+      ]
+    },
+    {
+      "key": "t24",
+      "category": "green",
+      "title": "Сенча",
+      "region": "Япония, Сидзуока",
+      "description": "Пропаренный японский зелёный.",
+      "offers": [
+        {
+          "shop": "tea-harbor",
+          "price": 800,
+          "weight": 50,
+          "harvestYear": 2025,
+          "harvestSeason": "spring"
+        },
+        {
+          "shop": "bely-zhuravl",
+          "price": 950,
+          "weight": 50,
+          "harvestYear": 2025,
+          "harvestSeason": "spring"
+        }
+      ]
+    },
+    {
+      "key": "t25",
+      "category": "gaba",
+      "title": "Габа Улун",
+      "region": "Тайвань",
+      "description": "Бюджетная габа.",
+      "offers": [
+        {
+          "shop": "tea-harbor",
+          "price": 900,
+          "weight": 50,
+          "harvestYear": 2024,
+          "harvestSeason": null
+        }
+      ]
+    }
+  ],
+  "users": [
+    {
+      "key": "u1",
+      "name": "Алина К.",
+      "email": "alina@example.com",
+      "joined": "2025-02-10"
+    },
+    {
+      "key": "u2",
+      "name": "Михаил",
+      "email": "misha@example.com",
+      "joined": "2024-11-03"
+    },
+    {
+      "key": "u3",
+      "name": "Чайный кот",
+      "email": "cat@example.com",
+      "joined": "2025-06-21"
+    },
+    {
+      "key": "u4",
+      "name": "Ольга П.",
+      "email": "olga@example.com",
+      "joined": "2025-01-15"
+    },
+    {
+      "key": "u5",
+      "name": "Денис",
+      "email": "denis@example.com",
+      "joined": "2025-08-30"
+    },
+    {
+      "key": "u6",
+      "name": "Сергей Л.",
+      "email": "sergey@example.com",
+      "joined": "2024-06-12"
+    },
+    {
+      "key": "u7",
+      "name": "Катя",
+      "email": "katya@example.com",
+      "joined": "2024-09-01"
+    },
+    {
+      "key": "u8",
+      "name": "Пуэрный Дед",
+      "email": "ded@example.com",
+      "joined": "2024-03-18"
+    },
+    {
+      "key": "u9",
+      "name": "Наталья",
+      "email": "natalia@example.com",
+      "joined": "2025-03-07"
+    },
+    {
+      "key": "u10",
+      "name": "Артём",
+      "email": "artem@example.com",
+      "joined": "2024-12-24"
+    },
+    {
+      "key": "u11",
+      "name": "Лиса в гайвани",
+      "email": "fox@example.com",
+      "joined": "2025-05-02"
+    },
+    {
+      "key": "u12",
+      "name": "Игорь В.",
+      "email": "igor@example.com",
+      "joined": "2024-04-29"
+    },
+    {
+      "key": "u13",
+      "name": "Маша",
+      "email": "masha@example.com",
+      "joined": "2025-07-15"
+    },
+    {
+      "key": "u14",
+      "name": "Тимур",
+      "email": "timur@example.com",
+      "joined": "2024-08-08"
+    }
+  ],
+  "reviews": [
+    {
+      "tea": "t1",
+      "shop": "art-of-tea",
+      "user": "u1",
+      "rating": 5,
+      "text": "Лучшая габа, что пробовала. Яблоко и хлеб прямо с первого пролива.",
+      "flavors": [
+        "apple",
+        "bread"
+      ],
+      "createdAt": "2025-10-28T12:00:00Z"
+    },
+    {
+      "tea": "t1",
+      "shop": "art-of-tea",
+      "user": "u2",
+      "rating": 5,
+      "text": "Держит 8 проливов, сладость нарастает.",
+      "flavors": [
+        "honey"
+      ],
+      "createdAt": "2025-10-12T12:00:00Z"
+    },
+    {
+      "tea": "t1",
+      "shop": "art-of-tea",
+      "user": "u3",
+      "rating": 4,
+      "text": "Отличная, но дороговато.",
+      "flavors": [],
+      "createdAt": "2025-09-30T12:00:00Z"
+    },
+    {
+      "tea": "t2",
+      "shop": "art-of-tea",
+      "user": "u4",
+      "rating": 5,
+      "text": "Плотная, какао и чернослив. Беру уже третий раз.",
+      "flavors": [
+        "cocoa"
+      ],
+      "createdAt": "2025-10-20T12:00:00Z"
+    },
+    {
+      "tea": "t2",
+      "shop": "art-of-tea",
+      "user": "u5",
+      "rating": 4,
+      "text": "Хороша, но Алишань мне понравилась больше.",
+      "flavors": [],
+      "createdAt": "2025-10-01T12:00:00Z"
+    },
+    {
+      "tea": "t3",
+      "shop": "art-of-tea",
+      "user": "u2",
+      "rating": 4,
+      "text": "Добротный Дун Дин, без сюрпризов.",
+      "flavors": [
+        "hazelnut"
+      ],
+      "createdAt": "2025-09-14T12:00:00Z"
+    },
+    {
+      "tea": "t4",
+      "shop": "art-of-tea",
+      "user": "u1",
+      "rating": 4,
+      "text": "Медовый, приятный.",
+      "flavors": [
+        "honey"
+      ],
+      "createdAt": "2025-08-02T12:00:00Z"
+    },
+    {
+      "tea": "t5",
+      "shop": "art-of-tea",
+      "user": "u4",
+      "rating": 3,
+      "text": "Был немного подвявший.",
+      "flavors": [],
+      "createdAt": "2025-07-21T12:00:00Z"
+    },
+    {
+      "tea": "t6",
+      "shop": "daochain",
+      "user": "u1",
+      "rating": 5,
+      "text": "Эталонный Дянь Хун — батат и мёд.",
+      "flavors": [
+        "sweet_potato",
+        "honey"
+      ],
+      "createdAt": "2025-10-30T12:00:00Z"
+    },
+    {
+      "tea": "t6",
+      "shop": "daochain",
+      "user": "u3",
+      "rating": 5,
+      "text": "Очень сладкий, без терпкости.",
+      "flavors": [],
+      "createdAt": "2025-10-15T12:00:00Z"
+    },
+    {
+      "tea": "t6",
+      "shop": "daochain",
+      "user": "u5",
+      "rating": 5,
+      "text": "Лучший красный в моей коллекции.",
+      "flavors": [],
+      "createdAt": "2025-09-22T12:00:00Z"
+    },
+    {
+      "tea": "t7",
+      "shop": "daochain",
+      "user": "u2",
+      "rating": 5,
+      "text": "Дорого, но это того стоит. Лонган!",
+      "flavors": [
+        "tropical"
+      ],
+      "createdAt": "2025-10-05T12:00:00Z"
+    },
+    {
+      "tea": "t7",
+      "shop": "daochain",
+      "user": "u4",
+      "rating": 4,
+      "text": "Тонкий и сложный.",
+      "flavors": [],
+      "createdAt": "2025-09-01T12:00:00Z"
+    },
+    {
+      "tea": "t8",
+      "shop": "daochain",
+      "user": "u3",
+      "rating": 4,
+      "text": "Дымный, но не «костёр». Хорош в холод.",
+      "flavors": [
+        "smoke"
+      ],
+      "createdAt": "2025-10-18T12:00:00Z"
+    },
+    {
+      "tea": "t9",
+      "shop": "daochain",
+      "user": "u5",
+      "rating": 3,
+      "text": "Обычный шу, есть лучше.",
+      "flavors": [],
+      "createdAt": "2025-08-11T12:00:00Z"
+    },
+    {
+      "tea": "t10",
+      "shop": "daochain",
+      "user": "u1",
+      "rating": 3,
+      "text": "Слишком лёгкая для габы.",
+      "flavors": [],
+      "createdAt": "2025-07-30T12:00:00Z"
+    },
+    {
+      "tea": "t11",
+      "shop": "gorny-list",
+      "user": "u2",
+      "rating": 5,
+      "text": "Бархатный, чистый, без запаха склада.",
+      "flavors": [
+        "chocolate"
+      ],
+      "createdAt": "2025-10-25T12:00:00Z"
+    },
+    {
+      "tea": "t11",
+      "shop": "gorny-list",
+      "user": "u4",
+      "rating": 5,
+      "text": "Лучший шу, который я пила.",
+      "flavors": [],
+      "createdAt": "2025-10-02T12:00:00Z"
+    },
+    {
+      "tea": "t12",
+      "shop": "gorny-list",
+      "user": "u3",
+      "rating": 4,
+      "text": "Самородки отличные, варить в чайнике.",
+      "flavors": [],
+      "createdAt": "2025-09-09T12:00:00Z"
+    },
+    {
+      "tea": "t13",
+      "shop": "gorny-list",
+      "user": "u5",
+      "rating": 5,
+      "text": "Мёд и камфора, долгий финиш.",
+      "flavors": [
+        "honey"
+      ],
+      "createdAt": "2025-10-14T12:00:00Z"
+    },
+    {
+      "tea": "t14",
+      "shop": "gorny-list",
+      "user": "u1",
+      "rating": 4,
+      "text": "Хороший утёсник для своей цены.",
+      "flavors": [
+        "hazelnut"
+      ],
+      "createdAt": "2025-08-27T12:00:00Z"
+    },
+    {
+      "tea": "t15",
+      "shop": "gorny-list",
+      "user": "u2",
+      "rating": 3,
+      "text": "Простой, на каждый день.",
+      "flavors": [],
+      "createdAt": "2025-06-30T12:00:00Z"
+    },
+    {
+      "tea": "t16",
+      "shop": "bely-zhuravl",
+      "user": "u4",
+      "rating": 5,
+      "text": "Свежайший Лунцзин, каштан!",
+      "flavors": [
+        "hazelnut"
+      ],
+      "createdAt": "2025-05-12T12:00:00Z"
+    },
+    {
+      "tea": "t16",
+      "shop": "bely-zhuravl",
+      "user": "u1",
+      "rating": 5,
+      "text": "Пила в апреле — восторг.",
+      "flavors": [],
+      "createdAt": "2025-04-28T12:00:00Z"
+    },
+    {
+      "tea": "t17",
+      "shop": "bely-zhuravl",
+      "user": "u3",
+      "rating": 4,
+      "text": "Красивый лист, нежный вкус.",
+      "flavors": [],
+      "createdAt": "2025-06-03T12:00:00Z"
+    },
+    {
+      "tea": "t18",
+      "shop": "bely-zhuravl",
+      "user": "u2",
+      "rating": 5,
+      "text": "Иглы как на картинке, сладкие.",
+      "flavors": [
+        "melon"
+      ],
+      "createdAt": "2025-07-14T12:00:00Z"
+    },
+    {
+      "tea": "t19",
+      "shop": "bely-zhuravl",
+      "user": "u5",
+      "rating": 4,
+      "text": "Мягкий пион, хорош летом.",
+      "flavors": [],
+      "createdAt": "2025-08-19T12:00:00Z"
+    },
+    {
+      "tea": "t20",
+      "shop": "bely-zhuravl",
+      "user": "u4",
+      "rating": 4,
+      "text": "Свежий, цветочный.",
+      "flavors": [
+        "meadow_flowers"
+      ],
+      "createdAt": "2025-09-03T12:00:00Z"
+    },
+    {
+      "tea": "t21",
+      "shop": "tea-harbor",
+      "user": "u3",
+      "rating": 4,
+      "text": "Хороший иван-чай, чабреца в меру.",
+      "flavors": [],
+      "createdAt": "2025-10-09T12:00:00Z"
+    },
+    {
+      "tea": "t22",
+      "shop": "tea-harbor",
+      "user": "u1",
+      "rating": 4,
+      "text": "Отличный вечерний вариант.",
+      "flavors": [],
+      "createdAt": "2025-09-27T12:00:00Z"
+    },
+    {
+      "tea": "t23",
+      "shop": "tea-harbor",
+      "user": "u2",
+      "rating": 3,
+      "text": "Крепкий, с молоком норм.",
+      "flavors": [],
+      "createdAt": "2025-08-08T12:00:00Z"
+    },
+    {
+      "tea": "t24",
+      "shop": "tea-harbor",
+      "user": "u5",
+      "rating": 3,
+      "text": "Обычная сенча.",
+      "flavors": [],
+      "createdAt": "2025-07-02T12:00:00Z"
+    },
+    {
+      "tea": "t25",
+      "shop": "tea-harbor",
+      "user": "u4",
+      "rating": 2,
+      "text": "Кислая, не понравилась.",
+      "flavors": [],
+      "createdAt": "2025-09-18T12:00:00Z"
+    },
+    {
+      "tea": "t1",
+      "shop": "art-of-tea",
+      "user": "u6",
+      "rating": 4,
+      "text": "Отчётливо слышно: винные нотки, яблоко. Кисло-сладкий, как и положено габе. За свои деньги — отлично.",
+      "flavors": [
+        "wine",
+        "apple",
+        "cinnamon"
+      ],
+      "purchase": {
+        "price": 1270,
+        "weight": 50,
+        "harvestYear": 2023,
+        "harvestSeason": null
+      },
+      "createdAt": "2024-03-01T12:00:00Z"
+    },
+    {
+      "tea": "t1",
+      "shop": "art-of-tea",
+      "user": "u12",
+      "rating": 5,
+      "text": "Взяли на пробу. Кисло-сладкий, как и положено габе. Восторг.",
+      "flavors": [],
+      "purchase": null,
+      "createdAt": "2024-12-30T12:00:00Z",
+      "infusion": {
+        "body": 3,
+        "strength": 3,
+        "aftertaste": 4
+      }
+    },
+    {
+      "tea": "t1",
+      "shop": "art-of-tea",
+      "user": "u5",
+      "rating": 5,
+      "text": "Заваривали в гайвани. Сначала кислинка ягод, к концу — хлебная корочка. Расслабляет. Очень цельный, без провалов.",
+      "flavors": [
+        "sour_berries",
+        "bread",
+        "cinnamon"
+      ],
+      "purchase": null,
+      "createdAt": "2025-03-18T12:00:00Z"
+    },
+    {
+      "tea": "t1",
+      "shop": "art-of-tea",
+      "user": "u11",
+      "rating": 4,
+      "text": "Заваривали проливами. Кисло-сладкий, как и положено габе. За свои деньги — отлично.",
+      "flavors": [],
+      "purchase": {
+        "price": 1470,
+        "weight": 50,
+        "harvestYear": 2025,
+        "harvestSeason": "spring"
+      },
+      "createdAt": "2026-01-14T12:00:00Z",
+      "infusion": {
+        "body": 2,
+        "strength": 2,
+        "aftertaste": 4
+      }
+    },
+    {
+      "tea": "t1",
+      "shop": "tea-harbor",
+      "user": "u5",
+      "rating": 4,
+      "text": "Заваривали проливами. В аромате — варенье, во вкусе — слива. Кисло-сладкий, как и положено габе. Крепкая четвёрка.",
+      "flavors": [
+        "jam",
+        "plum"
+      ],
+      "purchase": {
+        "price": 1050,
+        "weight": 50,
+        "harvestYear": 2024,
+        "harvestSeason": "summer"
+      },
+      "createdAt": "2024-06-23T12:00:00Z"
+    },
+    {
+      "tea": "t1",
+      "shop": "tea-harbor",
+      "user": "u11",
+      "rating": 3,
+      "text": "Курага и кислинка ягод — прямо с первого пролива. Кисло-сладкий, как и положено габе. Ровный, но плоский.",
+      "flavors": [
+        "dried_apricot",
+        "sour_berries"
+      ],
+      "purchase": {
+        "price": 1160,
+        "weight": 50,
+        "harvestYear": 2024,
+        "harvestSeason": "spring"
+      },
+      "createdAt": "2025-03-13T12:00:00Z",
+      "infusion": {
+        "body": 3,
+        "strength": 3,
+        "aftertaste": 3
+      }
+    },
+    {
+      "tea": "t1",
+      "shop": "tea-harbor",
+      "user": "u1",
+      "rating": 4,
+      "text": "Слива и корица — прямо с первого пролива. Расслабляет. За свои деньги — отлично.",
+      "flavors": [
+        "plum",
+        "cinnamon"
+      ],
+      "purchase": {
+        "price": 1180,
+        "weight": 50,
+        "harvestYear": 2024,
+        "harvestSeason": "summer"
+      },
+      "createdAt": "2025-03-26T12:00:00Z",
+      "infusion": {
+        "body": 3,
+        "strength": 3,
+        "aftertaste": 4
+      }
+    },
+    {
+      "tea": "t1",
+      "shop": "tea-harbor",
+      "user": "u10",
+      "rating": 4,
+      "text": "В аромате — яблоко, во вкусе — хлебная корочка. Расслабляет. Крепкая четвёрка.",
+      "flavors": [
+        "apple",
+        "bread",
+        "dried_apricot"
+      ],
+      "purchase": {
+        "price": 1150,
+        "weight": 50,
+        "harvestYear": 2025,
+        "harvestSeason": "spring"
+      },
+      "createdAt": "2025-06-15T12:00:00Z",
+      "infusion": {
+        "body": 4,
+        "strength": 4,
+        "aftertaste": 2
+      }
+    },
+    {
+      "tea": "t2",
+      "shop": "art-of-tea",
+      "user": "u6",
+      "rating": 5,
+      "text": "Беру уже не первый раз. Сначала изюм, к концу — яблоко. Один из лучших в своей категории.",
+      "flavors": [
+        "raisin",
+        "apple",
+        "jam",
+        "bread"
+      ],
+      "purchase": {
+        "price": 1220,
+        "weight": 50,
+        "harvestYear": 2024,
+        "harvestSeason": null
+      },
+      "createdAt": "2025-05-28T12:00:00Z"
+    },
+    {
+      "tea": "t2",
+      "shop": "art-of-tea",
+      "user": "u13",
+      "rating": 4,
+      "text": "Пили втроём, всем зашёл. Сначала варенье, к концу — слива. Крепкая четвёрка.",
+      "flavors": [
+        "jam",
+        "plum",
+        "bread"
+      ],
+      "purchase": {
+        "price": 1320,
+        "weight": 50,
+        "harvestYear": 2025,
+        "harvestSeason": "autumn"
+      },
+      "createdAt": "2025-11-10T12:00:00Z",
+      "infusion": {
+        "body": 3,
+        "strength": 4,
+        "aftertaste": 4
+      }
+    },
+    {
+      "tea": "t2",
+      "shop": "art-of-tea",
+      "user": "u2",
+      "rating": 4,
+      "text": "Взяли на пробу. В аромате — слива, во вкусе — мёд. Расслабляет. За свои деньги — отлично.",
+      "flavors": [
+        "plum",
+        "honey",
+        "sour_berries",
+        "dried_apricot"
+      ],
+      "purchase": {
+        "price": 1310,
+        "weight": 50,
+        "harvestYear": 2025,
+        "harvestSeason": "spring"
+      },
+      "createdAt": "2026-02-24T12:00:00Z"
+    },
+    {
+      "tea": "t2",
+      "shop": "art-of-tea",
+      "user": "u8",
+      "rating": 4,
+      "text": "Заваривали в гайвани. Отчётливо слышно: хлебная корочка, курага. За свои деньги — отлично.",
+      "flavors": [
+        "bread",
+        "dried_apricot"
+      ],
+      "purchase": {
+        "price": 1400,
+        "weight": 50,
+        "harvestYear": 2025,
+        "harvestSeason": "spring"
+      },
+      "createdAt": "2026-03-14T12:00:00Z"
+    },
+    {
+      "tea": "t3",
+      "shop": "art-of-tea",
+      "user": "u10",
+      "rating": 4,
+      "text": "Заваривали в гайвани. Орхидея, потом — мёд. Лист красиво раскрывается. Крепкая четвёрка.",
+      "flavors": [
+        "orchid",
+        "honey",
+        "roasted_grain",
+        "cream"
+      ],
+      "purchase": {
+        "price": 1020,
+        "weight": 50,
+        "harvestYear": 2023,
+        "harvestSeason": null
+      },
+      "createdAt": "2024-05-28T12:00:00Z",
+      "infusion": {
+        "body": 3,
+        "strength": 3,
+        "aftertaste": 4
+      }
+    },
+    {
+      "tea": "t3",
+      "shop": "art-of-tea",
+      "user": "u9",
+      "rating": 4,
+      "text": "Взяли на пробу. Сначала сливки, к концу — орхидея. Лист красиво раскрывается. Приятный, на каждый день.",
+      "flavors": [
+        "cream",
+        "orchid",
+        "peach"
+      ],
+      "purchase": {
+        "price": 1070,
+        "weight": 50,
+        "harvestYear": 2024,
+        "harvestSeason": "summer"
+      },
+      "createdAt": "2024-08-05T12:00:00Z",
+      "infusion": {
+        "body": 3,
+        "strength": 3,
+        "aftertaste": 3
+      }
+    },
+    {
+      "tea": "t3",
+      "shop": "art-of-tea",
+      "user": "u4",
+      "rating": 3,
+      "text": "Заваривали в гайвани. Сначала мёд, к концу — персик. Ровный, но плоский.",
+      "flavors": [
+        "honey",
+        "peach",
+        "hazelnut"
+      ],
+      "purchase": {
+        "price": 1060,
+        "weight": 50,
+        "harvestYear": 2024,
+        "harvestSeason": "spring"
+      },
+      "createdAt": "2024-08-17T12:00:00Z"
+    },
+    {
+      "tea": "t3",
+      "shop": "art-of-tea",
+      "user": "u13",
+      "rating": 2,
+      "text": "Заваривали в гайвани. Сначала жареное зерно, к концу — персик. Держит много проливов. Слишком резкий, не наш.",
+      "flavors": [
+        "roasted_grain",
+        "peach",
+        "honey",
+        "cream"
+      ],
+      "purchase": {
+        "price": 1070,
+        "weight": 50,
+        "harvestYear": 2024,
+        "harvestSeason": "spring"
+      },
+      "createdAt": "2024-08-23T12:00:00Z",
+      "infusion": {
+        "body": 3,
+        "strength": 2,
+        "aftertaste": 5
+      }
+    },
+    {
+      "tea": "t3",
+      "shop": "art-of-tea",
+      "user": "u5",
+      "rating": 2,
+      "text": "Держит много проливов. Слишком резкий, не наш.",
+      "flavors": [],
+      "purchase": {
+        "price": 1150,
+        "weight": 50,
+        "harvestYear": 2024,
+        "harvestSeason": "autumn"
+      },
+      "createdAt": "2025-04-12T12:00:00Z"
+    },
+    {
+      "tea": "t3",
+      "shop": "art-of-tea",
+      "user": "u7",
+      "rating": 3,
+      "text": "Сначала сливки, к концу — лесной орех. Лист красиво раскрывается. Ожидания были выше.",
+      "flavors": [
+        "cream",
+        "hazelnut"
+      ],
+      "purchase": null,
+      "createdAt": "2025-10-19T12:00:00Z",
+      "infusion": {
+        "body": 3,
+        "strength": 4,
+        "aftertaste": 5
+      }
+    },
+    {
+      "tea": "t3",
+      "shop": "art-of-tea",
+      "user": "u3",
+      "rating": 3,
+      "text": "Заваривали проливами. Мёд и жареное зерно — прямо с первого пролива. Средне.",
+      "flavors": [
+        "honey",
+        "roasted_grain",
+        "cream"
+      ],
+      "purchase": {
+        "price": 1190,
+        "weight": 50,
+        "harvestYear": 2025,
+        "harvestSeason": "autumn"
+      },
+      "createdAt": "2025-11-14T12:00:00Z",
+      "infusion": {
+        "body": 4,
+        "strength": 2,
+        "aftertaste": 5
+      }
+    },
+    {
+      "tea": "t3",
+      "shop": "bely-zhuravl",
+      "user": "u14",
+      "rating": 4,
+      "text": "Взяли на пробу. Орхидея, потом — мёд. Приятный, на каждый день.",
+      "flavors": [
+        "orchid",
+        "honey"
+      ],
+      "purchase": {
+        "price": 1240,
+        "weight": 50,
+        "harvestYear": 2024,
+        "harvestSeason": null
+      },
+      "createdAt": "2025-02-06T12:00:00Z",
+      "infusion": {
+        "body": 2,
+        "strength": 2,
+        "aftertaste": 3
+      }
+    },
+    {
+      "tea": "t3",
+      "shop": "bely-zhuravl",
+      "user": "u3",
+      "rating": 4,
+      "text": "В аромате — персик, во вкусе — орхидея. За свои деньги — отлично.",
+      "flavors": [
+        "peach",
+        "orchid",
+        "roasted_grain"
+      ],
+      "purchase": {
+        "price": 1280,
+        "weight": 50,
+        "harvestYear": 2024,
+        "harvestSeason": "spring"
+      },
+      "createdAt": "2025-04-05T12:00:00Z",
+      "infusion": {
+        "body": 2,
+        "strength": 2,
+        "aftertaste": 3
+      }
+    },
+    {
+      "tea": "t3",
+      "shop": "bely-zhuravl",
+      "user": "u4",
+      "rating": 4,
+      "text": "Взяли на пробу. В аромате — орхидея, во вкусе — мёд. Держит много проливов. Хорош, но без восторга.",
+      "flavors": [
+        "orchid",
+        "honey",
+        "roasted_grain"
+      ],
+      "purchase": null,
+      "createdAt": "2026-01-25T12:00:00Z"
+    },
+    {
+      "tea": "t3",
+      "shop": "bely-zhuravl",
+      "user": "u13",
+      "rating": 4,
+      "text": "Заваривали проливами. Держит много проливов. За свои деньги — отлично.",
+      "flavors": [],
+      "purchase": {
+        "price": 1470,
+        "weight": 50,
+        "harvestYear": 2025,
+        "harvestSeason": "autumn"
+      },
+      "createdAt": "2026-05-19T12:00:00Z",
+      "infusion": {
+        "body": 2,
+        "strength": 3,
+        "aftertaste": 3
+      }
+    },
+    {
+      "tea": "t4",
+      "shop": "art-of-tea",
+      "user": "u4",
+      "rating": 5,
+      "text": "Пили втроём, всем зашёл. Мёд и варенье — прямо с первого пролива. Очень цельный, без провалов.",
+      "flavors": [
+        "honey",
+        "jam",
+        "cocoa",
+        "prune"
+      ],
+      "purchase": {
+        "price": 1010,
+        "weight": 50,
+        "harvestYear": 2024,
+        "harvestSeason": "summer"
+      },
+      "createdAt": "2025-01-22T12:00:00Z",
+      "infusion": {
+        "body": 3,
+        "strength": 3,
+        "aftertaste": 5
+      }
+    },
+    {
+      "tea": "t4",
+      "shop": "art-of-tea",
+      "user": "u14",
+      "rating": 5,
+      "text": "Пили втроём, всем зашёл. Отчётливо слышно: варенье, чернослив. Один из лучших в своей категории.",
+      "flavors": [
+        "jam",
+        "prune"
+      ],
+      "purchase": {
+        "price": 1170,
+        "weight": 50,
+        "harvestYear": 2025,
+        "harvestSeason": "autumn"
+      },
+      "createdAt": "2026-03-09T12:00:00Z",
+      "infusion": {
+        "body": 5,
+        "strength": 4,
+        "aftertaste": 4
+      }
+    },
+    {
+      "tea": "t4",
+      "shop": "art-of-tea",
+      "user": "u13",
+      "rating": 4,
+      "text": "Взяли на пробу. Отчётливо слышно: варенье, хлебная корочка. Держит 6–7 проливов. Хорош, но без восторга.",
+      "flavors": [
+        "jam",
+        "bread",
+        "honey"
+      ],
+      "purchase": {
+        "price": 1140,
+        "weight": 50,
+        "harvestYear": 2025,
+        "harvestSeason": null
+      },
+      "createdAt": "2026-03-11T12:00:00Z",
+      "infusion": {
+        "body": 4,
+        "strength": 3,
+        "aftertaste": 3
+      }
+    },
+    {
+      "tea": "t4",
+      "shop": "art-of-tea",
+      "user": "u3",
+      "rating": 4,
+      "text": "Пробовали и проливом, и в чайнике. В аромате — карамель, во вкусе — чернослив. Держит 6–7 проливов. За свои деньги — отлично.",
+      "flavors": [
+        "caramel",
+        "prune"
+      ],
+      "purchase": {
+        "price": 1140,
+        "weight": 50,
+        "harvestYear": 2025,
+        "harvestSeason": "spring"
+      },
+      "createdAt": "2026-03-17T12:00:00Z",
+      "infusion": {
+        "body": 5,
+        "strength": 2,
+        "aftertaste": 3
+      }
+    },
+    {
+      "tea": "t4",
+      "shop": "art-of-tea",
+      "user": "u7",
+      "rating": 5,
+      "text": "Пробовали и проливом, и в чайнике. Хлебная корочка и варенье — прямо с первого пролива. Очень цельный, без провалов.",
+      "flavors": [
+        "bread",
+        "jam",
+        "dried_apricot",
+        "caramel"
+      ],
+      "purchase": {
+        "price": 1210,
+        "weight": 50,
+        "harvestYear": 2025,
+        "harvestSeason": "spring"
+      },
+      "createdAt": "2026-04-25T12:00:00Z"
+    },
+    {
+      "tea": "t4",
+      "shop": "art-of-tea",
+      "user": "u8",
+      "rating": 4,
+      "text": "Сначала варенье, к концу — батат. Приятный, на каждый день.",
+      "flavors": [
+        "jam",
+        "sweet_potato"
+      ],
+      "purchase": null,
+      "createdAt": "2026-06-25T12:00:00Z",
+      "infusion": {
+        "body": 4,
+        "strength": 3,
+        "aftertaste": 3
+      }
+    },
+    {
+      "tea": "t5",
+      "shop": "art-of-tea",
+      "user": "u13",
+      "rating": 4,
+      "text": "Каштан, потом — свежая трава. Крепкая четвёрка.",
+      "flavors": [
+        "chestnut",
+        "cut_grass",
+        "seaweed",
+        "orchid"
+      ],
+      "purchase": {
+        "price": 900,
+        "weight": 50,
+        "harvestYear": 2025,
+        "harvestSeason": "autumn"
+      },
+      "createdAt": "2025-11-26T12:00:00Z",
+      "infusion": {
+        "body": 2,
+        "strength": 3,
+        "aftertaste": 4
+      }
+    },
+    {
+      "tea": "t5",
+      "shop": "art-of-tea",
+      "user": "u5",
+      "rating": 4,
+      "text": "Взяли на пробу. Свежая трава, потом — горошек. Крепкая четвёрка.",
+      "flavors": [
+        "cut_grass",
+        "pea",
+        "sweet_potato",
+        "orchid"
+      ],
+      "purchase": null,
+      "createdAt": "2026-05-02T12:00:00Z"
+    },
+    {
+      "tea": "t5",
+      "shop": "art-of-tea",
+      "user": "u2",
+      "rating": 4,
+      "text": "Пробовали и проливом, и в чайнике. Горошек, потом — мята. Крепкая четвёрка.",
+      "flavors": [
+        "pea",
+        "mint",
+        "meadow_flowers",
+        "seaweed"
+      ],
+      "purchase": {
+        "price": 970,
+        "weight": 50,
+        "harvestYear": 2025,
+        "harvestSeason": "summer"
+      },
+      "createdAt": "2026-05-27T12:00:00Z",
+      "infusion": {
+        "body": 3,
+        "strength": 2,
+        "aftertaste": 4
+      }
+    },
+    {
+      "tea": "t5",
+      "shop": "bely-zhuravl",
+      "user": "u9",
+      "rating": 5,
+      "text": "Заваривали проливами. В аромате — шпинат, во вкусе — батат. Один из лучших в своей категории.",
+      "flavors": [
+        "spinach",
+        "sweet_potato",
+        "cut_grass"
+      ],
+      "purchase": {
+        "price": 930,
+        "weight": 50,
+        "harvestYear": 2024,
+        "harvestSeason": null
+      },
+      "createdAt": "2024-07-28T12:00:00Z"
+    },
+    {
+      "tea": "t5",
+      "shop": "bely-zhuravl",
+      "user": "u3",
+      "rating": 3,
+      "text": "Беру уже не первый раз. Батат и лесной орех — прямо с первого пролива. Пить можно, но не повторим.",
+      "flavors": [
+        "sweet_potato",
+        "hazelnut",
+        "meadow_flowers",
+        "seaweed"
+      ],
+      "purchase": null,
+      "createdAt": "2024-11-14T12:00:00Z",
+      "infusion": {
+        "body": 2,
+        "strength": 2,
+        "aftertaste": 4
+      }
+    },
+    {
+      "tea": "t5",
+      "shop": "bely-zhuravl",
+      "user": "u1",
+      "rating": 4,
+      "text": "Заваривали проливами. Сначала шпинат, к концу — горошек. Хорош, но без восторга.",
+      "flavors": [
+        "spinach",
+        "pea",
+        "chestnut"
+      ],
+      "purchase": {
+        "price": 980,
+        "weight": 50,
+        "harvestYear": 2024,
+        "harvestSeason": null
+      },
+      "createdAt": "2025-02-20T12:00:00Z",
+      "infusion": {
+        "body": 1,
+        "strength": 4,
+        "aftertaste": 3
+      }
+    },
+    {
+      "tea": "t5",
+      "shop": "bely-zhuravl",
+      "user": "u7",
+      "rating": 4,
+      "text": "Пробовали и проливом, и в чайнике. Сначала горошек, к концу — луговые цветы. Приятный, на каждый день.",
+      "flavors": [
+        "pea",
+        "meadow_flowers",
+        "spinach"
+      ],
+      "purchase": {
+        "price": 1030,
+        "weight": 50,
+        "harvestYear": 2024,
+        "harvestSeason": "summer"
+      },
+      "createdAt": "2025-04-25T12:00:00Z",
+      "infusion": {
+        "body": 2,
+        "strength": 3,
+        "aftertaste": 4
+      }
+    },
+    {
+      "tea": "t5",
+      "shop": "bely-zhuravl",
+      "user": "u14",
+      "rating": 3,
+      "text": "Заваривали проливами. Отчётливо слышно: свежая трава, луговые цветы. Свежий, бодрый. Ожидания были выше.",
+      "flavors": [
+        "cut_grass",
+        "meadow_flowers",
+        "orchid",
+        "seaweed"
+      ],
+      "purchase": {
+        "price": 1060,
+        "weight": 50,
+        "harvestYear": 2024,
+        "harvestSeason": "summer"
+      },
+      "createdAt": "2025-05-26T12:00:00Z",
+      "infusion": {
+        "body": 2,
+        "strength": 3,
+        "aftertaste": 3
+      }
+    },
+    {
+      "tea": "t5",
+      "shop": "bely-zhuravl",
+      "user": "u5",
+      "rating": 4,
+      "text": "Пробовали и проливом, и в чайнике. Свежий, бодрый. За свои деньги — отлично.",
+      "flavors": [],
+      "purchase": {
+        "price": 1050,
+        "weight": 50,
+        "harvestYear": 2025,
+        "harvestSeason": "autumn"
+      },
+      "createdAt": "2026-01-25T12:00:00Z",
+      "infusion": {
+        "body": 3,
+        "strength": 2,
+        "aftertaste": 3
+      }
+    },
+    {
+      "tea": "t5",
+      "shop": "bely-zhuravl",
+      "user": "u10",
+      "rating": 4,
+      "text": "Отчётливо слышно: лесной орех, орхидея. За свои деньги — отлично.",
+      "flavors": [
+        "hazelnut",
+        "orchid",
+        "mint"
+      ],
+      "purchase": {
+        "price": 1140,
+        "weight": 50,
+        "harvestYear": 2025,
+        "harvestSeason": "summer"
+      },
+      "createdAt": "2026-02-27T12:00:00Z",
+      "infusion": {
+        "body": 2,
+        "strength": 4,
+        "aftertaste": 3
+      }
+    },
+    {
+      "tea": "t6",
+      "shop": "daochain",
+      "user": "u2",
+      "rating": 4,
+      "text": "Хорош и с утра. Хорош, но без восторга.",
+      "flavors": [],
+      "purchase": {
+        "price": 1090,
+        "weight": 50,
+        "harvestYear": 2023,
+        "harvestSeason": "spring"
+      },
+      "createdAt": "2024-03-30T12:00:00Z"
+    },
+    {
+      "tea": "t6",
+      "shop": "daochain",
+      "user": "u12",
+      "rating": 4,
+      "text": "Хорош и с утра. Приятный, на каждый день.",
+      "flavors": [],
+      "purchase": {
+        "price": 1300,
+        "weight": 50,
+        "harvestYear": 2025,
+        "harvestSeason": null
+      },
+      "createdAt": "2025-12-27T12:00:00Z",
+      "infusion": {
+        "body": 5,
+        "strength": 4,
+        "aftertaste": 4
+      }
+    },
+    {
+      "tea": "t6",
+      "shop": "daochain",
+      "user": "u11",
+      "rating": 4,
+      "text": "Сначала варенье, к концу — слива. Хорош и с утра. Хорош, но без восторга.",
+      "flavors": [
+        "jam",
+        "plum"
+      ],
+      "purchase": {
+        "price": 1330,
+        "weight": 50,
+        "harvestYear": 2025,
+        "harvestSeason": null
+      },
+      "createdAt": "2026-04-24T12:00:00Z"
+    },
+    {
+      "tea": "t6",
+      "shop": "daochain",
+      "user": "u14",
+      "rating": 3,
+      "text": "Слива, потом — варенье. Ожидания были выше.",
+      "flavors": [
+        "plum",
+        "jam"
+      ],
+      "purchase": {
+        "price": 1430,
+        "weight": 50,
+        "harvestYear": 2026,
+        "harvestSeason": "autumn"
+      },
+      "createdAt": "2026-09-24T12:00:00Z",
+      "infusion": {
+        "body": 5,
+        "strength": 4,
+        "aftertaste": 4
+      }
+    },
+    {
+      "tea": "t6",
+      "shop": "tea-harbor",
+      "user": "u13",
+      "rating": 5,
+      "text": "Заваривали в гайвани. Слива, потом — карамель. Держит 6–7 проливов. Восторг.",
+      "flavors": [
+        "plum",
+        "caramel"
+      ],
+      "purchase": {
+        "price": 970,
+        "weight": 50,
+        "harvestYear": 2023,
+        "harvestSeason": null
+      },
+      "createdAt": "2024-04-07T12:00:00Z",
+      "infusion": {
+        "body": 5,
+        "strength": 3,
+        "aftertaste": 3
+      }
+    },
+    {
+      "tea": "t6",
+      "shop": "tea-harbor",
+      "user": "u5",
+      "rating": 4,
+      "text": "Пили втроём, всем зашёл. Отчётливо слышно: батат, хлебная корочка. Держит 6–7 проливов. Крепкая четвёрка.",
+      "flavors": [
+        "sweet_potato",
+        "bread",
+        "plum"
+      ],
+      "purchase": {
+        "price": 940,
+        "weight": 50,
+        "harvestYear": 2023,
+        "harvestSeason": "spring"
+      },
+      "createdAt": "2024-04-21T12:00:00Z",
+      "infusion": {
+        "body": 5,
+        "strength": 4,
+        "aftertaste": 3
+      }
+    },
+    {
+      "tea": "t6",
+      "shop": "tea-harbor",
+      "user": "u14",
+      "rating": 4,
+      "text": "Сначала какао, к концу — изюм. За свои деньги — отлично.",
+      "flavors": [
+        "cocoa",
+        "raisin",
+        "sweet_potato"
+      ],
+      "purchase": {
+        "price": 980,
+        "weight": 50,
+        "harvestYear": 2024,
+        "harvestSeason": "autumn"
+      },
+      "createdAt": "2024-06-01T12:00:00Z",
+      "infusion": {
+        "body": 3,
+        "strength": 2,
+        "aftertaste": 3
+      }
+    },
+    {
+      "tea": "t6",
+      "shop": "tea-harbor",
+      "user": "u4",
+      "rating": 5,
+      "text": "В аромате — курага, во вкусе — варенье. Возьмём ещё.",
+      "flavors": [
+        "dried_apricot",
+        "jam",
+        "raisin"
+      ],
+      "purchase": {
+        "price": 950,
+        "weight": 50,
+        "harvestYear": 2024,
+        "harvestSeason": "summer"
+      },
+      "createdAt": "2024-06-24T12:00:00Z",
+      "infusion": {
+        "body": 5,
+        "strength": 3,
+        "aftertaste": 3
+      }
+    },
+    {
+      "tea": "t6",
+      "shop": "tea-harbor",
+      "user": "u12",
+      "rating": 4,
+      "text": "Беру уже не первый раз. Хорош и с утра. Хорош, но без восторга.",
+      "flavors": [],
+      "purchase": null,
+      "createdAt": "2024-10-14T12:00:00Z",
+      "infusion": {
+        "body": 4,
+        "strength": 3,
+        "aftertaste": 2
+      }
+    },
+    {
+      "tea": "t6",
+      "shop": "tea-harbor",
+      "user": "u9",
+      "rating": 4,
+      "text": "Взяли на пробу. Чернослив и мёд — прямо с первого пролива. Держит 6–7 проливов. За свои деньги — отлично.",
+      "flavors": [
+        "prune",
+        "honey"
+      ],
+      "purchase": null,
+      "createdAt": "2025-03-15T12:00:00Z"
+    },
+    {
+      "tea": "t6",
+      "shop": "tea-harbor",
+      "user": "u7",
+      "rating": 5,
+      "text": "Заваривали проливами. Сначала батат, к концу — варенье. Хорош и с утра. Один из лучших в своей категории.",
+      "flavors": [
+        "sweet_potato",
+        "jam"
+      ],
+      "purchase": {
+        "price": 1030,
+        "weight": 50,
+        "harvestYear": 2024,
+        "harvestSeason": "spring"
+      },
+      "createdAt": "2025-04-14T12:00:00Z",
+      "infusion": {
+        "body": 5,
+        "strength": 3,
+        "aftertaste": 5
+      }
+    },
+    {
+      "tea": "t6",
+      "shop": "tea-harbor",
+      "user": "u11",
+      "rating": 4,
+      "text": "Мёд, потом — карамель. Держит 6–7 проливов. Крепкая четвёрка.",
+      "flavors": [
+        "honey",
+        "caramel",
+        "jam"
+      ],
+      "purchase": {
+        "price": 1160,
+        "weight": 50,
+        "harvestYear": 2025,
+        "harvestSeason": "summer"
+      },
+      "createdAt": "2026-02-18T12:00:00Z"
+    },
+    {
+      "tea": "t7",
+      "shop": "daochain",
+      "user": "u13",
+      "rating": 4,
+      "text": "Хлебная корочка и слива — прямо с первого пролива. Хорош и с утра. За свои деньги — отлично.",
+      "flavors": [
+        "bread",
+        "plum",
+        "caramel"
+      ],
+      "purchase": {
+        "price": 1840,
+        "weight": 50,
+        "harvestYear": 2024,
+        "harvestSeason": "summer"
+      },
+      "createdAt": "2024-06-12T12:00:00Z"
+    },
+    {
+      "tea": "t7",
+      "shop": "daochain",
+      "user": "u11",
+      "rating": 5,
+      "text": "Беру уже не первый раз. Изюм, потом — варенье. Очень цельный, без провалов.",
+      "flavors": [
+        "raisin",
+        "jam",
+        "honey"
+      ],
+      "purchase": {
+        "price": 1870,
+        "weight": 50,
+        "harvestYear": 2024,
+        "harvestSeason": null
+      },
+      "createdAt": "2024-06-24T12:00:00Z"
+    },
+    {
+      "tea": "t7",
+      "shop": "daochain",
+      "user": "u14",
+      "rating": 5,
+      "text": "Пробовали и проливом, и в чайнике. Отчётливо слышно: батат, слива. Возьмём ещё.",
+      "flavors": [
+        "sweet_potato",
+        "plum",
+        "raisin"
+      ],
+      "purchase": {
+        "price": 1900,
+        "weight": 50,
+        "harvestYear": 2024,
+        "harvestSeason": "autumn"
+      },
+      "createdAt": "2024-06-28T12:00:00Z",
+      "infusion": {
+        "body": 4,
+        "strength": 4,
+        "aftertaste": 4
+      }
+    },
+    {
+      "tea": "t7",
+      "shop": "daochain",
+      "user": "u12",
+      "rating": 5,
+      "text": "Варенье, потом — курага. Очень цельный, без провалов.",
+      "flavors": [
+        "jam",
+        "dried_apricot",
+        "prune",
+        "sweet_potato"
+      ],
+      "purchase": {
+        "price": 1820,
+        "weight": 50,
+        "harvestYear": 2024,
+        "harvestSeason": "summer"
+      },
+      "createdAt": "2024-07-11T12:00:00Z",
+      "infusion": {
+        "body": 5,
+        "strength": 2,
+        "aftertaste": 3
+      }
+    },
+    {
+      "tea": "t7",
+      "shop": "daochain",
+      "user": "u9",
+      "rating": 5,
+      "text": "Беру уже не первый раз. Варенье, потом — курага. Держит 6–7 проливов. Один из лучших в своей категории.",
+      "flavors": [
+        "jam",
+        "dried_apricot",
+        "cocoa"
+      ],
+      "purchase": null,
+      "createdAt": "2024-07-13T12:00:00Z",
+      "infusion": {
+        "body": 4,
+        "strength": 4,
+        "aftertaste": 4
+      }
+    },
+    {
+      "tea": "t7",
+      "shop": "daochain",
+      "user": "u8",
+      "rating": 5,
+      "text": "Взяли на пробу. Слива и чернослив — прямо с первого пролива. Возьмём ещё.",
+      "flavors": [
+        "plum",
+        "prune",
+        "sweet_potato",
+        "caramel"
+      ],
+      "purchase": null,
+      "createdAt": "2025-05-12T12:00:00Z",
+      "infusion": {
+        "body": 3,
+        "strength": 4,
+        "aftertaste": 5
+      }
+    },
+    {
+      "tea": "t8",
+      "shop": "daochain",
+      "user": "u5",
+      "rating": 5,
+      "text": "Беру уже не первый раз. Держит 6–7 проливов. Возьмём ещё.",
+      "flavors": [],
+      "purchase": {
+        "price": 700,
+        "weight": 50,
+        "harvestYear": 2023,
+        "harvestSeason": null
+      },
+      "createdAt": "2024-04-19T12:00:00Z",
+      "infusion": {
+        "body": 4,
+        "strength": 2,
+        "aftertaste": 3
+      }
+    },
+    {
+      "tea": "t8",
+      "shop": "daochain",
+      "user": "u6",
+      "rating": 4,
+      "text": "Заваривали проливами. Дым и хвоя — прямо с первого пролива. Хорош и с утра. Хорош, но без восторга.",
+      "flavors": [
+        "smoke",
+        "conifer",
+        "resin",
+        "smoked"
+      ],
+      "purchase": null,
+      "createdAt": "2024-08-30T12:00:00Z"
+    },
+    {
+      "tea": "t8",
+      "shop": "daochain",
+      "user": "u12",
+      "rating": 5,
+      "text": "Заваривали в гайвани. Сначала чернослив, к концу — смола. Возьмём ещё.",
+      "flavors": [
+        "prune",
+        "resin",
+        "conifer",
+        "smoked"
+      ],
+      "purchase": {
+        "price": 700,
+        "weight": 50,
+        "harvestYear": 2024,
+        "harvestSeason": "summer"
+      },
+      "createdAt": "2024-09-17T12:00:00Z"
+    },
+    {
+      "tea": "t8",
+      "shop": "daochain",
+      "user": "u13",
+      "rating": 5,
+      "text": "Заваривали в гайвани. Отчётливо слышно: смола, чернослив. Хорош и с утра. Один из лучших в своей категории.",
+      "flavors": [
+        "resin",
+        "prune",
+        "conifer",
+        "smoked"
+      ],
+      "purchase": {
+        "price": 730,
+        "weight": 50,
+        "harvestYear": 2024,
+        "harvestSeason": "autumn"
+      },
+      "createdAt": "2024-10-15T12:00:00Z",
+      "infusion": {
+        "body": 5,
+        "strength": 2,
+        "aftertaste": 3
+      }
+    },
+    {
+      "tea": "t8",
+      "shop": "daochain",
+      "user": "u1",
+      "rating": 5,
+      "text": "Взяли на пробу. Отчётливо слышно: копчёности, хвоя. Возьмём ещё.",
+      "flavors": [
+        "smoked",
+        "conifer"
+      ],
+      "purchase": {
+        "price": 770,
+        "weight": 50,
+        "harvestYear": 2024,
+        "harvestSeason": "spring"
+      },
+      "createdAt": "2025-01-01T12:00:00Z"
+    },
+    {
+      "tea": "t8",
+      "shop": "daochain",
+      "user": "u11",
+      "rating": 5,
+      "text": "Взяли на пробу. Держит 6–7 проливов. Один из лучших в своей категории.",
+      "flavors": [],
+      "purchase": {
+        "price": 840,
+        "weight": 50,
+        "harvestYear": 2025,
+        "harvestSeason": null
+      },
+      "createdAt": "2025-12-13T12:00:00Z",
+      "infusion": {
+        "body": 4,
+        "strength": 2,
+        "aftertaste": 5
+      }
+    },
+    {
+      "tea": "t9",
+      "shop": "daochain",
+      "user": "u10",
+      "rating": 5,
+      "text": "Отчётливо слышно: кофе, какао. Настой густой, тёмный. Возьмём ещё.",
+      "flavors": [
+        "coffee",
+        "cocoa"
+      ],
+      "purchase": {
+        "price": 1640,
+        "weight": 357,
+        "harvestYear": 2023,
+        "harvestSeason": "spring"
+      },
+      "createdAt": "2024-04-28T12:00:00Z"
+    },
+    {
+      "tea": "t9",
+      "shop": "daochain",
+      "user": "u4",
+      "rating": 5,
+      "text": "Взяли на пробу. Настой густой, тёмный. Очень цельный, без провалов.",
+      "flavors": [],
+      "purchase": {
+        "price": 1680,
+        "weight": 357,
+        "harvestYear": 2024,
+        "harvestSeason": "autumn"
+      },
+      "createdAt": "2024-11-14T12:00:00Z",
+      "infusion": {
+        "body": 5,
+        "strength": 5,
+        "aftertaste": 5
+      }
+    },
+    {
+      "tea": "t9",
+      "shop": "daochain",
+      "user": "u2",
+      "rating": 5,
+      "text": "Заваривали в гайвани. Отчётливо слышно: какао, кофе. Греет. Очень цельный, без провалов.",
+      "flavors": [
+        "cocoa",
+        "coffee"
+      ],
+      "purchase": {
+        "price": 1860,
+        "weight": 357,
+        "harvestYear": 2025,
+        "harvestSeason": "spring"
+      },
+      "createdAt": "2025-09-21T12:00:00Z",
+      "infusion": {
+        "body": 5,
+        "strength": 4,
+        "aftertaste": 5
+      }
+    },
+    {
+      "tea": "t9",
+      "shop": "daochain",
+      "user": "u14",
+      "rating": 4,
+      "text": "Заваривали проливами. Сначала грибы, к концу — земля. Крепкая четвёрка.",
+      "flavors": [
+        "mushroom",
+        "earth",
+        "forest_floor",
+        "roasted_grain"
+      ],
+      "purchase": {
+        "price": 2060,
+        "weight": 357,
+        "harvestYear": 2025,
+        "harvestSeason": "autumn"
+      },
+      "createdAt": "2026-05-03T12:00:00Z",
+      "infusion": {
+        "body": 4,
+        "strength": 4,
+        "aftertaste": 3
+      }
+    },
+    {
+      "tea": "t9",
+      "shop": "daochain",
+      "user": "u13",
+      "rating": 5,
+      "text": "Настой густой, тёмный. Один из лучших в своей категории.",
+      "flavors": [],
+      "purchase": {
+        "price": 2050,
+        "weight": 357,
+        "harvestYear": 2025,
+        "harvestSeason": "autumn"
+      },
+      "createdAt": "2026-05-04T12:00:00Z",
+      "infusion": {
+        "body": 5,
+        "strength": 5,
+        "aftertaste": 5
+      }
+    },
+    {
+      "tea": "t9",
+      "shop": "gorny-list",
+      "user": "u1",
+      "rating": 4,
+      "text": "Пили втроём, всем зашёл. Отчётливо слышно: прелая листва, сухое дерево. Греет. За свои деньги — отлично.",
+      "flavors": [
+        "forest_floor",
+        "dry_wood"
+      ],
+      "purchase": {
+        "price": 2320,
+        "weight": 357,
+        "harvestYear": 2025,
+        "harvestSeason": null
+      },
+      "createdAt": "2025-06-26T12:00:00Z"
+    },
+    {
+      "tea": "t9",
+      "shop": "gorny-list",
+      "user": "u3",
+      "rating": 5,
+      "text": "Отчётливо слышно: кожа, земля. Греет. Восторг.",
+      "flavors": [
+        "leather",
+        "earth"
+      ],
+      "purchase": {
+        "price": 2210,
+        "weight": 357,
+        "harvestYear": 2025,
+        "harvestSeason": "summer"
+      },
+      "createdAt": "2025-07-25T12:00:00Z"
+    },
+    {
+      "tea": "t9",
+      "shop": "gorny-list",
+      "user": "u8",
+      "rating": 5,
+      "text": "Заваривали в гайвани. Отчётливо слышно: сухое дерево, жареное зерно. Возьмём ещё.",
+      "flavors": [
+        "dry_wood",
+        "roasted_grain",
+        "chocolate",
+        "earth"
+      ],
+      "purchase": {
+        "price": 2380,
+        "weight": 357,
+        "harvestYear": 2025,
+        "harvestSeason": "summer"
+      },
+      "createdAt": "2026-01-03T12:00:00Z"
+    },
+    {
+      "tea": "t9",
+      "shop": "gorny-list",
+      "user": "u9",
+      "rating": 5,
+      "text": "Пили втроём, всем зашёл. Сначала земля, к концу — чернослив. Один из лучших в своей категории.",
+      "flavors": [
+        "earth",
+        "prune"
+      ],
+      "purchase": {
+        "price": 2440,
+        "weight": 357,
+        "harvestYear": 2025,
+        "harvestSeason": "summer"
+      },
+      "createdAt": "2026-02-07T12:00:00Z",
+      "infusion": {
+        "body": 4,
+        "strength": 4,
+        "aftertaste": 5
+      }
+    },
+    {
+      "tea": "t9",
+      "shop": "gorny-list",
+      "user": "u10",
+      "rating": 4,
+      "text": "Пили втроём, всем зашёл. В аромате — чернослив, во вкусе — земля. За свои деньги — отлично.",
+      "flavors": [
+        "prune",
+        "earth"
+      ],
+      "purchase": {
+        "price": 2430,
+        "weight": 357,
+        "harvestYear": 2026,
+        "harvestSeason": "spring"
+      },
+      "createdAt": "2026-08-22T12:00:00Z",
+      "infusion": {
+        "body": 5,
+        "strength": 3,
+        "aftertaste": 5
+      }
+    },
+    {
+      "tea": "t10",
+      "shop": "daochain",
+      "user": "u3",
+      "rating": 5,
+      "text": "Пили втроём, всем зашёл. Отчётливо слышно: курага, мёд. Расслабляет. Возьмём ещё.",
+      "flavors": [
+        "dried_apricot",
+        "honey"
+      ],
+      "purchase": {
+        "price": 960,
+        "weight": 50,
+        "harvestYear": 2023,
+        "harvestSeason": null
+      },
+      "createdAt": "2024-03-31T12:00:00Z",
+      "infusion": {
+        "body": 2,
+        "strength": 3,
+        "aftertaste": 5
+      }
+    },
+    {
+      "tea": "t10",
+      "shop": "daochain",
+      "user": "u10",
+      "rating": 4,
+      "text": "Пробовали и проливом, и в чайнике. В аромате — изюм, во вкусе — винные нотки. Хорош, но без восторга.",
+      "flavors": [
+        "raisin",
+        "wine",
+        "dried_apricot"
+      ],
+      "purchase": {
+        "price": 950,
+        "weight": 50,
+        "harvestYear": 2023,
+        "harvestSeason": "autumn"
+      },
+      "createdAt": "2024-05-07T12:00:00Z",
+      "infusion": {
+        "body": 4,
+        "strength": 2,
+        "aftertaste": 2
+      }
+    },
+    {
+      "tea": "t10",
+      "shop": "daochain",
+      "user": "u14",
+      "rating": 4,
+      "text": "Пили втроём, всем зашёл. Курага, потом — изюм. Крепкая четвёрка.",
+      "flavors": [
+        "dried_apricot",
+        "raisin"
+      ],
+      "purchase": {
+        "price": 970,
+        "weight": 50,
+        "harvestYear": 2023,
+        "harvestSeason": "summer"
+      },
+      "createdAt": "2024-05-21T12:00:00Z"
+    },
+    {
+      "tea": "t10",
+      "shop": "daochain",
+      "user": "u12",
+      "rating": 5,
+      "text": "Пробовали и проливом, и в чайнике. Отчётливо слышно: кислинка ягод, винные нотки. Очень цельный, без провалов.",
+      "flavors": [
+        "sour_berries",
+        "wine",
+        "cinnamon"
+      ],
+      "purchase": {
+        "price": 1000,
+        "weight": 50,
+        "harvestYear": 2024,
+        "harvestSeason": null
+      },
+      "createdAt": "2024-09-27T12:00:00Z"
+    },
+    {
+      "tea": "t10",
+      "shop": "daochain",
+      "user": "u9",
+      "rating": 3,
+      "text": "Взяли на пробу. Слива, потом — корица. Средне.",
+      "flavors": [
+        "plum",
+        "cinnamon"
+      ],
+      "purchase": {
+        "price": 1110,
+        "weight": 50,
+        "harvestYear": 2025,
+        "harvestSeason": null
+      },
+      "createdAt": "2025-07-15T12:00:00Z"
+    },
+    {
+      "tea": "t10",
+      "shop": "daochain",
+      "user": "u4",
+      "rating": 4,
+      "text": "Пробовали и проливом, и в чайнике. Расслабляет. Приятный, на каждый день.",
+      "flavors": [],
+      "purchase": {
+        "price": 1120,
+        "weight": 50,
+        "harvestYear": 2025,
+        "harvestSeason": "spring"
+      },
+      "createdAt": "2025-08-19T12:00:00Z"
+    },
+    {
+      "tea": "t10",
+      "shop": "daochain",
+      "user": "u13",
+      "rating": 4,
+      "text": "Отчётливо слышно: изюм, корица. Крепкая четвёрка.",
+      "flavors": [
+        "raisin",
+        "cinnamon",
+        "apple",
+        "bread"
+      ],
+      "purchase": {
+        "price": 1140,
+        "weight": 50,
+        "harvestYear": 2025,
+        "harvestSeason": "spring"
+      },
+      "createdAt": "2025-09-13T12:00:00Z"
+    },
+    {
+      "tea": "t11",
+      "shop": "gorny-list",
+      "user": "u5",
+      "rating": 5,
+      "text": "Беру уже не первый раз. Сухое дерево, потом — жареное зерно. Настой густой, тёмный. Возьмём ещё.",
+      "flavors": [
+        "dry_wood",
+        "roasted_grain",
+        "prune"
+      ],
+      "purchase": {
+        "price": 2760,
+        "weight": 357,
+        "harvestYear": 2023,
+        "harvestSeason": "spring"
+      },
+      "createdAt": "2024-05-07T12:00:00Z",
+      "infusion": {
+        "body": 5,
+        "strength": 3,
+        "aftertaste": 5
+      }
+    },
+    {
+      "tea": "t11",
+      "shop": "gorny-list",
+      "user": "u7",
+      "rating": 5,
+      "text": "Пробовали и проливом, и в чайнике. Шоколад и прелая листва — прямо с первого пролива. Восторг.",
+      "flavors": [
+        "chocolate",
+        "forest_floor",
+        "earth"
+      ],
+      "purchase": {
+        "price": 2850,
+        "weight": 357,
+        "harvestYear": 2024,
+        "harvestSeason": "spring"
+      },
+      "createdAt": "2024-10-06T12:00:00Z",
+      "infusion": {
+        "body": 5,
+        "strength": 5,
+        "aftertaste": 4
+      }
+    },
+    {
+      "tea": "t11",
+      "shop": "gorny-list",
+      "user": "u8",
+      "rating": 5,
+      "text": "Заваривали в гайвани. Настой густой, тёмный. Возьмём ещё.",
+      "flavors": [],
+      "purchase": {
+        "price": 2960,
+        "weight": 357,
+        "harvestYear": 2024,
+        "harvestSeason": "summer"
+      },
+      "createdAt": "2024-11-30T12:00:00Z"
+    },
+    {
+      "tea": "t11",
+      "shop": "gorny-list",
+      "user": "u9",
+      "rating": 5,
+      "text": "Какао, потом — кожа. Настой густой, тёмный. Один из лучших в своей категории.",
+      "flavors": [
+        "cocoa",
+        "leather"
+      ],
+      "purchase": {
+        "price": 3040,
+        "weight": 357,
+        "harvestYear": 2025,
+        "harvestSeason": "spring"
+      },
+      "createdAt": "2025-07-22T12:00:00Z",
+      "infusion": {
+        "body": 5,
+        "strength": 4,
+        "aftertaste": 5
+      }
+    },
+    {
+      "tea": "t11",
+      "shop": "gorny-list",
+      "user": "u13",
+      "rating": 5,
+      "text": "Заваривали проливами. Отчётливо слышно: сухое дерево, кофе. Очень цельный, без провалов.",
+      "flavors": [
+        "dry_wood",
+        "coffee"
+      ],
+      "purchase": {
+        "price": 3590,
+        "weight": 357,
+        "harvestYear": 2026,
+        "harvestSeason": "autumn"
+      },
+      "createdAt": "2026-07-03T12:00:00Z",
+      "infusion": {
+        "body": 5,
+        "strength": 3,
+        "aftertaste": 4
+      }
+    },
+    {
+      "tea": "t11",
+      "shop": "gorny-list",
+      "user": "u3",
+      "rating": 4,
+      "text": "Кофе и кожа — прямо с первого пролива. Настой густой, тёмный. Хорош, но без восторга.",
+      "flavors": [
+        "coffee",
+        "leather",
+        "forest_floor"
+      ],
+      "purchase": null,
+      "createdAt": "2026-08-14T12:00:00Z"
+    },
+    {
+      "tea": "t12",
+      "shop": "gorny-list",
+      "user": "u5",
+      "rating": 5,
+      "text": "Взяли на пробу. В аромате — грибы, во вкусе — чернослив. Очень цельный, без провалов.",
+      "flavors": [
+        "mushroom",
+        "prune"
+      ],
+      "purchase": null,
+      "createdAt": "2025-03-21T12:00:00Z"
+    },
+    {
+      "tea": "t12",
+      "shop": "gorny-list",
+      "user": "u8",
+      "rating": 5,
+      "text": "Земля и жареное зерно — прямо с первого пролива. Греет. Возьмём ещё.",
+      "flavors": [
+        "earth",
+        "roasted_grain",
+        "cocoa"
+      ],
+      "purchase": null,
+      "createdAt": "2025-06-18T12:00:00Z",
+      "infusion": {
+        "body": 5,
+        "strength": 5,
+        "aftertaste": 5
+      }
+    },
+    {
+      "tea": "t12",
+      "shop": "gorny-list",
+      "user": "u9",
+      "rating": 4,
+      "text": "Какао, потом — кофе. Настой густой, тёмный. Хорош, но без восторга.",
+      "flavors": [
+        "cocoa",
+        "coffee"
+      ],
+      "purchase": {
+        "price": 1470,
+        "weight": 100,
+        "harvestYear": 2025,
+        "harvestSeason": "spring"
+      },
+      "createdAt": "2025-10-29T12:00:00Z",
+      "infusion": {
+        "body": 4,
+        "strength": 4,
+        "aftertaste": 3
+      }
+    },
+    {
+      "tea": "t12",
+      "shop": "gorny-list",
+      "user": "u2",
+      "rating": 4,
+      "text": "Пили втроём, всем зашёл. В аромате — сухое дерево, во вкусе — кожа. Хорош, но без восторга.",
+      "flavors": [
+        "dry_wood",
+        "leather",
+        "mushroom"
+      ],
+      "purchase": {
+        "price": 1400,
+        "weight": 100,
+        "harvestYear": 2025,
+        "harvestSeason": "spring"
+      },
+      "createdAt": "2025-10-31T12:00:00Z",
+      "infusion": {
+        "body": 5,
+        "strength": 5,
+        "aftertaste": 4
+      }
+    },
+    {
+      "tea": "t12",
+      "shop": "gorny-list",
+      "user": "u7",
+      "rating": 5,
+      "text": "Беру уже не первый раз. Настой густой, тёмный. Один из лучших в своей категории.",
+      "flavors": [],
+      "purchase": null,
+      "createdAt": "2026-01-23T12:00:00Z"
+    },
+    {
+      "tea": "t13",
+      "shop": "gorny-list",
+      "user": "u12",
+      "rating": 5,
+      "text": "Сухое дерево и смола — прямо с первого пролива. Бодрит. Один из лучших в своей категории.",
+      "flavors": [
+        "dry_wood",
+        "resin",
+        "cut_grass"
+      ],
+      "purchase": null,
+      "createdAt": "2024-05-07T12:00:00Z"
+    },
+    {
+      "tea": "t13",
+      "shop": "gorny-list",
+      "user": "u1",
+      "rating": 5,
+      "text": "Заваривали проливами. В аромате — свежая трава, во вкусе — табак. Восторг.",
+      "flavors": [
+        "cut_grass",
+        "tobacco",
+        "plum",
+        "resin"
+      ],
+      "purchase": {
+        "price": 4550,
+        "weight": 357,
+        "harvestYear": 2024,
+        "harvestSeason": null
+      },
+      "createdAt": "2024-11-04T12:00:00Z",
+      "infusion": {
+        "body": 4,
+        "strength": 5,
+        "aftertaste": 5
+      }
+    },
+    {
+      "tea": "t13",
+      "shop": "gorny-list",
+      "user": "u3",
+      "rating": 4,
+      "text": "Отчётливо слышно: смола, сухое дерево. Хорош, но без восторга.",
+      "flavors": [
+        "resin",
+        "dry_wood",
+        "tobacco"
+      ],
+      "purchase": {
+        "price": 4390,
+        "weight": 357,
+        "harvestYear": 2024,
+        "harvestSeason": null
+      },
+      "createdAt": "2025-01-13T12:00:00Z"
+    },
+    {
+      "tea": "t13",
+      "shop": "gorny-list",
+      "user": "u2",
+      "rating": 4,
+      "text": "Беру уже не первый раз. Сначала сухое дерево, к концу — табак. Бодрит. Хорош, но без восторга.",
+      "flavors": [
+        "dry_wood",
+        "tobacco",
+        "apple",
+        "plum"
+      ],
+      "purchase": {
+        "price": 4620,
+        "weight": 357,
+        "harvestYear": 2025,
+        "harvestSeason": "summer"
+      },
+      "createdAt": "2025-07-13T12:00:00Z"
+    },
+    {
+      "tea": "t14",
+      "shop": "gorny-list",
+      "user": "u7",
+      "rating": 5,
+      "text": "Заваривали в гайвани. Сначала изюм, к концу — сухое дерево. Очень цельный, без провалов.",
+      "flavors": [
+        "raisin",
+        "dry_wood"
+      ],
+      "purchase": {
+        "price": 1420,
+        "weight": 50,
+        "harvestYear": 2023,
+        "harvestSeason": "summer"
+      },
+      "createdAt": "2024-05-25T12:00:00Z"
+    },
+    {
+      "tea": "t14",
+      "shop": "gorny-list",
+      "user": "u5",
+      "rating": 4,
+      "text": "Заваривали в гайвани. Лист красиво раскрывается. За свои деньги — отлично.",
+      "flavors": [],
+      "purchase": {
+        "price": 1440,
+        "weight": 50,
+        "harvestYear": 2024,
+        "harvestSeason": "spring"
+      },
+      "createdAt": "2024-11-22T12:00:00Z",
+      "infusion": {
+        "body": 3,
+        "strength": 3,
+        "aftertaste": 4
+      }
+    },
+    {
+      "tea": "t14",
+      "shop": "gorny-list",
+      "user": "u10",
+      "rating": 5,
+      "text": "Заваривали в гайвани. Сухое дерево и жареное зерно — прямо с первого пролива. Один из лучших в своей категории.",
+      "flavors": [
+        "dry_wood",
+        "roasted_grain"
+      ],
+      "purchase": {
+        "price": 1540,
+        "weight": 50,
+        "harvestYear": 2024,
+        "harvestSeason": "summer"
+      },
+      "createdAt": "2024-12-07T12:00:00Z",
+      "infusion": {
+        "body": 3,
+        "strength": 3,
+        "aftertaste": 5
+      }
+    },
+    {
+      "tea": "t14",
+      "shop": "gorny-list",
+      "user": "u9",
+      "rating": 5,
+      "text": "Беру уже не первый раз. Мокрый камень, потом — корица. Восторг.",
+      "flavors": [
+        "wet_stone",
+        "cinnamon"
+      ],
+      "purchase": {
+        "price": 1590,
+        "weight": 50,
+        "harvestYear": 2025,
+        "harvestSeason": "spring"
+      },
+      "createdAt": "2025-08-11T12:00:00Z",
+      "infusion": {
+        "body": 2,
+        "strength": 2,
+        "aftertaste": 5
+      }
+    },
+    {
+      "tea": "t14",
+      "shop": "gorny-list",
+      "user": "u2",
+      "rating": 5,
+      "text": "Пробовали и проливом, и в чайнике. Сначала карамель, к концу — какао. Очень цельный, без провалов.",
+      "flavors": [
+        "caramel",
+        "cocoa",
+        "roasted_grain"
+      ],
+      "purchase": null,
+      "createdAt": "2025-10-24T12:00:00Z",
+      "infusion": {
+        "body": 3,
+        "strength": 3,
+        "aftertaste": 5
+      }
+    },
+    {
+      "tea": "t14",
+      "shop": "gorny-list",
+      "user": "u3",
+      "rating": 5,
+      "text": "Заваривали в гайвани. Отчётливо слышно: сухое дерево, мокрый камень. Лист красиво раскрывается. Возьмём ещё.",
+      "flavors": [
+        "dry_wood",
+        "wet_stone",
+        "cocoa"
+      ],
+      "purchase": null,
+      "createdAt": "2025-12-19T12:00:00Z"
+    },
+    {
+      "tea": "t14",
+      "shop": "gorny-list",
+      "user": "u11",
+      "rating": 4,
+      "text": "Пробовали и проливом, и в чайнике. Какао и жареное зерно — прямо с первого пролива. Держит много проливов. Приятный, на каждый день.",
+      "flavors": [
+        "cocoa",
+        "roasted_grain",
+        "raisin"
+      ],
+      "purchase": {
+        "price": 1720,
+        "weight": 50,
+        "harvestYear": 2026,
+        "harvestSeason": "autumn"
+      },
+      "createdAt": "2026-06-03T12:00:00Z"
+    },
+    {
+      "tea": "t14",
+      "shop": "art-of-tea",
+      "user": "u5",
+      "rating": 5,
+      "text": "Взяли на пробу. Лист красиво раскрывается. Очень цельный, без провалов.",
+      "flavors": [],
+      "purchase": null,
+      "createdAt": "2025-11-18T12:00:00Z",
+      "infusion": {
+        "body": 4,
+        "strength": 4,
+        "aftertaste": 5
+      }
+    },
+    {
+      "tea": "t14",
+      "shop": "art-of-tea",
+      "user": "u14",
+      "rating": 5,
+      "text": "Пробовали и проливом, и в чайнике. В аромате — какао, во вкусе — карамель. Очень цельный, без провалов.",
+      "flavors": [
+        "cocoa",
+        "caramel",
+        "dry_wood"
+      ],
+      "purchase": {
+        "price": 1010,
+        "weight": 50,
+        "harvestYear": 2025,
+        "harvestSeason": null
+      },
+      "createdAt": "2025-12-03T12:00:00Z",
+      "infusion": {
+        "body": 3,
+        "strength": 4,
+        "aftertaste": 5
+      }
+    },
+    {
+      "tea": "t14",
+      "shop": "art-of-tea",
+      "user": "u10",
+      "rating": 5,
+      "text": "Жареное зерно и корица — прямо с первого пролива. Лист красиво раскрывается. Очень цельный, без провалов.",
+      "flavors": [
+        "roasted_grain",
+        "cinnamon",
+        "caramel"
+      ],
+      "purchase": {
+        "price": 1060,
+        "weight": 50,
+        "harvestYear": 2026,
+        "harvestSeason": null
+      },
+      "createdAt": "2026-06-28T12:00:00Z",
+      "infusion": {
+        "body": 3,
+        "strength": 4,
+        "aftertaste": 5
+      }
+    },
+    {
+      "tea": "t14",
+      "shop": "art-of-tea",
+      "user": "u13",
+      "rating": 5,
+      "text": "Пили втроём, всем зашёл. Жареное зерно и мокрый камень — прямо с первого пролива. Очень цельный, без провалов.",
+      "flavors": [
+        "roasted_grain",
+        "wet_stone"
+      ],
+      "purchase": {
+        "price": 1040,
+        "weight": 50,
+        "harvestYear": 2026,
+        "harvestSeason": "summer"
+      },
+      "createdAt": "2026-07-12T12:00:00Z",
+      "infusion": {
+        "body": 4,
+        "strength": 2,
+        "aftertaste": 5
+      }
+    },
+    {
+      "tea": "t15",
+      "shop": "gorny-list",
+      "user": "u3",
+      "rating": 5,
+      "text": "Заваривали проливами. Отчётливо слышно: варенье, хлебная корочка. Восторг.",
+      "flavors": [
+        "jam",
+        "bread"
+      ],
+      "purchase": {
+        "price": 610,
+        "weight": 50,
+        "harvestYear": 2024,
+        "harvestSeason": "summer"
+      },
+      "createdAt": "2024-08-31T12:00:00Z",
+      "infusion": {
+        "body": 4,
+        "strength": 4,
+        "aftertaste": 4
+      }
+    },
+    {
+      "tea": "t15",
+      "shop": "gorny-list",
+      "user": "u13",
+      "rating": 4,
+      "text": "Варенье, потом — курага. Хорош и с утра. За свои деньги — отлично.",
+      "flavors": [
+        "jam",
+        "dried_apricot",
+        "raisin",
+        "bread"
+      ],
+      "purchase": {
+        "price": 630,
+        "weight": 50,
+        "harvestYear": 2024,
+        "harvestSeason": "spring"
+      },
+      "createdAt": "2024-09-17T12:00:00Z",
+      "infusion": {
+        "body": 4,
+        "strength": 4,
+        "aftertaste": 4
+      }
+    },
+    {
+      "tea": "t15",
+      "shop": "gorny-list",
+      "user": "u8",
+      "rating": 5,
+      "text": "Заваривали в гайвани. Карамель и батат — прямо с первого пролива. Восторг.",
+      "flavors": [
+        "caramel",
+        "sweet_potato"
+      ],
+      "purchase": {
+        "price": 680,
+        "weight": 50,
+        "harvestYear": 2024,
+        "harvestSeason": "summer"
+      },
+      "createdAt": "2025-01-23T12:00:00Z",
+      "infusion": {
+        "body": 4,
+        "strength": 2,
+        "aftertaste": 4
+      }
+    },
+    {
+      "tea": "t15",
+      "shop": "gorny-list",
+      "user": "u1",
+      "rating": 4,
+      "text": "Пробовали и проливом, и в чайнике. Варенье, потом — хлебная корочка. Хорош и с утра. Хорош, но без восторга.",
+      "flavors": [
+        "jam",
+        "bread",
+        "prune"
+      ],
+      "purchase": {
+        "price": 700,
+        "weight": 50,
+        "harvestYear": 2025,
+        "harvestSeason": "spring"
+      },
+      "createdAt": "2025-11-02T12:00:00Z"
+    },
+    {
+      "tea": "t15",
+      "shop": "gorny-list",
+      "user": "u11",
+      "rating": 5,
+      "text": "Взяли на пробу. В аромате — изюм, во вкусе — чернослив. Возьмём ещё.",
+      "flavors": [
+        "raisin",
+        "prune",
+        "plum"
+      ],
+      "purchase": {
+        "price": 770,
+        "weight": 50,
+        "harvestYear": 2025,
+        "harvestSeason": "autumn"
+      },
+      "createdAt": "2026-04-21T12:00:00Z",
+      "infusion": {
+        "body": 5,
+        "strength": 3,
+        "aftertaste": 4
+      }
+    },
+    {
+      "tea": "t16",
+      "shop": "bely-zhuravl",
+      "user": "u11",
+      "rating": 5,
+      "text": "В аромате — горошек, во вкусе — шпинат. Возьмём ещё.",
+      "flavors": [
+        "pea",
+        "spinach"
+      ],
+      "purchase": {
+        "price": 1560,
+        "weight": 50,
+        "harvestYear": 2024,
+        "harvestSeason": null
+      },
+      "createdAt": "2024-10-10T12:00:00Z"
+    },
+    {
+      "tea": "t16",
+      "shop": "bely-zhuravl",
+      "user": "u12",
+      "rating": 4,
+      "text": "Сначала горошек, к концу — батат. Хорош, но без восторга.",
+      "flavors": [
+        "pea",
+        "sweet_potato"
+      ],
+      "purchase": null,
+      "createdAt": "2025-11-30T12:00:00Z"
+    },
+    {
+      "tea": "t16",
+      "shop": "bely-zhuravl",
+      "user": "u10",
+      "rating": 5,
+      "text": "Сначала свежая трава, к концу — орхидея. Очень цельный, без провалов.",
+      "flavors": [
+        "cut_grass",
+        "orchid",
+        "meadow_flowers",
+        "spinach"
+      ],
+      "purchase": {
+        "price": 1710,
+        "weight": 50,
+        "harvestYear": 2025,
+        "harvestSeason": "spring"
+      },
+      "createdAt": "2026-01-06T12:00:00Z"
+    },
+    {
+      "tea": "t16",
+      "shop": "bely-zhuravl",
+      "user": "u3",
+      "rating": 5,
+      "text": "Пили втроём, всем зашёл. Свежий, бодрый. Один из лучших в своей категории.",
+      "flavors": [],
+      "purchase": {
+        "price": 1730,
+        "weight": 50,
+        "harvestYear": 2025,
+        "harvestSeason": "autumn"
+      },
+      "createdAt": "2026-04-03T12:00:00Z",
+      "infusion": {
+        "body": 2,
+        "strength": 3,
+        "aftertaste": 4
+      }
+    },
+    {
+      "tea": "t17",
+      "shop": "bely-zhuravl",
+      "user": "u11",
+      "rating": 4,
+      "text": "Отчётливо слышно: лесной орех, луговые цветы. Важно не перегреть воду. За свои деньги — отлично.",
+      "flavors": [
+        "hazelnut",
+        "meadow_flowers",
+        "cut_grass",
+        "mint"
+      ],
+      "purchase": {
+        "price": 1350,
+        "weight": 50,
+        "harvestYear": 2024,
+        "harvestSeason": "summer"
+      },
+      "createdAt": "2024-06-19T12:00:00Z",
+      "infusion": {
+        "body": 2,
+        "strength": 4,
+        "aftertaste": 4
+      }
+    },
+    {
+      "tea": "t17",
+      "shop": "bely-zhuravl",
+      "user": "u8",
+      "rating": 5,
+      "text": "Пробовали и проливом, и в чайнике. Отчётливо слышно: батат, лесной орех. Один из лучших в своей категории.",
+      "flavors": [
+        "sweet_potato",
+        "hazelnut"
+      ],
+      "purchase": {
+        "price": 1330,
+        "weight": 50,
+        "harvestYear": 2024,
+        "harvestSeason": "spring"
+      },
+      "createdAt": "2024-07-14T12:00:00Z",
+      "infusion": {
+        "body": 2,
+        "strength": 2,
+        "aftertaste": 4
+      }
+    },
+    {
+      "tea": "t17",
+      "shop": "bely-zhuravl",
+      "user": "u7",
+      "rating": 5,
+      "text": "Пробовали и проливом, и в чайнике. Отчётливо слышно: свежая трава, батат. Восторг.",
+      "flavors": [
+        "cut_grass",
+        "sweet_potato"
+      ],
+      "purchase": null,
+      "createdAt": "2024-08-22T12:00:00Z",
+      "infusion": {
+        "body": 3,
+        "strength": 3,
+        "aftertaste": 4
+      }
+    },
+    {
+      "tea": "t17",
+      "shop": "bely-zhuravl",
+      "user": "u12",
+      "rating": 5,
+      "text": "Заваривали в гайвани. Свежая трава и шпинат — прямо с первого пролива. Восторг.",
+      "flavors": [
+        "cut_grass",
+        "spinach"
+      ],
+      "purchase": {
+        "price": 1440,
+        "weight": 50,
+        "harvestYear": 2024,
+        "harvestSeason": "summer"
+      },
+      "createdAt": "2025-02-16T12:00:00Z",
+      "infusion": {
+        "body": 2,
+        "strength": 3,
+        "aftertaste": 4
+      }
+    },
+    {
+      "tea": "t17",
+      "shop": "bely-zhuravl",
+      "user": "u6",
+      "rating": 5,
+      "text": "Батат, потом — лесной орех. Важно не перегреть воду. Восторг.",
+      "flavors": [
+        "sweet_potato",
+        "hazelnut",
+        "meadow_flowers"
+      ],
+      "purchase": {
+        "price": 1470,
+        "weight": 50,
+        "harvestYear": 2025,
+        "harvestSeason": "summer"
+      },
+      "createdAt": "2025-11-21T12:00:00Z"
+    },
+    {
+      "tea": "t17",
+      "shop": "bely-zhuravl",
+      "user": "u9",
+      "rating": 5,
+      "text": "Беру уже не первый раз. Отчётливо слышно: водоросли, горошек. Свежий, бодрый. Возьмём ещё.",
+      "flavors": [
+        "seaweed",
+        "pea",
+        "sweet_potato",
+        "orchid"
+      ],
+      "purchase": {
+        "price": 1580,
+        "weight": 50,
+        "harvestYear": 2025,
+        "harvestSeason": null
+      },
+      "createdAt": "2026-03-25T12:00:00Z",
+      "infusion": {
+        "body": 3,
+        "strength": 3,
+        "aftertaste": 3
+      }
+    },
+    {
+      "tea": "t17",
+      "shop": "bely-zhuravl",
+      "user": "u5",
+      "rating": 4,
+      "text": "Беру уже не первый раз. В аромате — луговые цветы, во вкусе — водоросли. Свежий, бодрый. Приятный, на каждый день.",
+      "flavors": [
+        "meadow_flowers",
+        "seaweed",
+        "hazelnut",
+        "mint"
+      ],
+      "purchase": {
+        "price": 1640,
+        "weight": 50,
+        "harvestYear": 2026,
+        "harvestSeason": "autumn"
+      },
+      "createdAt": "2026-10-10T12:00:00Z"
+    },
+    {
+      "tea": "t18",
+      "shop": "bely-zhuravl",
+      "user": "u1",
+      "rating": 4,
+      "text": "Персик, потом — свежая трава. Хорошо раскрывается на 85 °C. За свои деньги — отлично.",
+      "flavors": [
+        "peach",
+        "cut_grass"
+      ],
+      "purchase": {
+        "price": 2160,
+        "weight": 50,
+        "harvestYear": 2023,
+        "harvestSeason": "spring"
+      },
+      "createdAt": "2024-05-11T12:00:00Z",
+      "infusion": {
+        "body": 2,
+        "strength": 2,
+        "aftertaste": 4
+      }
+    },
+    {
+      "tea": "t18",
+      "shop": "bely-zhuravl",
+      "user": "u6",
+      "rating": 4,
+      "text": "Заваривали проливами. Сено и свежая трава — прямо с первого пролива. За свои деньги — отлично.",
+      "flavors": [
+        "hay",
+        "cut_grass",
+        "meadow_flowers"
+      ],
+      "purchase": {
+        "price": 2130,
+        "weight": 50,
+        "harvestYear": 2024,
+        "harvestSeason": "spring"
+      },
+      "createdAt": "2024-06-04T12:00:00Z",
+      "infusion": {
+        "body": 1,
+        "strength": 2,
+        "aftertaste": 4
+      }
+    },
+    {
+      "tea": "t18",
+      "shop": "bely-zhuravl",
+      "user": "u12",
+      "rating": 5,
+      "text": "Взяли на пробу. Луговые цветы, потом — мёд. Мягкий и сладкий. Один из лучших в своей категории.",
+      "flavors": [
+        "meadow_flowers",
+        "honey",
+        "dried_apricot"
+      ],
+      "purchase": {
+        "price": 2330,
+        "weight": 50,
+        "harvestYear": 2024,
+        "harvestSeason": null
+      },
+      "createdAt": "2025-02-24T12:00:00Z",
+      "infusion": {
+        "body": 3,
+        "strength": 1,
+        "aftertaste": 3
+      }
+    },
+    {
+      "tea": "t18",
+      "shop": "bely-zhuravl",
+      "user": "u7",
+      "rating": 4,
+      "text": "Липа, потом — персик. Хорошо раскрывается на 85 °C. Хорош, но без восторга.",
+      "flavors": [
+        "linden",
+        "peach",
+        "dried_apricot"
+      ],
+      "purchase": {
+        "price": 2600,
+        "weight": 50,
+        "harvestYear": 2026,
+        "harvestSeason": "autumn"
+      },
+      "createdAt": "2026-07-04T12:00:00Z",
+      "infusion": {
+        "body": 3,
+        "strength": 2,
+        "aftertaste": 4
+      }
+    },
+    {
+      "tea": "t19",
+      "shop": "bely-zhuravl",
+      "user": "u12",
+      "rating": 5,
+      "text": "Взяли на пробу. В аромате — курага, во вкусе — липа. Мягкий и сладкий. Один из лучших в своей категории.",
+      "flavors": [
+        "dried_apricot",
+        "linden",
+        "meadow_flowers"
+      ],
+      "purchase": {
+        "price": 830,
+        "weight": 50,
+        "harvestYear": 2023,
+        "harvestSeason": null
+      },
+      "createdAt": "2024-04-16T12:00:00Z"
+    },
+    {
+      "tea": "t19",
+      "shop": "bely-zhuravl",
+      "user": "u4",
+      "rating": 4,
+      "text": "Взяли на пробу. Мёд и дыня — прямо с первого пролива. Мягкий и сладкий. Хорош, но без восторга.",
+      "flavors": [
+        "honey",
+        "melon"
+      ],
+      "purchase": null,
+      "createdAt": "2024-05-09T12:00:00Z",
+      "infusion": {
+        "body": 3,
+        "strength": 1,
+        "aftertaste": 3
+      }
+    },
+    {
+      "tea": "t19",
+      "shop": "bely-zhuravl",
+      "user": "u13",
+      "rating": 3,
+      "text": "Заваривали проливами. Липа и свежая трава — прямо с первого пролива. Мягкий и сладкий. Ожидания были выше.",
+      "flavors": [
+        "linden",
+        "cut_grass",
+        "honey",
+        "dried_apricot"
+      ],
+      "purchase": {
+        "price": 880,
+        "weight": 50,
+        "harvestYear": 2024,
+        "harvestSeason": "autumn"
+      },
+      "createdAt": "2024-12-21T12:00:00Z",
+      "infusion": {
+        "body": 3,
+        "strength": 3,
+        "aftertaste": 4
+      }
+    },
+    {
+      "tea": "t19",
+      "shop": "bely-zhuravl",
+      "user": "u9",
+      "rating": 5,
+      "text": "Взяли на пробу. Сначала персик, к концу — сено. Мягкий и сладкий. Очень цельный, без провалов.",
+      "flavors": [
+        "peach",
+        "hay"
+      ],
+      "purchase": {
+        "price": 950,
+        "weight": 50,
+        "harvestYear": 2025,
+        "harvestSeason": "spring"
+      },
+      "createdAt": "2025-09-03T12:00:00Z",
+      "infusion": {
+        "body": 2,
+        "strength": 3,
+        "aftertaste": 4
+      }
+    },
+    {
+      "tea": "t20",
+      "shop": "bely-zhuravl",
+      "user": "u7",
+      "rating": 4,
+      "text": "Пробовали и проливом, и в чайнике. Отчётливо слышно: мёд, мокрый камень. Приятный, на каждый день.",
+      "flavors": [
+        "honey",
+        "wet_stone",
+        "linden"
+      ],
+      "purchase": null,
+      "createdAt": "2025-10-23T12:00:00Z"
+    },
+    {
+      "tea": "t20",
+      "shop": "bely-zhuravl",
+      "user": "u14",
+      "rating": 4,
+      "text": "Беру уже не первый раз. Сначала липа, к концу — мокрый камень. Хорош, но без восторга.",
+      "flavors": [
+        "linden",
+        "wet_stone",
+        "pear",
+        "orchid"
+      ],
+      "purchase": {
+        "price": 1140,
+        "weight": 50,
+        "harvestYear": 2025,
+        "harvestSeason": "summer"
+      },
+      "createdAt": "2025-11-10T12:00:00Z"
+    },
+    {
+      "tea": "t20",
+      "shop": "bely-zhuravl",
+      "user": "u3",
+      "rating": 3,
+      "text": "Взяли на пробу. Держит много проливов. Средне.",
+      "flavors": [],
+      "purchase": {
+        "price": 1110,
+        "weight": 50,
+        "harvestYear": 2025,
+        "harvestSeason": null
+      },
+      "createdAt": "2025-12-02T12:00:00Z",
+      "infusion": {
+        "body": 2,
+        "strength": 2,
+        "aftertaste": 4
+      }
+    },
+    {
+      "tea": "t20",
+      "shop": "bely-zhuravl",
+      "user": "u2",
+      "rating": 4,
+      "text": "Пили втроём, всем зашёл. Сначала орхидея, к концу — липа. Приятный, на каждый день.",
+      "flavors": [
+        "orchid",
+        "linden",
+        "peach",
+        "meadow_flowers"
+      ],
+      "purchase": {
+        "price": 1180,
+        "weight": 50,
+        "harvestYear": 2025,
+        "harvestSeason": null
+      },
+      "createdAt": "2026-05-13T12:00:00Z",
+      "infusion": {
+        "body": 2,
+        "strength": 3,
+        "aftertaste": 3
+      }
+    },
+    {
+      "tea": "t20",
+      "shop": "art-of-tea",
+      "user": "u7",
+      "rating": 3,
+      "text": "Беру уже не первый раз. Персик, потом — орхидея. Лист красиво раскрывается. Пить можно, но не повторим.",
+      "flavors": [
+        "peach",
+        "orchid",
+        "pear",
+        "honey"
+      ],
+      "purchase": {
+        "price": 1160,
+        "weight": 50,
+        "harvestYear": 2024,
+        "harvestSeason": "spring"
+      },
+      "createdAt": "2024-09-16T12:00:00Z"
+    },
+    {
+      "tea": "t20",
+      "shop": "art-of-tea",
+      "user": "u9",
+      "rating": 3,
+      "text": "Заваривали проливами. Держит много проливов. Пить можно, но не повторим.",
+      "flavors": [],
+      "purchase": null,
+      "createdAt": "2024-09-21T12:00:00Z"
+    },
+    {
+      "tea": "t20",
+      "shop": "art-of-tea",
+      "user": "u10",
+      "rating": 3,
+      "text": "Лист красиво раскрывается. Средне.",
+      "flavors": [],
+      "purchase": {
+        "price": 1110,
+        "weight": 50,
+        "harvestYear": 2024,
+        "harvestSeason": "summer"
+      },
+      "createdAt": "2024-11-05T12:00:00Z",
+      "infusion": {
+        "body": 2,
+        "strength": 4,
+        "aftertaste": 4
+      }
+    },
+    {
+      "tea": "t20",
+      "shop": "art-of-tea",
+      "user": "u2",
+      "rating": 4,
+      "text": "Пробовали и проливом, и в чайнике. Мокрый камень и липа — прямо с первого пролива. Держит много проливов. Приятный, на каждый день.",
+      "flavors": [
+        "wet_stone",
+        "linden"
+      ],
+      "purchase": null,
+      "createdAt": "2024-11-25T12:00:00Z"
+    },
+    {
+      "tea": "t20",
+      "shop": "art-of-tea",
+      "user": "u5",
+      "rating": 4,
+      "text": "Пили втроём, всем зашёл. Сначала сливки, к концу — жасмин. Держит много проливов. Приятный, на каждый день.",
+      "flavors": [
+        "cream",
+        "jasmine",
+        "pear"
+      ],
+      "purchase": {
+        "price": 1250,
+        "weight": 50,
+        "harvestYear": 2024,
+        "harvestSeason": "autumn"
+      },
+      "createdAt": "2025-04-25T12:00:00Z",
+      "infusion": {
+        "body": 2,
+        "strength": 2,
+        "aftertaste": 5
+      }
+    },
+    {
+      "tea": "t20",
+      "shop": "art-of-tea",
+      "user": "u3",
+      "rating": 4,
+      "text": "Заваривали в гайвани. Липа и мокрый камень — прямо с первого пролива. Крепкая четвёрка.",
+      "flavors": [
+        "linden",
+        "wet_stone"
+      ],
+      "purchase": null,
+      "createdAt": "2025-12-28T12:00:00Z",
+      "infusion": {
+        "body": 3,
+        "strength": 4,
+        "aftertaste": 5
+      }
+    },
+    {
+      "tea": "t20",
+      "shop": "art-of-tea",
+      "user": "u11",
+      "rating": 4,
+      "text": "Пробовали и проливом, и в чайнике. Луговые цветы и жасмин — прямо с первого пролива. Держит много проливов. Крепкая четвёрка.",
+      "flavors": [
+        "meadow_flowers",
+        "jasmine",
+        "linden",
+        "cream"
+      ],
+      "purchase": {
+        "price": 1330,
+        "weight": 50,
+        "harvestYear": 2025,
+        "harvestSeason": "autumn"
+      },
+      "createdAt": "2026-04-26T12:00:00Z",
+      "infusion": {
+        "body": 3,
+        "strength": 3,
+        "aftertaste": 4
+      }
+    },
+    {
+      "tea": "t20",
+      "shop": "art-of-tea",
+      "user": "u12",
+      "rating": 3,
+      "text": "Жасмин, потом — липа. Держит много проливов. Ожидания были выше.",
+      "flavors": [
+        "jasmine",
+        "linden",
+        "honey",
+        "orchid"
+      ],
+      "purchase": null,
+      "createdAt": "2026-07-15T12:00:00Z"
+    },
+    {
+      "tea": "t21",
+      "shop": "tea-harbor",
+      "user": "u10",
+      "rating": 3,
+      "text": "Отчётливо слышно: мёд, пряные травы. Ровный, но плоский.",
+      "flavors": [
+        "honey",
+        "herbs"
+      ],
+      "purchase": {
+        "price": 400,
+        "weight": 100,
+        "harvestYear": 2024,
+        "harvestSeason": "summer"
+      },
+      "createdAt": "2024-08-01T12:00:00Z",
+      "infusion": {
+        "body": 2,
+        "strength": 2,
+        "aftertaste": 2
+      }
+    },
+    {
+      "tea": "t21",
+      "shop": "tea-harbor",
+      "user": "u5",
+      "rating": 4,
+      "text": "Беру уже не первый раз. Сначала мята, к концу — мёд. Крепкая четвёрка.",
+      "flavors": [
+        "mint",
+        "honey"
+      ],
+      "purchase": null,
+      "createdAt": "2024-11-12T12:00:00Z"
+    },
+    {
+      "tea": "t21",
+      "shop": "tea-harbor",
+      "user": "u2",
+      "rating": 4,
+      "text": "В аромате — луговые цветы, во вкусе — пряные травы. Хорош вечером. Хорош, но без восторга.",
+      "flavors": [
+        "meadow_flowers",
+        "herbs"
+      ],
+      "purchase": null,
+      "createdAt": "2025-08-28T12:00:00Z"
+    },
+    {
+      "tea": "t21",
+      "shop": "tea-harbor",
+      "user": "u7",
+      "rating": 4,
+      "text": "Беру уже не первый раз. Сначала мята, к концу — варенье. Хорош, но без восторга.",
+      "flavors": [
+        "mint",
+        "jam"
+      ],
+      "purchase": {
+        "price": 440,
+        "weight": 100,
+        "harvestYear": 2025,
+        "harvestSeason": null
+      },
+      "createdAt": "2025-10-17T12:00:00Z"
+    },
+    {
+      "tea": "t21",
+      "shop": "tea-harbor",
+      "user": "u11",
+      "rating": 3,
+      "text": "Заваривали в гайвани. Отчётливо слышно: мёд, варенье. Ровный, но плоский.",
+      "flavors": [
+        "honey",
+        "jam"
+      ],
+      "purchase": {
+        "price": 490,
+        "weight": 100,
+        "harvestYear": 2026,
+        "harvestSeason": "autumn"
+      },
+      "createdAt": "2026-07-27T12:00:00Z",
+      "infusion": {
+        "body": 2,
+        "strength": 3,
+        "aftertaste": 1
+      }
+    },
+    {
+      "tea": "t21",
+      "shop": "tea-harbor",
+      "user": "u1",
+      "rating": 4,
+      "text": "Заваривали в гайвани. В аромате — варенье, во вкусе — сено. Хорош вечером. Приятный, на каждый день.",
+      "flavors": [
+        "jam",
+        "hay",
+        "herbs",
+        "meadow_flowers"
+      ],
+      "purchase": {
+        "price": 500,
+        "weight": 100,
+        "harvestYear": 2026,
+        "harvestSeason": "autumn"
+      },
+      "createdAt": "2026-08-30T12:00:00Z",
+      "infusion": {
+        "body": 2,
+        "strength": 1,
+        "aftertaste": 1
+      }
+    },
+    {
+      "tea": "t22",
+      "shop": "tea-harbor",
+      "user": "u12",
+      "rating": 5,
+      "text": "Пробовали и проливом, и в чайнике. Мёд и цитрус — прямо с первого пролива. Без кофеина — то, что надо. Один из лучших в своей категории.",
+      "flavors": [
+        "honey",
+        "citrus"
+      ],
+      "purchase": {
+        "price": 340,
+        "weight": 100,
+        "harvestYear": 2023,
+        "harvestSeason": "summer"
+      },
+      "createdAt": "2024-03-17T12:00:00Z",
+      "infusion": {
+        "body": 2,
+        "strength": 2,
+        "aftertaste": 4
+      }
+    },
+    {
+      "tea": "t22",
+      "shop": "tea-harbor",
+      "user": "u4",
+      "rating": 5,
+      "text": "Взяли на пробу. Карамель, потом — цитрус. Хорош вечером. Очень цельный, без провалов.",
+      "flavors": [
+        "caramel",
+        "citrus"
+      ],
+      "purchase": {
+        "price": 340,
+        "weight": 100,
+        "harvestYear": 2024,
+        "harvestSeason": null
+      },
+      "createdAt": "2024-06-05T12:00:00Z",
+      "infusion": {
+        "body": 2,
+        "strength": 2,
+        "aftertaste": 3
+      }
+    },
+    {
+      "tea": "t22",
+      "shop": "tea-harbor",
+      "user": "u6",
+      "rating": 5,
+      "text": "Пробовали и проливом, и в чайнике. В аромате — ваниль, во вкусе — мёд. Без кофеина — то, что надо. Возьмём ещё.",
+      "flavors": [
+        "vanilla",
+        "honey",
+        "citrus",
+        "dry_wood"
+      ],
+      "purchase": {
+        "price": 350,
+        "weight": 100,
+        "harvestYear": 2024,
+        "harvestSeason": "summer"
+      },
+      "createdAt": "2024-06-24T12:00:00Z"
+    },
+    {
+      "tea": "t22",
+      "shop": "tea-harbor",
+      "user": "u13",
+      "rating": 4,
+      "text": "Взяли на пробу. Сухое дерево, потом — мёд. Хорош вечером. Приятный, на каждый день.",
+      "flavors": [
+        "dry_wood",
+        "honey",
+        "citrus"
+      ],
+      "purchase": {
+        "price": 340,
+        "weight": 100,
+        "harvestYear": 2024,
+        "harvestSeason": "summer"
+      },
+      "createdAt": "2024-07-23T12:00:00Z",
+      "infusion": {
+        "body": 3,
+        "strength": 3,
+        "aftertaste": 1
+      }
+    },
+    {
+      "tea": "t22",
+      "shop": "tea-harbor",
+      "user": "u11",
+      "rating": 4,
+      "text": "Заваривали в гайвани. Отчётливо слышно: цитрус, ваниль. Крепкая четвёрка.",
+      "flavors": [
+        "citrus",
+        "vanilla"
+      ],
+      "purchase": null,
+      "createdAt": "2024-10-21T12:00:00Z",
+      "infusion": {
+        "body": 1,
+        "strength": 3,
+        "aftertaste": 2
+      }
+    },
+    {
+      "tea": "t22",
+      "shop": "tea-harbor",
+      "user": "u2",
+      "rating": 5,
+      "text": "Взяли на пробу. В аромате — сухое дерево, во вкусе — ваниль. Без кофеина — то, что надо. Восторг.",
+      "flavors": [
+        "dry_wood",
+        "vanilla",
+        "citrus",
+        "caramel"
+      ],
+      "purchase": {
+        "price": 380,
+        "weight": 100,
+        "harvestYear": 2024,
+        "harvestSeason": "autumn"
+      },
+      "createdAt": "2025-05-24T12:00:00Z"
+    },
+    {
+      "tea": "t22",
+      "shop": "tea-harbor",
+      "user": "u7",
+      "rating": 5,
+      "text": "Мёд и карамель — прямо с первого пролива. Возьмём ещё.",
+      "flavors": [
+        "honey",
+        "caramel"
+      ],
+      "purchase": {
+        "price": 440,
+        "weight": 100,
+        "harvestYear": 2026,
+        "harvestSeason": "summer"
+      },
+      "createdAt": "2026-09-23T12:00:00Z",
+      "infusion": {
+        "body": 2,
+        "strength": 3,
+        "aftertaste": 2
+      }
+    },
+    {
+      "tea": "t23",
+      "shop": "tea-harbor",
+      "user": "u8",
+      "rating": 5,
+      "text": "Беру уже не первый раз. Слива и карамель — прямо с первого пролива. Один из лучших в своей категории.",
+      "flavors": [
+        "plum",
+        "caramel"
+      ],
+      "purchase": {
+        "price": 580,
+        "weight": 100,
+        "harvestYear": 2025,
+        "harvestSeason": "autumn"
+      },
+      "createdAt": "2026-03-12T12:00:00Z"
+    },
+    {
+      "tea": "t23",
+      "shop": "tea-harbor",
+      "user": "u11",
+      "rating": 5,
+      "text": "Слива, потом — мёд. Очень цельный, без провалов.",
+      "flavors": [
+        "plum",
+        "honey"
+      ],
+      "purchase": {
+        "price": 590,
+        "weight": 100,
+        "harvestYear": 2026,
+        "harvestSeason": "spring"
+      },
+      "createdAt": "2026-07-03T12:00:00Z",
+      "infusion": {
+        "body": 3,
+        "strength": 3,
+        "aftertaste": 3
+      }
+    },
+    {
+      "tea": "t23",
+      "shop": "tea-harbor",
+      "user": "u14",
+      "rating": 5,
+      "text": "Заваривали в гайвани. В аромате — какао, во вкусе — слива. Держит 6–7 проливов. Восторг.",
+      "flavors": [
+        "cocoa",
+        "plum"
+      ],
+      "purchase": {
+        "price": 590,
+        "weight": 100,
+        "harvestYear": 2026,
+        "harvestSeason": "spring"
+      },
+      "createdAt": "2026-08-26T12:00:00Z",
+      "infusion": {
+        "body": 4,
+        "strength": 2,
+        "aftertaste": 5
+      }
+    },
+    {
+      "tea": "t24",
+      "shop": "tea-harbor",
+      "user": "u14",
+      "rating": 3,
+      "text": "Сначала батат, к концу — шпинат. Свежий, бодрый. Ожидания были выше.",
+      "flavors": [
+        "sweet_potato",
+        "spinach",
+        "hazelnut",
+        "chestnut"
+      ],
+      "purchase": {
+        "price": 720,
+        "weight": 50,
+        "harvestYear": 2024,
+        "harvestSeason": "autumn"
+      },
+      "createdAt": "2025-01-02T12:00:00Z",
+      "infusion": {
+        "body": 3,
+        "strength": 2,
+        "aftertaste": 2
+      }
+    },
+    {
+      "tea": "t24",
+      "shop": "tea-harbor",
+      "user": "u6",
+      "rating": 5,
+      "text": "Важно не перегреть воду. Восторг.",
+      "flavors": [],
+      "purchase": {
+        "price": 790,
+        "weight": 50,
+        "harvestYear": 2024,
+        "harvestSeason": "spring"
+      },
+      "createdAt": "2025-03-29T12:00:00Z",
+      "infusion": {
+        "body": 1,
+        "strength": 2,
+        "aftertaste": 5
+      }
+    },
+    {
+      "tea": "t24",
+      "shop": "tea-harbor",
+      "user": "u4",
+      "rating": 4,
+      "text": "Пили втроём, всем зашёл. В аромате — водоросли, во вкусе — каштан. Приятный, на каждый день.",
+      "flavors": [
+        "seaweed",
+        "chestnut",
+        "meadow_flowers",
+        "sweet_potato"
+      ],
+      "purchase": {
+        "price": 800,
+        "weight": 50,
+        "harvestYear": 2025,
+        "harvestSeason": null
+      },
+      "createdAt": "2025-09-05T12:00:00Z",
+      "infusion": {
+        "body": 3,
+        "strength": 3,
+        "aftertaste": 3
+      }
+    },
+    {
+      "tea": "t24",
+      "shop": "tea-harbor",
+      "user": "u8",
+      "rating": 4,
+      "text": "Заваривали проливами. Свежий, бодрый. Крепкая четвёрка.",
+      "flavors": [],
+      "purchase": {
+        "price": 810,
+        "weight": 50,
+        "harvestYear": 2025,
+        "harvestSeason": "autumn"
+      },
+      "createdAt": "2025-10-09T12:00:00Z",
+      "infusion": {
+        "body": 1,
+        "strength": 3,
+        "aftertaste": 3
+      }
+    },
+    {
+      "tea": "t24",
+      "shop": "bely-zhuravl",
+      "user": "u7",
+      "rating": 3,
+      "text": "Сначала горошек, к концу — водоросли. Ровный, но плоский.",
+      "flavors": [
+        "pea",
+        "seaweed",
+        "sweet_potato"
+      ],
+      "purchase": {
+        "price": 890,
+        "weight": 50,
+        "harvestYear": 2024,
+        "harvestSeason": "spring"
+      },
+      "createdAt": "2025-02-22T12:00:00Z",
+      "infusion": {
+        "body": 3,
+        "strength": 3,
+        "aftertaste": 4
+      }
+    },
+    {
+      "tea": "t24",
+      "shop": "bely-zhuravl",
+      "user": "u11",
+      "rating": 5,
+      "text": "Пили втроём, всем зашёл. Важно не перегреть воду. Возьмём ещё.",
+      "flavors": [],
+      "purchase": {
+        "price": 940,
+        "weight": 50,
+        "harvestYear": 2025,
+        "harvestSeason": null
+      },
+      "createdAt": "2025-08-19T12:00:00Z",
+      "infusion": {
+        "body": 1,
+        "strength": 3,
+        "aftertaste": 3
+      }
+    },
+    {
+      "tea": "t24",
+      "shop": "bely-zhuravl",
+      "user": "u2",
+      "rating": 4,
+      "text": "Заваривали проливами. Сначала водоросли, к концу — каштан. Свежий, бодрый. Хорош, но без восторга.",
+      "flavors": [
+        "seaweed",
+        "chestnut"
+      ],
+      "purchase": {
+        "price": 950,
+        "weight": 50,
+        "harvestYear": 2025,
+        "harvestSeason": "summer"
+      },
+      "createdAt": "2025-08-27T12:00:00Z",
+      "infusion": {
+        "body": 3,
+        "strength": 2,
+        "aftertaste": 2
+      }
+    },
+    {
+      "tea": "t24",
+      "shop": "bely-zhuravl",
+      "user": "u9",
+      "rating": 3,
+      "text": "Горошек, потом — мята. Важно не перегреть воду. Ровный, но плоский.",
+      "flavors": [
+        "pea",
+        "mint",
+        "hazelnut",
+        "spinach"
+      ],
+      "purchase": {
+        "price": 930,
+        "weight": 50,
+        "harvestYear": 2025,
+        "harvestSeason": "spring"
+      },
+      "createdAt": "2025-09-24T12:00:00Z",
+      "infusion": {
+        "body": 3,
+        "strength": 2,
+        "aftertaste": 3
+      }
+    },
+    {
+      "tea": "t24",
+      "shop": "bely-zhuravl",
+      "user": "u8",
+      "rating": 4,
+      "text": "Пили втроём, всем зашёл. Важно не перегреть воду. Крепкая четвёрка.",
+      "flavors": [],
+      "purchase": {
+        "price": 1060,
+        "weight": 50,
+        "harvestYear": 2026,
+        "harvestSeason": "autumn"
+      },
+      "createdAt": "2026-09-23T12:00:00Z"
+    },
+    {
+      "tea": "t25",
+      "shop": "tea-harbor",
+      "user": "u11",
+      "rating": 3,
+      "text": "Взяли на пробу. В аромате — слива, во вкусе — варенье. Кисло-сладкий, как и положено габе. Ровный, но плоский.",
+      "flavors": [
+        "plum",
+        "jam",
+        "raisin",
+        "apple"
+      ],
+      "purchase": null,
+      "createdAt": "2024-07-03T12:00:00Z"
+    },
+    {
+      "tea": "t25",
+      "shop": "tea-harbor",
+      "user": "u9",
+      "rating": 4,
+      "text": "Пробовали и проливом, и в чайнике. Отчётливо слышно: изюм, яблоко. Кисло-сладкий, как и положено габе. Приятный, на каждый день.",
+      "flavors": [
+        "raisin",
+        "apple",
+        "wine"
+      ],
+      "purchase": {
+        "price": 880,
+        "weight": 50,
+        "harvestYear": 2024,
+        "harvestSeason": "summer"
+      },
+      "createdAt": "2025-04-17T12:00:00Z",
+      "infusion": {
+        "body": 3,
+        "strength": 3,
+        "aftertaste": 3
+      }
+    },
+    {
+      "tea": "t25",
+      "shop": "tea-harbor",
+      "user": "u8",
+      "rating": 3,
+      "text": "Слива и курага — прямо с первого пролива. Расслабляет. Ровный, но плоский.",
+      "flavors": [
+        "plum",
+        "dried_apricot",
+        "jam"
+      ],
+      "purchase": {
+        "price": 900,
+        "weight": 50,
+        "harvestYear": 2025,
+        "harvestSeason": "summer"
+      },
+      "createdAt": "2025-09-20T12:00:00Z",
+      "infusion": {
+        "body": 4,
+        "strength": 3,
+        "aftertaste": 4
+      }
+    }
+  ],
+  "diary": [
+    {
+      "user": "u1",
+      "tea": "t1",
+      "shop": "tea-harbor",
+      "date": "2026-07-30",
+      "rating": 4,
+      "water": 93,
+      "grams": 13.0,
+      "volume": 200,
+      "infusions": 7,
+      "text": "Третий раз этот чай — стабильно хорош."
+    },
+    {
+      "user": "u1",
+      "tea": "t1",
+      "shop": "tea-harbor",
+      "date": "2026-04-26",
+      "rating": 3,
+      "water": 93,
+      "grams": 5.5,
+      "volume": 100,
+      "infusions": 7,
+      "text": "Третий раз этот чай — стабильно хорош."
+    },
+    {
+      "user": "u9",
+      "tea": "t1",
+      "shop": "art-of-tea",
+      "date": "2026-02-10",
+      "rating": 3,
+      "water": 88,
+      "grams": 12.0,
+      "volume": 200,
+      "infusions": 5,
+      "text": "На работе, в чайнике."
+    },
+    {
+      "user": "u9",
+      "tea": "t1",
+      "shop": "tea-harbor",
+      "date": "2025-04-16",
+      "rating": 3,
+      "water": 98,
+      "grams": 14.5,
+      "volume": null,
+      "infusions": 8,
+      "text": "Гайвань, утро."
+    },
+    {
+      "user": "u1",
+      "tea": "t2",
+      "shop": "art-of-tea",
+      "date": "2026-05-14",
+      "rating": 4,
+      "water": 88,
+      "grams": 6.0,
+      "volume": 120,
+      "infusions": 6,
+      "text": "Третий раз этот чай — стабильно хорош."
+    },
+    {
+      "user": "u1",
+      "tea": "t2",
+      "shop": "art-of-tea",
+      "date": "2025-01-01",
+      "rating": 4,
+      "water": 93,
+      "grams": 19.5,
+      "volume": 300,
+      "infusions": 5,
+      "text": "Гайвань, утро."
+    },
+    {
+      "user": "u5",
+      "tea": "t2",
+      "shop": "art-of-tea",
+      "date": "2026-07-28",
+      "rating": 5,
+      "water": 95,
+      "grams": 6.5,
+      "volume": 100,
+      "infusions": 7,
+      "text": ""
+    },
+    {
+      "user": "u1",
+      "tea": "t3",
+      "shop": "bely-zhuravl",
+      "date": "2025-07-21",
+      "rating": 4,
+      "water": 88,
+      "grams": 8.5,
+      "volume": 150,
+      "infusions": 8,
+      "text": "Чахай после третьего пролива."
+    },
+    {
+      "user": "u13",
+      "tea": "t3",
+      "shop": "bely-zhuravl",
+      "date": "2026-02-15",
+      "rating": 4,
+      "water": 93,
+      "grams": 7.0,
+      "volume": 120,
+      "infusions": 8,
+      "text": "Заварил покрепче, чем обычно."
+    },
+    {
+      "user": "u13",
+      "tea": "t3",
+      "shop": "bely-zhuravl",
+      "date": "2026-02-28",
+      "rating": 5,
+      "water": 93,
+      "grams": 5.5,
+      "volume": 100,
+      "infusions": 8,
+      "text": ""
+    },
+    {
+      "user": "u2",
+      "tea": "t3",
+      "shop": "art-of-tea",
+      "date": "2025-07-30",
+      "rating": 3,
+      "water": 93,
+      "grams": 15.5,
+      "volume": 200,
+      "infusions": 8,
+      "text": "Чахай после третьего пролива."
+    },
+    {
+      "user": "u9",
+      "tea": "t3",
+      "shop": "bely-zhuravl",
+      "date": "2026-01-10",
+      "rating": 4,
+      "water": 88,
+      "grams": 5.5,
+      "volume": 100,
+      "infusions": 8,
+      "text": "Гайвань, утро."
+    },
+    {
+      "user": "u5",
+      "tea": "t3",
+      "shop": "art-of-tea",
+      "date": "2025-02-11",
+      "rating": 4,
+      "water": 93,
+      "grams": 8.0,
+      "volume": 100,
+      "infusions": 6,
+      "text": "Гайвань, утро."
+    },
+    {
+      "user": "u3",
+      "tea": "t5",
+      "shop": "bely-zhuravl",
+      "date": "2025-08-01",
+      "rating": 3,
+      "water": 76,
+      "grams": 3.5,
+      "volume": 100,
+      "infusions": 2,
+      "text": "Пили с друзьями."
+    },
+    {
+      "user": "u13",
+      "tea": "t5",
+      "shop": "art-of-tea",
+      "date": "2025-08-24",
+      "rating": 5,
+      "water": 73,
+      "grams": 5.5,
+      "volume": 150,
+      "infusions": 3,
+      "text": ""
+    },
+    {
+      "user": "u13",
+      "tea": "t5",
+      "shop": "bely-zhuravl",
+      "date": "2026-04-03",
+      "rating": 4,
+      "water": 73,
+      "grams": 4.5,
+      "volume": 100,
+      "infusions": 3,
+      "text": "На работе, в чайнике."
+    },
+    {
+      "user": "u10",
+      "tea": "t5",
+      "shop": "art-of-tea",
+      "date": "2025-08-15",
+      "rating": 5,
+      "water": 73,
+      "grams": 6.5,
+      "volume": 200,
+      "infusions": 4,
+      "text": "Заварил покрепче, чем обычно."
+    },
+    {
+      "user": "u10",
+      "tea": "t5",
+      "shop": "art-of-tea",
+      "date": "2025-08-03",
+      "rating": 5,
+      "water": 83,
+      "grams": 7.5,
+      "volume": 200,
+      "infusions": 4,
+      "text": "Заварил покрепче, чем обычно."
+    },
+    {
+      "user": "u12",
+      "tea": "t5",
+      "shop": "art-of-tea",
+      "date": "2026-03-21",
+      "rating": 5,
+      "water": 80,
+      "grams": 4.0,
+      "volume": 100,
+      "infusions": 2,
+      "text": "Гайвань, утро."
+    },
+    {
+      "user": "u9",
+      "tea": "t6",
+      "shop": "tea-harbor",
+      "date": "2026-02-18",
+      "rating": 4,
+      "water": 91,
+      "grams": 4.5,
+      "volume": 100,
+      "infusions": 4,
+      "text": "Гайвань, утро."
+    },
+    {
+      "user": "u9",
+      "tea": "t6",
+      "shop": "daochain",
+      "date": "2026-03-26",
+      "rating": 4,
+      "water": 95,
+      "grams": 4.0,
+      "volume": 100,
+      "infusions": 6,
+      "text": ""
+    },
+    {
+      "user": "u4",
+      "tea": "t6",
+      "shop": "daochain",
+      "date": "2025-04-23",
+      "rating": 5,
+      "water": 93,
+      "grams": 9.5,
+      "volume": 200,
+      "infusions": 7,
+      "text": ""
+    },
+    {
+      "user": "u6",
+      "tea": "t7",
+      "shop": "daochain",
+      "date": "2025-07-09",
+      "rating": 5,
+      "water": 93,
+      "grams": 5.5,
+      "volume": 100,
+      "infusions": 4,
+      "text": ""
+    },
+    {
+      "user": "u3",
+      "tea": "t7",
+      "shop": "daochain",
+      "date": "2025-10-27",
+      "rating": 4,
+      "water": 93,
+      "grams": 3.5,
+      "volume": 100,
+      "infusions": 5,
+      "text": "Заварил покрепче, чем обычно."
+    },
+    {
+      "user": "u7",
+      "tea": "t7",
+      "shop": "daochain",
+      "date": "2025-12-02",
+      "rating": 5,
+      "water": 91,
+      "grams": 9.0,
+      "volume": 200,
+      "infusions": 7,
+      "text": "На работе, в чайнике."
+    },
+    {
+      "user": "u10",
+      "tea": "t7",
+      "shop": "daochain",
+      "date": "2025-09-06",
+      "rating": 4,
+      "water": 88,
+      "grams": 8.0,
+      "volume": 150,
+      "infusions": 4,
+      "text": "Гайвань, утро."
+    },
+    {
+      "user": "u10",
+      "tea": "t7",
+      "shop": "daochain",
+      "date": "2025-03-20",
+      "rating": 5,
+      "water": 91,
+      "grams": 4.5,
+      "volume": 120,
+      "infusions": 6,
+      "text": ""
+    },
+    {
+      "user": "u14",
+      "tea": "t7",
+      "shop": "daochain",
+      "date": "2026-07-01",
+      "rating": 3,
+      "water": 93,
+      "grams": 6.0,
+      "volume": 150,
+      "infusions": 7,
+      "text": "Заварил покрепче, чем обычно."
+    },
+    {
+      "user": "u13",
+      "tea": "t7",
+      "shop": "daochain",
+      "date": "2026-05-20",
+      "rating": 5,
+      "water": 93,
+      "grams": 4.5,
+      "volume": 100,
+      "infusions": 8,
+      "text": "Заварил покрепче, чем обычно."
+    },
+    {
+      "user": "u2",
+      "tea": "t8",
+      "shop": "daochain",
+      "date": "2025-09-09",
+      "rating": 5,
+      "water": 98,
+      "grams": 14.5,
+      "volume": 300,
+      "infusions": 6,
+      "text": "Чахай после третьего пролива."
+    },
+    {
+      "user": "u8",
+      "tea": "t8",
+      "shop": "daochain",
+      "date": "2025-01-15",
+      "rating": 5,
+      "water": 98,
+      "grams": 8.5,
+      "volume": 200,
+      "infusions": 5,
+      "text": "Третий раз этот чай — стабильно хорош."
+    },
+    {
+      "user": "u8",
+      "tea": "t8",
+      "shop": "daochain",
+      "date": "2026-05-24",
+      "rating": 5,
+      "water": 95,
+      "grams": 6.0,
+      "volume": 120,
+      "infusions": 7,
+      "text": "Пили с друзьями."
+    },
+    {
+      "user": "u5",
+      "tea": "t8",
+      "shop": "daochain",
+      "date": "2025-11-22",
+      "rating": 4,
+      "water": 98,
+      "grams": 4.5,
+      "volume": 120,
+      "infusions": 5,
+      "text": "Вечером, без спешки."
+    },
+    {
+      "user": "u5",
+      "tea": "t8",
+      "shop": "daochain",
+      "date": "2025-12-29",
+      "rating": 4,
+      "water": 93,
+      "grams": 4.5,
+      "volume": 100,
+      "infusions": 6,
+      "text": ""
+    },
+    {
+      "user": "u3",
+      "tea": "t9",
+      "shop": "gorny-list",
+      "date": "2026-04-21",
+      "rating": 3,
+      "water": 100,
+      "grams": 11.5,
+      "volume": 200,
+      "infusions": 9,
+      "text": ""
+    },
+    {
+      "user": "u11",
+      "tea": "t9",
+      "shop": "gorny-list",
+      "date": "2025-09-25",
+      "rating": 5,
+      "water": 98,
+      "grams": 7.0,
+      "volume": 100,
+      "infusions": 7,
+      "text": ""
+    },
+    {
+      "user": "u14",
+      "tea": "t9",
+      "shop": "daochain",
+      "date": "2025-08-29",
+      "rating": 3,
+      "water": 100,
+      "grams": 9.5,
+      "volume": 120,
+      "infusions": 7,
+      "text": "Гайвань, утро."
+    },
+    {
+      "user": "u2",
+      "tea": "t9",
+      "shop": "daochain",
+      "date": "2026-09-05",
+      "rating": 5,
+      "water": 98,
+      "grams": 10.0,
+      "volume": 150,
+      "infusions": 9,
+      "text": "Гайвань, утро."
+    },
+    {
+      "user": "u3",
+      "tea": "t11",
+      "shop": "gorny-list",
+      "date": "2025-06-26",
+      "rating": 4,
+      "water": 98,
+      "grams": 9.5,
+      "volume": null,
+      "infusions": 10,
+      "text": "Заварил покрепче, чем обычно."
+    },
+    {
+      "user": "u3",
+      "tea": "t11",
+      "shop": "gorny-list",
+      "date": "2025-03-29",
+      "rating": 5,
+      "water": 98,
+      "grams": 9.5,
+      "volume": 150,
+      "infusions": 11,
+      "text": "Заварил покрепче, чем обычно."
+    },
+    {
+      "user": "u9",
+      "tea": "t11",
+      "shop": "gorny-list",
+      "date": "2026-10-01",
+      "rating": 3,
+      "water": 96,
+      "grams": 6.0,
+      "volume": null,
+      "infusions": 9,
+      "text": "Чахай после третьего пролива."
+    },
+    {
+      "user": "u14",
+      "tea": "t12",
+      "shop": "gorny-list",
+      "date": "2026-06-15",
+      "rating": 4,
+      "water": 98,
+      "grams": 7.0,
+      "volume": null,
+      "infusions": 7,
+      "text": ""
+    },
+    {
+      "user": "u14",
+      "tea": "t12",
+      "shop": "gorny-list",
+      "date": "2025-04-15",
+      "rating": 4,
+      "water": 96,
+      "grams": 7.5,
+      "volume": 120,
+      "infusions": 11,
+      "text": ""
+    },
+    {
+      "user": "u5",
+      "tea": "t12",
+      "shop": "gorny-list",
+      "date": "2025-01-18",
+      "rating": 4,
+      "water": 96,
+      "grams": 9.5,
+      "volume": 150,
+      "infusions": 9,
+      "text": "На работе, в чайнике."
+    },
+    {
+      "user": "u3",
+      "tea": "t12",
+      "shop": "gorny-list",
+      "date": "2025-12-18",
+      "rating": 4,
+      "water": 98,
+      "grams": 6.0,
+      "volume": null,
+      "infusions": 9,
+      "text": "Заварил покрепче, чем обычно."
+    },
+    {
+      "user": "u14",
+      "tea": "t15",
+      "shop": "gorny-list",
+      "date": "2026-03-01",
+      "rating": 5,
+      "water": 98,
+      "grams": 4.0,
+      "volume": 100,
+      "infusions": 6,
+      "text": ""
+    },
+    {
+      "user": "u3",
+      "tea": "t15",
+      "shop": "gorny-list",
+      "date": "2025-09-03",
+      "rating": 3,
+      "water": 88,
+      "grams": 16.0,
+      "volume": 300,
+      "infusions": 4,
+      "text": "Третий раз этот чай — стабильно хорош."
+    },
+    {
+      "user": "u6",
+      "tea": "t16",
+      "shop": "bely-zhuravl",
+      "date": "2025-03-05",
+      "rating": 4,
+      "water": 80,
+      "grams": 4.0,
+      "volume": 120,
+      "infusions": 4,
+      "text": "На работе, в чайнике."
+    },
+    {
+      "user": "u4",
+      "tea": "t16",
+      "shop": "bely-zhuravl",
+      "date": "2025-01-09",
+      "rating": 5,
+      "water": 73,
+      "grams": 5.5,
+      "volume": 200,
+      "infusions": 2,
+      "text": "Гайвань, утро."
+    },
+    {
+      "user": "u4",
+      "tea": "t16",
+      "shop": "bely-zhuravl",
+      "date": "2025-10-07",
+      "rating": 3,
+      "water": 83,
+      "grams": 4.5,
+      "volume": 150,
+      "infusions": 4,
+      "text": ""
+    },
+    {
+      "user": "u2",
+      "tea": "t16",
+      "shop": "bely-zhuravl",
+      "date": "2026-04-09",
+      "rating": 5,
+      "water": 76,
+      "grams": 3.5,
+      "volume": 100,
+      "infusions": 6,
+      "text": "Гайвань, утро."
+    },
+    {
+      "user": "u2",
+      "tea": "t16",
+      "shop": "bely-zhuravl",
+      "date": "2026-06-08",
+      "rating": 5,
+      "water": 78,
+      "grams": 6.5,
+      "volume": 150,
+      "infusions": 5,
+      "text": "Гайвань, утро."
+    },
+    {
+      "user": "u9",
+      "tea": "t16",
+      "shop": "bely-zhuravl",
+      "date": "2026-08-23",
+      "rating": 3,
+      "water": 73,
+      "grams": 4.0,
+      "volume": null,
+      "infusions": 2,
+      "text": "Гайвань, утро."
+    },
+    {
+      "user": "u9",
+      "tea": "t16",
+      "shop": "bely-zhuravl",
+      "date": "2026-01-07",
+      "rating": 4,
+      "water": 80,
+      "grams": 4.5,
+      "volume": 150,
+      "infusions": 3,
+      "text": "Чахай после третьего пролива."
+    },
+    {
+      "user": "u11",
+      "tea": "t16",
+      "shop": "bely-zhuravl",
+      "date": "2026-03-28",
+      "rating": 5,
+      "water": 73,
+      "grams": 4.5,
+      "volume": null,
+      "infusions": 3,
+      "text": "Заварил покрепче, чем обычно."
+    },
+    {
+      "user": "u14",
+      "tea": "t16",
+      "shop": "bely-zhuravl",
+      "date": "2025-12-10",
+      "rating": 4,
+      "water": 78,
+      "grams": 6.5,
+      "volume": 150,
+      "infusions": 5,
+      "text": ""
+    },
+    {
+      "user": "u4",
+      "tea": "t17",
+      "shop": "bely-zhuravl",
+      "date": "2025-09-08",
+      "rating": 4,
+      "water": 80,
+      "grams": 10.5,
+      "volume": 300,
+      "infusions": 4,
+      "text": ""
+    },
+    {
+      "user": "u4",
+      "tea": "t17",
+      "shop": "bely-zhuravl",
+      "date": "2025-08-19",
+      "rating": 5,
+      "water": 73,
+      "grams": 4.0,
+      "volume": 150,
+      "infusions": 2,
+      "text": "Заварил покрепче, чем обычно."
+    },
+    {
+      "user": "u10",
+      "tea": "t17",
+      "shop": "bely-zhuravl",
+      "date": "2025-09-25",
+      "rating": 4,
+      "water": 83,
+      "grams": 6.0,
+      "volume": 200,
+      "infusions": 2,
+      "text": "Гайвань, утро."
+    },
+    {
+      "user": "u13",
+      "tea": "t17",
+      "shop": "bely-zhuravl",
+      "date": "2025-07-16",
+      "rating": 4,
+      "water": 83,
+      "grams": 4.0,
+      "volume": 100,
+      "infusions": 3,
+      "text": ""
+    },
+    {
+      "user": "u13",
+      "tea": "t17",
+      "shop": "bely-zhuravl",
+      "date": "2025-10-19",
+      "rating": 5,
+      "water": 78,
+      "grams": 4.5,
+      "volume": 100,
+      "infusions": 3,
+      "text": "На работе, в чайнике."
+    },
+    {
+      "user": "u9",
+      "tea": "t17",
+      "shop": "bely-zhuravl",
+      "date": "2026-01-31",
+      "rating": 4,
+      "water": 78,
+      "grams": 5.5,
+      "volume": 150,
+      "infusions": 5,
+      "text": ""
+    },
+    {
+      "user": "u13",
+      "tea": "t18",
+      "shop": "bely-zhuravl",
+      "date": "2026-04-25",
+      "rating": 5,
+      "water": 93,
+      "grams": 6.5,
+      "volume": 150,
+      "infusions": 6,
+      "text": "Чахай после третьего пролива."
+    },
+    {
+      "user": "u11",
+      "tea": "t18",
+      "shop": "bely-zhuravl",
+      "date": "2026-03-16",
+      "rating": 5,
+      "water": 90,
+      "grams": 5.5,
+      "volume": 120,
+      "infusions": 5,
+      "text": "Гайвань, утро."
+    },
+    {
+      "user": "u11",
+      "tea": "t18",
+      "shop": "bely-zhuravl",
+      "date": "2026-02-24",
+      "rating": 5,
+      "water": 86,
+      "grams": 5.5,
+      "volume": 120,
+      "infusions": 8,
+      "text": "На работе, в чайнике."
+    },
+    {
+      "user": "u3",
+      "tea": "t18",
+      "shop": "bely-zhuravl",
+      "date": "2025-04-04",
+      "rating": 4,
+      "water": 90,
+      "grams": 5.0,
+      "volume": 100,
+      "infusions": 5,
+      "text": ""
+    },
+    {
+      "user": "u1",
+      "tea": "t19",
+      "shop": "bely-zhuravl",
+      "date": "2025-07-09",
+      "rating": 5,
+      "water": 88,
+      "grams": 4.5,
+      "volume": 100,
+      "infusions": 6,
+      "text": "Третий раз этот чай — стабильно хорош."
+    },
+    {
+      "user": "u1",
+      "tea": "t19",
+      "shop": "bely-zhuravl",
+      "date": "2025-03-01",
+      "rating": 4,
+      "water": 90,
+      "grams": 5.5,
+      "volume": 100,
+      "infusions": 6,
+      "text": "Чахай после третьего пролива."
+    },
+    {
+      "user": "u7",
+      "tea": "t19",
+      "shop": "bely-zhuravl",
+      "date": "2025-02-06",
+      "rating": 5,
+      "water": 86,
+      "grams": 4.5,
+      "volume": 120,
+      "infusions": 6,
+      "text": "Заварил покрепче, чем обычно."
+    },
+    {
+      "user": "u7",
+      "tea": "t19",
+      "shop": "bely-zhuravl",
+      "date": "2025-10-06",
+      "rating": 3,
+      "water": 93,
+      "grams": 11.5,
+      "volume": 300,
+      "infusions": 7,
+      "text": "Пили с друзьями."
+    },
+    {
+      "user": "u14",
+      "tea": "t19",
+      "shop": "bely-zhuravl",
+      "date": "2026-05-09",
+      "rating": 4,
+      "water": 86,
+      "grams": 8.0,
+      "volume": 150,
+      "infusions": 5,
+      "text": "Вечером, без спешки."
+    },
+    {
+      "user": "u14",
+      "tea": "t19",
+      "shop": "bely-zhuravl",
+      "date": "2026-11-01",
+      "rating": 3,
+      "water": 88,
+      "grams": 7.5,
+      "volume": 200,
+      "infusions": 5,
+      "text": ""
+    },
+    {
+      "user": "u5",
+      "tea": "t19",
+      "shop": "bely-zhuravl",
+      "date": "2025-11-27",
+      "rating": 5,
+      "water": 90,
+      "grams": 6.0,
+      "volume": 120,
+      "infusions": 8,
+      "text": "Пили с друзьями."
+    },
+    {
+      "user": "u13",
+      "tea": "t19",
+      "shop": "bely-zhuravl",
+      "date": "2026-07-23",
+      "rating": 4,
+      "water": 88,
+      "grams": 8.5,
+      "volume": null,
+      "infusions": 4,
+      "text": "Заварил покрепче, чем обычно."
+    },
+    {
+      "user": "u13",
+      "tea": "t19",
+      "shop": "bely-zhuravl",
+      "date": "2026-04-05",
+      "rating": 4,
+      "water": 83,
+      "grams": 17.0,
+      "volume": 300,
+      "infusions": 6,
+      "text": "Гайвань, утро."
+    },
+    {
+      "user": "u7",
+      "tea": "t20",
+      "shop": "bely-zhuravl",
+      "date": "2026-08-24",
+      "rating": 4,
+      "water": 95,
+      "grams": 6.0,
+      "volume": 100,
+      "infusions": 6,
+      "text": "Третий раз этот чай — стабильно хорош."
+    },
+    {
+      "user": "u7",
+      "tea": "t20",
+      "shop": "art-of-tea",
+      "date": "2025-11-06",
+      "rating": 5,
+      "water": 98,
+      "grams": 9.0,
+      "volume": 150,
+      "infusions": 10,
+      "text": ""
+    },
+    {
+      "user": "u6",
+      "tea": "t20",
+      "shop": "art-of-tea",
+      "date": "2025-11-14",
+      "rating": 4,
+      "water": 95,
+      "grams": 8.0,
+      "volume": 120,
+      "infusions": 6,
+      "text": ""
+    },
+    {
+      "user": "u6",
+      "tea": "t20",
+      "shop": "art-of-tea",
+      "date": "2025-09-18",
+      "rating": 5,
+      "water": 98,
+      "grams": 10.0,
+      "volume": 150,
+      "infusions": 9,
+      "text": "Пили с друзьями."
+    },
+    {
+      "user": "u10",
+      "tea": "t20",
+      "shop": "bely-zhuravl",
+      "date": "2026-08-22",
+      "rating": 4,
+      "water": 93,
+      "grams": 14.5,
+      "volume": 200,
+      "infusions": 9,
+      "text": "Чахай после третьего пролива."
+    },
+    {
+      "user": "u10",
+      "tea": "t20",
+      "shop": "art-of-tea",
+      "date": "2025-04-11",
+      "rating": 4,
+      "water": 88,
+      "grams": 20.5,
+      "volume": null,
+      "infusions": 10,
+      "text": ""
+    },
+    {
+      "user": "u2",
+      "tea": "t20",
+      "shop": "art-of-tea",
+      "date": "2026-09-03",
+      "rating": 5,
+      "water": 88,
+      "grams": 20.5,
+      "volume": 300,
+      "infusions": 6,
+      "text": ""
+    },
+    {
+      "user": "u3",
+      "tea": "t20",
+      "shop": "art-of-tea",
+      "date": "2026-03-23",
+      "rating": 4,
+      "water": 93,
+      "grams": 10.5,
+      "volume": 200,
+      "infusions": 6,
+      "text": "Третий раз этот чай — стабильно хорош."
+    },
+    {
+      "user": "u6",
+      "tea": "t21",
+      "shop": "tea-harbor",
+      "date": "2025-08-27",
+      "rating": 4,
+      "water": 96,
+      "grams": 5.5,
+      "volume": 150,
+      "infusions": 4,
+      "text": "Заварил покрепче, чем обычно."
+    },
+    {
+      "user": "u10",
+      "tea": "t21",
+      "shop": "tea-harbor",
+      "date": "2026-09-29",
+      "rating": 3,
+      "water": 100,
+      "grams": 5.5,
+      "volume": null,
+      "infusions": 2,
+      "text": ""
+    },
+    {
+      "user": "u10",
+      "tea": "t21",
+      "shop": "tea-harbor",
+      "date": "2026-09-20",
+      "rating": 4,
+      "water": 100,
+      "grams": 4.0,
+      "volume": 100,
+      "infusions": 1,
+      "text": "Гайвань, утро."
+    },
+    {
+      "user": "u4",
+      "tea": "t21",
+      "shop": "tea-harbor",
+      "date": "2025-09-08",
+      "rating": 3,
+      "water": 100,
+      "grams": 3.0,
+      "volume": 100,
+      "infusions": 1,
+      "text": "На работе, в чайнике."
+    },
+    {
+      "user": "u4",
+      "tea": "t21",
+      "shop": "tea-harbor",
+      "date": "2026-06-07",
+      "rating": 5,
+      "water": 93,
+      "grams": 3.0,
+      "volume": 100,
+      "infusions": 2,
+      "text": "Чахай после третьего пролива."
+    },
+    {
+      "user": "u7",
+      "tea": "t21",
+      "shop": "tea-harbor",
+      "date": "2025-04-12",
+      "rating": 5,
+      "water": 98,
+      "grams": 8.5,
+      "volume": 200,
+      "infusions": 2,
+      "text": "Третий раз этот чай — стабильно хорош."
+    },
+    {
+      "user": "u7",
+      "tea": "t21",
+      "shop": "tea-harbor",
+      "date": "2025-03-29",
+      "rating": 5,
+      "water": 98,
+      "grams": 4.0,
+      "volume": 100,
+      "infusions": 1,
+      "text": "Пили с друзьями."
+    },
+    {
+      "user": "u12",
+      "tea": "t21",
+      "shop": "tea-harbor",
+      "date": "2026-01-06",
+      "rating": 4,
+      "water": 96,
+      "grams": 4.0,
+      "volume": 100,
+      "infusions": 4,
+      "text": "Вечером, без спешки."
+    },
+    {
+      "user": "u12",
+      "tea": "t21",
+      "shop": "tea-harbor",
+      "date": "2025-12-01",
+      "rating": 5,
+      "water": 93,
+      "grams": 8.0,
+      "volume": null,
+      "infusions": 3,
+      "text": "Пили с друзьями."
+    },
+    {
+      "user": "u14",
+      "tea": "t24",
+      "shop": "bely-zhuravl",
+      "date": "2026-01-15",
+      "rating": 4,
+      "water": 73,
+      "grams": 10.5,
+      "volume": 300,
+      "infusions": 6,
+      "text": ""
+    },
+    {
+      "user": "u14",
+      "tea": "t24",
+      "shop": "tea-harbor",
+      "date": "2025-05-05",
+      "rating": 4,
+      "water": 80,
+      "grams": 6.0,
+      "volume": null,
+      "infusions": 6,
+      "text": ""
+    },
+    {
+      "user": "u8",
+      "tea": "t24",
+      "shop": "tea-harbor",
+      "date": "2026-03-22",
+      "rating": 4,
+      "water": 76,
+      "grams": 12.0,
+      "volume": 300,
+      "infusions": 4,
+      "text": "Пили с друзьями."
+    },
+    {
+      "user": "u12",
+      "tea": "t24",
+      "shop": "bely-zhuravl",
+      "date": "2025-03-18",
+      "rating": 4,
+      "water": 78,
+      "grams": 10.0,
+      "volume": 300,
+      "infusions": 4,
+      "text": "Чахай после третьего пролива."
+    },
+    {
+      "user": "u12",
+      "tea": "t24",
+      "shop": "tea-harbor",
+      "date": "2026-09-07",
+      "rating": 3,
+      "water": 76,
+      "grams": 12.0,
+      "volume": 300,
+      "infusions": 4,
+      "text": "Вечером, без спешки."
+    },
+    {
+      "user": "u1",
+      "tea": "t24",
+      "shop": "bely-zhuravl",
+      "date": "2025-03-24",
+      "rating": 4,
+      "water": 83,
+      "grams": 9.5,
+      "volume": 300,
+      "infusions": 4,
+      "text": "На работе, в чайнике."
+    },
+    {
+      "user": "u1",
+      "tea": "t24",
+      "shop": "bely-zhuravl",
+      "date": "2026-06-06",
+      "rating": 5,
+      "water": 80,
+      "grams": 6.5,
+      "volume": null,
+      "infusions": 3,
+      "text": "Чахай после третьего пролива."
+    },
+    {
+      "user": "u5",
+      "tea": "t24",
+      "shop": "bely-zhuravl",
+      "date": "2025-05-21",
+      "rating": 3,
+      "water": 73,
+      "grams": 4.5,
+      "volume": 120,
+      "infusions": 4,
+      "text": ""
+    },
+    {
+      "user": "u5",
+      "tea": "t24",
+      "shop": "tea-harbor",
+      "date": "2026-07-29",
+      "rating": 4,
+      "water": 83,
+      "grams": 6.0,
+      "volume": null,
+      "infusions": 4,
+      "text": "Пили с друзьями."
+    },
+    {
+      "user": "u11",
+      "tea": "t25",
+      "shop": "tea-harbor",
+      "date": "2026-07-03",
+      "rating": 5,
+      "water": 93,
+      "grams": 7.0,
+      "volume": 120,
+      "infusions": 8,
+      "text": "Пили с друзьями."
+    },
+    {
+      "user": "u11",
+      "tea": "t25",
+      "shop": "tea-harbor",
+      "date": "2025-06-03",
+      "rating": 5,
+      "water": 91,
+      "grams": 5.5,
+      "volume": 100,
+      "infusions": 6,
+      "text": "Заварил покрепче, чем обычно."
+    },
+    {
+      "user": "u8",
+      "tea": "t25",
+      "shop": "tea-harbor",
+      "date": "2025-06-08",
+      "rating": 4,
+      "water": 93,
+      "grams": 6.0,
+      "volume": 120,
+      "infusions": 5,
+      "text": "На работе, в чайнике."
+    },
+    {
+      "user": "u8",
+      "tea": "t25",
+      "shop": "tea-harbor",
+      "date": "2026-05-06",
+      "rating": 4,
+      "water": 91,
+      "grams": 6.0,
+      "volume": null,
+      "infusions": 6,
+      "text": "На работе, в чайнике."
+    },
+    {
+      "user": "u13",
+      "tea": "t25",
+      "shop": "tea-harbor",
+      "date": "2025-04-05",
+      "rating": 4,
+      "water": 93,
+      "grams": 8.5,
+      "volume": null,
+      "infusions": 9,
+      "text": "На работе, в чайнике."
+    },
+    {
+      "user": "u13",
+      "tea": "t25",
+      "shop": "tea-harbor",
+      "date": "2026-06-18",
+      "rating": 4,
+      "water": 93,
+      "grams": 9.0,
+      "volume": 200,
+      "infusions": 9,
+      "text": ""
+    },
+    {
+      "user": "u9",
+      "tea": "t25",
+      "shop": "tea-harbor",
+      "date": "2025-02-03",
+      "rating": 5,
+      "water": 93,
+      "grams": 10.0,
+      "volume": null,
+      "infusions": 7,
+      "text": ""
+    }
+  ]
+}

@@ -1,0 +1,71 @@
+services:
+  db:
+    image: postgres:16-alpine
+    container_name: tea_rates-db
+    # POSTGRES_USER / POSTGRES_PASSWORD / POSTGRES_DB — из .env в корне проекта
+    env_file: ../.env
+    ports:
+      # Наружу — 5433 (5432 часто занят локальным Postgres), только на localhost.
+      # Контейнеры внутри compose ходят по db:5432.
+      - "127.0.0.1:5433:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      # $$ — чтобы переменные раскрыл shell внутри контейнера, а не compose
+      test: ["CMD-SHELL", "pg_isready -U \"$${POSTGRES_USER}\" -d \"$${POSTGRES_DB}\""]
+      interval: 2s
+      timeout: 3s
+      retries: 30
+
+  backend:
+    build:
+      context: ..
+      dockerfile: deploy/Dockerfile
+    container_name: tea_rates-backend
+    # --reload перезапускает uvicorn при любом изменении в back/
+    command: uvicorn back.main:app --host 0.0.0.0 --port 8000 --reload --reload-dir /app/back
+    env_file: ../.env
+    # Поверх .env — то, что отличается внутри Docker
+    environment:
+      POSTGRES_HOST: db
+      POSTGRES_PORT: "5432"
+      FRONT_DIST: /app/front/dist
+      MEDIA_DIR: /app/media
+      # Поллинг файлов: без него reload может не срабатывать на Docker Desktop (Mac/Windows)
+      WATCHFILES_FORCE_POLLING: "true"
+    ports:
+      - "8000:8000"
+    volumes:
+      - ../back:/app/back
+      - ../front:/app/front:ro
+      # Фото к отзывам — в именованном томе: переживают пересборку и пересоздание контейнера
+      - media:/app/media
+    depends_on:
+      db:
+        condition: service_healthy
+
+  frontend:
+    # Пересобирает front/dist при каждом изменении src — бэкенд сразу отдаёт свежую версию
+    # (после правки достаточно обновить страницу). Не alpine: нативный модуль сборщика под glibc.
+    image: node:22-slim
+    container_name: tea_rates-frontend
+    working_dir: /app
+    user: "${UID:-1000}:${GID:-1000}"
+    environment:
+      HOME: /tmp
+    command: sh -c "npm install --no-audit --no-fund && npx vite build --watch"
+    volumes:
+      - ../front:/app
+
+volumes:
+  pgdata:
+  media:
+
+networks:
+  default:
+    # Подсеть задана явно: при включённом VPN (маршруты 0.0.0.0/1 + 128.0.0.0/1)
+    # Docker не может сам подобрать свободную и падает с «all predefined address pools
+    # have been fully subnetted». Явную подсеть он создаёт без этой проверки.
+    ipam:
+      config:
+        - subnet: 172.30.0.0/24

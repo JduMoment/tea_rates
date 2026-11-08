@@ -1,0 +1,26 @@
+[project]
+name = "tea_rates"
+version = "0.1.0"
+description = ""
+authors = [
+    {name = "Курагин Иван",email = "i.kuragin@ssphere.ru"}
+]
+readme = "README.md"
+requires-python = "^3.12"
+dependencies = [
+    "fastapi (>=0.141.1,<0.142.0)",
+    "sqlalchemy (>=2.0.52,<3.0.0)",
+    "uvicorn (>=0.52.3,<0.53.0)",
+    "asyncpg (>=0.31.0,<0.32.0)",
+    "ruff (>=0.16.3,<0.17.0)",
+    "pydantic (>=2.13.4,<3.0.0)",
+    "python-dotenv (>=1.2.2,<2.0.0)",
+    "httpx (>=0.28,<0.29)",
+    "pillow (>=12,<13)",
+    "python-multipart (>=0.0.20,<0.1)"
+]
+
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
