@@ -138,6 +138,12 @@ p {
   gap: 12px;
   grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
 }
+/* Десять видов — два ровных ряда по пять */
+@media (min-width: 900px) {
+  .grid-cats {
+    grid-template-columns: repeat(5, 1fr);
+  }
+}
 
 /* ---------- кнопки и поля ---------- */
 
@@ -362,9 +368,10 @@ p {
   font-family: var(--display);
   font-size: 28px;
 }
+/* Знак — розетка из пяти листьев (public/favicon.svg), без надписи */
 .logo-mark {
-  width: 40px;
-  height: 40px;
+  width: 44px;
+  height: 44px;
   display: block;
 }
 .nav {
@@ -462,6 +469,33 @@ p {
   align-items: center;
   justify-content: center;
   transition: transform 0.15s ease;
+}
+/* Фото чая занимает всю плашку; стикеры и место — поверх */
+.tea-photo {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: inherit;
+}
+.tea-art .sticker,
+.tea-art .rank {
+  z-index: 1;
+}
+.image-preview {
+  width: 88px;
+  height: 88px;
+  object-fit: cover;
+  border-radius: 20px;
+  background: var(--surface);
+}
+.shop-logo {
+  flex: none;
+  object-fit: contain;
+  /* скруглённый квадрат, а не круг: у квадратных логотипов не срежутся углы */
+  border-radius: 24%;
+  background: var(--surface);
 }
 .tea-art .sticker {
   position: absolute;
@@ -806,6 +840,10 @@ p {
   opacity: 0.35;
 }
 @media (max-width: 640px) {
+  /* На телефоне форма — первой, плашка с плюсами аккаунта — под ней */
+  .auth-layout > .auth-form {
+    order: -1;
+  }
   .auth-layout > .hero {
     padding: 32px 22px;
   }
@@ -1301,4 +1339,205 @@ p {
   font-size: 64px;
   line-height: 1;
   font-variant-numeric: tabular-nums;
+}
+
+/* ================= телефон ================= */
+
+.nowrap {
+  white-space: nowrap;
+}
+.table-scroll {
+  overflow-x: auto;
+}
+.header-menu {
+  display: contents;
+}
+.menu-toggle {
+  display: none;
+}
+
+@media (max-width: 760px) {
+  /* Шапка: логотип и кнопка «Меню»; меню раскрывается под ними */
+  .header {
+    flex-wrap: wrap;
+    padding: 14px 0;
+    gap: 10px;
+  }
+  .logo {
+    font-size: 24px;
+  }
+  .logo-mark {
+    width: 38px;
+    height: 38px;
+  }
+  .menu-toggle {
+    display: inline-flex;
+  }
+  .header-menu {
+    display: none;
+    flex-basis: 100%;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+    padding: 12px;
+    background: var(--surface);
+    border-radius: var(--radius-m);
+  }
+  .header-menu.open {
+    display: flex;
+  }
+  .header-menu .nav {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .header-menu .nav a {
+    padding: 12px 14px;
+    font-size: 17px;
+  }
+  .header-menu > .row {
+    justify-content: stretch;
+  }
+  .header-menu > .row > * {
+    flex: 1 1 0;
+  }
+}
+
+@media (max-width: 640px) {
+  /* Карточки чаёв — по две в ряд */
+  .grid:has(> .tea-card),
+  .grid[aria-busy='true'] {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px 12px;
+  }
+  .tea-card {
+    gap: 6px;
+  }
+  .tea-art {
+    border-radius: 22px;
+  }
+  .tea-card .tea-art svg {
+    width: 56%;
+    height: auto;
+  }
+  .tea-art .sticker {
+    right: 8px;
+    top: 8px;
+    font-size: 13px;
+    padding: 4px 8px;
+  }
+  .tea-art .rank {
+    left: 12px;
+    top: 8px;
+    font-size: 28px;
+  }
+  .tea-card-name {
+    font-size: 18px;
+  }
+  .tea-card .small {
+    font-size: 12.5px;
+  }
+
+  /* Ряды чипсов — прокрутка вбок вместо пяти строк */
+  .chip-row {
+    flex-wrap: nowrap !important;
+    overflow-x: auto;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+  }
+  .chip-row::-webkit-scrollbar {
+    display: none;
+  }
+  .chip-row > * {
+    flex: none;
+  }
+  .toolbar {
+    padding: 16px;
+    border-radius: var(--radius-m);
+  }
+
+  /* Блоки на странице чая */
+  .brew-tiles {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .brew-value {
+    font-size: 22px;
+  }
+  .card {
+    padding: 18px;
+  }
+  .infusion-dot {
+    width: 30px;
+    height: 30px;
+  }
+  .lightbox {
+    padding: 8px;
+  }
+}
+
+@media (max-width: 480px) {
+  /* Подсказка графика: на узком экране только цена за грамм, без «1 470 ₽ / 50 г» */
+  .chart-tip {
+    padding: 8px 10px;
+    white-space: normal;
+    max-width: 62%;
+  }
+  .chart-tip .muted {
+    display: none;
+  }
+}
+
+@media (max-width: 560px) {
+  /* Вкладки рейтингов — в одну строку с прокруткой */
+  .tabs {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .tab {
+    flex: none;
+  }
+}
+
+/* Добавление магазина: предупреждения о дублях */
+.dup-block {
+  background: var(--butter);
+  gap: 8px;
+}
+.dup-block-stop {
+  background: #f9d4cf;
+}
+
+/* ---------- обратная связь ---------- */
+.feedback-dialog {
+  width: min(520px, calc(100% - 32px));
+  max-height: calc(100% - 32px);
+  padding: 28px;
+  border: none;
+  border-radius: var(--radius-m);
+  background: var(--surface);
+  color: var(--ink);
+  box-shadow: 0 24px 64px rgba(34, 48, 26, 0.25);
+}
+.feedback-dialog::backdrop {
+  background: rgba(20, 26, 16, 0.55);
+}
+.feedback-dialog h2 {
+  margin: 0;
+}
+/* Поле-ловушка для ботов: людям не видно */
+.feedback-trap {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+}
+@media (max-width: 760px) {
+  .feedback-dialog {
+    padding: 20px;
+  }
+  /* В меню телефона — отдельной строкой над кнопками входа */
+  .header-menu > .row > .feedback-btn {
+    flex-basis: 100%;
+  }
 }

@@ -35,14 +35,14 @@ export function Home() {
           честные отзывы
         </span>
         <h1>
-          Какой чай и где<br />
-          <span style={{ color: 'var(--accent)' }}>лучше заказать</span>
+          Один чай&nbsp;—<br />
+          <span style={{ color: 'var(--accent)' }}>разные чашки</span>
         </h1>
-        <p>Один и тот же чай продают разные магазины — по отзывам видно, где он лучше и какие ноты в нём слышат.</p>
+        <p>Сравнивайте чай из разных магазинов. Доверяйте тем, кто пьёт давно. Находите свой.</p>
         <form className="search" role="search" onSubmit={search}>
           <SearchIcon />
           <label htmlFor="home-q" className="sr-only">Поиск чая или магазина</label>
-          <input id="home-q" type="search" value={q} onChange={(e) => setQ(e.target.value)} placeholder="Габа, Да Хун Пао, DaoChain…" />
+          <input id="home-q" type="search" value={q} onChange={(e) => setQ(e.target.value)} placeholder="Габа, Да Хун Пао, мёд…" />
           <button className="btn">Найти</button>
         </form>
       </section>

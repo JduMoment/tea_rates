@@ -5,7 +5,7 @@
       "title": "Art Of Tea",
       "country": "Россия",
       "city": "Москва",
-      "site": "https://example.com/art-of-tea",
+      "site": "https://art-of-tea.example",
       "description": "Магазин с упором на тайваньские улуны и габу. Свои закупки у фермеров Алишаня и Наньтоу.",
       "founded_year": 2014
     },
@@ -14,7 +14,7 @@
       "title": "DaoChain",
       "country": "Россия",
       "city": "Санкт-Петербург",
-      "site": "https://example.com/daochain",
+      "site": "https://daochain.example",
       "description": "Специализируются на красных чаях Юньнани и Фуцзяни, много авторских партий.",
       "founded_year": 2017
     },
@@ -23,7 +23,7 @@
       "title": "Горный лист",
       "country": "Россия",
       "city": "Екатеринбург",
-      "site": "https://example.com/gorny-list",
+      "site": "https://gorny-list.example",
       "description": "Большой ассортимент пуэров разных лет, собственное хранение.",
       "founded_year": 2011
     },
@@ -32,7 +32,7 @@
       "title": "Белый журавль",
       "country": "Россия",
       "city": "Казань",
-      "site": "https://example.com/bely-zhuravl",
+      "site": "https://bely-zhuravl.example",
       "description": "Небольшая лавка: зелёные и белые чаи свежих сборов, быстро обновляют партии.",
       "founded_year": 2019
     },
@@ -41,7 +41,7 @@
       "title": "Tea Harbor",
       "country": "Россия",
       "city": "Владивосток",
-      "site": "https://example.com/tea-harbor",
+      "site": "https://tea-harbor.example",
       "description": "Широкий ассортимент «на каждый день», хорошие травяные сборы.",
       "founded_year": 2016
     }
@@ -925,7 +925,7 @@
       "rating": 4,
       "text": "Отчётливо слышно: винные нотки, яблоко. Кисло-сладкий, как и положено габе. За свои деньги — отлично.",
       "flavors": [
-        "wine",
+        "grape",
         "apple",
         "cinnamon"
       ],
@@ -2465,7 +2465,7 @@
       "text": "Пробовали и проливом, и в чайнике. В аромате — изюм, во вкусе — винные нотки. Хорош, но без восторга.",
       "flavors": [
         "raisin",
-        "wine",
+        "grape",
         "dried_apricot"
       ],
       "purchase": {
@@ -2507,7 +2507,7 @@
       "text": "Пробовали и проливом, и в чайнике. Отчётливо слышно: кислинка ягод, винные нотки. Очень цельный, без провалов.",
       "flavors": [
         "sour_berries",
-        "wine",
+        "grape",
         "cinnamon"
       ],
       "purchase": {
@@ -4376,7 +4376,7 @@
       "flavors": [
         "raisin",
         "apple",
-        "wine"
+        "grape"
       ],
       "purchase": {
         "price": 880,

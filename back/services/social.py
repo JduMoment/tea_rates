@@ -3,11 +3,12 @@
 from dataclasses import dataclass
 from datetime import datetime
 
-from sqlalchemy import distinct, func, select
+from sqlalchemy import func, select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from back.models import Follow, Review, User
 from back.services.errors import FollowSelfError, UserNotFoundError
+from back.services.experience import AuthorExperience, ExperienceRepository
 from back.services.reviews import ReviewService, ReviewWithTea
 
 
@@ -15,12 +16,17 @@ from back.services.reviews import ReviewService, ReviewWithTea
 class AuthorProfile:
     user: User
     reviews: int
-    #: Сколько разных чаёв оценил.
-    teas: int
+    #: Сколько разных чаёв, видов и магазинов оценил — с разбивкой по видам.
+    experience: AuthorExperience
     followers: int
     following: int
     #: Подписан ли на автора тот, кто смотрит (False для гостей и для своей страницы).
     followed_by_me: bool
+
+    @property
+    def teas(self) -> int:
+        """Сколько разных чаёв оценил."""
+        return self.experience.teas
 
 
 class SocialService:
@@ -35,15 +41,12 @@ class SocialService:
 
     async def profile(self, user_id: int, viewer: User | None) -> AuthorProfile:
         user = await self.get_user(user_id)
-        reviews, teas = (
-            await self.db.execute(
-                select(func.count(Review.id), func.count(distinct(Review.tea_id))).where(Review.user_id == user_id)
-            )
-        ).one()
+        reviews = await self.db.scalar(select(func.count(Review.id)).where(Review.user_id == user_id))
+        experience = await ExperienceRepository(self.db).of_user(user_id)
         followers = await self.db.scalar(select(func.count()).where(Follow.followee_id == user_id))
         following = await self.db.scalar(select(func.count()).where(Follow.follower_id == user_id))
         followed = bool(viewer) and await self.db.get(Follow, (viewer.id, user_id)) is not None
-        return AuthorProfile(user, reviews, teas, followers or 0, following or 0, followed)
+        return AuthorProfile(user, reviews or 0, experience, followers or 0, following or 0, followed)
 
     async def follow(self, viewer: User, user_id: int, on: bool) -> AuthorProfile:
         await self.get_user(user_id)

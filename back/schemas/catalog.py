@@ -3,6 +3,8 @@ from typing import Literal, Self
 
 from pydantic import Field, field_validator, model_validator
 
+from back.core.shop_url import BadShopUrl, shop_key
+from back.core.storage import storage
 from back.enums.season import Season
 from back.models import Category, Offer, Shop
 from back.schemas.base import ApiModel
@@ -11,7 +13,19 @@ from back.services.flavors import FlavorMatch
 from back.services.prices import ShopPrices
 from back.services.recommendations import Recommendations
 from back.services.scoring import Score, ShopCategoryScore
+from back.services.shops import ShopCheck
 from back.services.teas import OfferFields, TeaFields
+
+
+def _url(key: str | None) -> str | None:
+    return storage.url(key) if key else None
+
+
+class ImageOut(ApiModel):
+    """Загруженная картинка каталога: большая и превью (у логотипа совпадают)."""
+
+    url: str
+    thumb_url: str
 
 
 class CategoryOut(ApiModel):
@@ -47,10 +61,12 @@ class ShopBriefOut(ApiModel):
     #: Для адресов и фильтров: /shops/art-of-tea, ?shop=art-of-tea
     name: str
     title: str
+    #: Логотип (WebP до 256 px); null — не загружен.
+    logo_url: str | None
 
     @classmethod
     def of(cls, s: Shop) -> "ShopBriefOut":
-        return cls(id=s.id, name=s.name, title=s.title)
+        return cls(id=s.id, name=s.name, title=s.title, logo_url=_url(s.logo_key))
 
 
 class ShopOut(ShopBriefOut):
@@ -59,13 +75,13 @@ class ShopOut(ShopBriefOut):
     site: str
     founded: int | None
     description: str
+    author_id: int | None
 
     @classmethod
     def of(cls, s: Shop) -> "ShopOut":
         return cls(
-            id=s.id,
-            name=s.name,
-            title=s.title,
+            **ShopBriefOut.of(s).model_dump(),
+            author_id=s.author_id,
             country=s.country,
             city=s.city,
             site=s.site,
@@ -80,7 +96,7 @@ class StatsOut(ApiModel):
 
     @classmethod
     def of(cls, score: Score) -> "StatsOut":
-        return cls(avg=round(score.avg, 2), reviews=score.reviews)
+        return cls(avg=round(score.shown, 2), reviews=score.reviews)
 
 
 class OfferOut(ApiModel):
@@ -155,6 +171,9 @@ class TeaOut(ApiModel):
     region: str | None
     description: str
     author_id: int | None
+    #: Фото чая и его превью для карточек; null — не загружено.
+    image_url: str | None
+    thumb_url: str | None
     category: CategoryOut
     #: Магазины, где продаётся, дешёвые первыми.
     offers: list[OfferOut]
@@ -173,6 +192,8 @@ class TeaOut(ApiModel):
             region=t.region,
             description=t.description,
             author_id=t.author_id,
+            image_url=_url(t.image_key),
+            thumb_url=_url(t.image_thumb_key),
             category=CategoryOut.of(t.category),
             offers=[OfferOut.of(o) for o in t.offers],
             stats=StatsOut.of(rated.score),
@@ -246,7 +267,7 @@ class ShopCategoryScoreOut(ApiModel):
         return cls(
             shop_id=s.shop_id,
             category_id=s.category_id,
-            avg=round(s.score.avg, 2),
+            avg=round(s.score.shown, 2),
             reviews=s.score.reviews,
             teas=s.teas,
         )
@@ -385,3 +406,54 @@ class TeaIn(TeaPatchIn):
 
 class OfferCreateIn(OfferIn):
     shop_id: int
+
+
+class ShopIn(ApiModel):
+    """Новый магазин. Сайт обязателен: по нему ловим дубли."""
+
+    title: str = Field(max_length=128)
+    site: str = Field(max_length=512)
+    city: str = Field(max_length=64)
+    country: str = Field(default="Россия", max_length=64)
+    description: str | None = Field(default=None, max_length=2000)
+
+    @field_validator("title", "city", "country")
+    @classmethod
+    def check_text(cls, v: str) -> str:
+        v = " ".join(v.split())
+        if len(v) < 2:
+            raise ValueError("Слишком коротко")
+        return v
+
+    @field_validator("site")
+    @classmethod
+    def check_site(cls, v: str) -> str:
+        v = v.strip()
+        try:
+            shop_key(v)
+        except BadShopUrl as exc:
+            raise ValueError(str(exc)) from None
+        return v if v.startswith(("http://", "https://")) else f"https://{v}"
+
+    @field_validator("description")
+    @classmethod
+    def check_description(cls, v: str | None) -> str | None:
+        return _clean(v)
+
+
+class ShopCheckOut(ApiModel):
+    """Проверка перед добавлением магазина: тот же сайт уже есть? похожие названия?"""
+
+    site_key: str | None
+    site_error: str | None
+    same_site: ShopBriefOut | None
+    similar: list[ShopBriefOut]
+
+    @classmethod
+    def of(cls, c: ShopCheck) -> "ShopCheckOut":
+        return cls(
+            site_key=c.site_key,
+            site_error=c.site_error,
+            same_site=ShopBriefOut.of(c.same_site) if c.same_site else None,
+            similar=[ShopBriefOut.of(s) for s in c.similar],
+        )

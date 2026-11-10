@@ -42,8 +42,8 @@ export function Diary() {
         title="Чайный дневник"
         lead={
           entries.data?.length
-            ? `${entries.data.length} ${plural(entries.data.length, 'запись', 'записи', 'записей')}. Что, как заваривали и как понравилось.`
-            : 'Записывайте каждое чаепитие: что, как заваривали и как понравилось.'
+            ? `${entries.data.length} ${plural(entries.data.length, 'чаепитие', 'чаепития', 'чаепитий')} в вашей истории. ${entries.data.length === 1 ? 'Его' : 'Каждое'} можно повторить.`
+            : 'Заваривайте. Записывайте. Повторяйте лучшее.'
         }
         stickers={[
           { text: '95 °C · 5 г', style: { right: '9%', top: 52 } },
@@ -84,8 +84,8 @@ export function Diary() {
           <ol className="stack" style={{ listStyle: 'none', margin: 0, padding: 0 }}>
             {entries.data.map((e) => (
               <li key={e.id} className="rank-row" style={{ alignItems: 'flex-start' }}>
-                <span style={{ width: 72, height: 72, borderRadius: 20, background: e.tea.category.color, display: 'flex', alignItems: 'center', justifyContent: 'center', flex: 'none' }}>
-                  <CupIcon size={48} color={e.tea.category.ink} />
+                <span style={{ position: 'relative', overflow: 'hidden', width: 72, height: 72, borderRadius: 20, background: e.tea.category.color, display: 'flex', alignItems: 'center', justifyContent: 'center', flex: 'none' }}>
+                  {e.tea.thumbUrl ? <img src={e.tea.thumbUrl} alt="" className="tea-photo" loading="lazy" /> : <CupIcon size={48} color={e.tea.category.ink} />}
                 </span>
                 <div className="stack" style={{ flex: '999 1 320px', minWidth: 0, gap: 6 }}>
                   <span className="small muted">{fmtDate(e.date)}</span>
@@ -133,6 +133,13 @@ export function Diary() {
 
 // ---------- «Мои чаи» ----------
 
+const EMPTY_SHELF: Record<ShelfStatus, string> = {
+  want: 'Отмечайте на странице чая «Хочу попробовать» — список соберётся здесь.',
+  have: 'Чаи, которые вы записываете в дневник, попадают сюда сами.',
+  finished: 'Пока ничего не закончилось.',
+  repeat: 'Понравился чай — отметьте на его странице «Хочу повторить». Здесь соберутся любимые.',
+}
+
 function Shelf({ items, onChanged, onBrew }: { items: ShelfItem[] | undefined; onChanged: () => void; onBrew: (teaId: number) => void }) {
   const [tab, setTab] = useState<ShelfStatus>('have')
   if (!items) return null
@@ -141,7 +148,7 @@ function Shelf({ items, onChanged, onBrew }: { items: ShelfItem[] | undefined; o
     <section className="stack" aria-labelledby="shelf-h">
       <div className="section-head">
         <h2 id="shelf-h">Мои чаи</h2>
-        <span className="small muted">Добавляйте со страницы чая: «Хочу попробовать», «Есть дома»</span>
+        <span className="small muted">Добавляйте со страницы чая: «Хочу попробовать», «Есть дома», «Хочу повторить»</span>
       </div>
       <div className="row" style={{ gap: 6 }} role="tablist" aria-label="Статус">
         {SHELF_STATUSES.map((s) => (
@@ -158,7 +165,8 @@ function Shelf({ items, onChanged, onBrew }: { items: ShelfItem[] | undefined; o
               <Link to={`/teas/${i.tea.id}`} className="shelf-title">{i.tea.title}</Link>
               <span className="small muted">{i.tea.category.name}</span>
               <span className="row" style={{ gap: 6, marginLeft: 'auto' }}>
-                {i.status !== 'want' && (
+                {/* «хочу попробовать / повторить» — чая дома нет, заваривать нечего */}
+                {i.status !== 'want' && i.status !== 'repeat' && (
                   <button type="button" className="btn btn-sm" onClick={() => onBrew(i.tea.id)}>Заварить</button>
                 )}
                 <select
@@ -183,7 +191,7 @@ function Shelf({ items, onChanged, onBrew }: { items: ShelfItem[] | undefined; o
         </ul>
       ) : (
         <p className="small muted">
-          {tab === 'want' ? 'Отмечайте на странице чая «Хочу попробовать» — список соберётся здесь.' : tab === 'have' ? 'Чаи, которые вы записываете в дневник, попадают сюда сами.' : 'Пока ничего не закончилось.'}
+          {EMPTY_SHELF[tab]}
         </p>
       )}
     </section>

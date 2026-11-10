@@ -13,6 +13,7 @@ import type {
   Season,
   ShelfItem,
   ShelfStatus,
+  ShopCheck,
   ShopDetails,
   ShopPrices,
   ShopRankingRow,
@@ -61,6 +62,13 @@ export const getFlavorWheel = once(() => http<FlavorWheel>('/flavors'))
 
 /** GET /api/shops */
 export const getShops = () => http<ShopSummary[]>('/shops')
+
+/** GET /api/shops/check?title=&site= — тот же сайт уже есть? похожие названия? */
+export const checkShop = (title: string, site: string) => http<ShopCheck>(`/shops/check${query({ title, site })}`)
+
+/** POST /api/shops — новый магазин; 409, если магазин с этим сайтом уже есть */
+export const createShop = (data: { title: string; site: string; city: string; country: string; description?: string | null }) =>
+  http<ShopDetails>('/shops', { method: 'POST', body: data })
 
 /** GET /api/shops/{name} */
 export const getShop = (name: string) => http<ShopDetails>(`/shops/${encodeURIComponent(name)}`)
@@ -116,6 +124,8 @@ export interface ReviewInput {
   rating: number
   text: string
   flavors: string[]
+  /** Отмеченные вкусы: sweet, sour, salty, bitter, umami. Пусто — выведутся из нот */
+  tastes?: string[]
   price?: number | null
   weight?: number | null
   harvestYear?: number | null
@@ -124,6 +134,7 @@ export interface ReviewInput {
   body?: number | null
   strength?: number | null
   aftertaste?: number | null
+  astringency?: number | null
 }
 
 /** POST /api/teas — новый чай сразу с первым магазином */
@@ -136,16 +147,11 @@ export const createTea = (data: {
   offer: OfferInput
 }) => http<TeaDetails>('/teas', { method: 'POST', body: data })
 
-/** DELETE /api/teas/{id} — только автор и пока нет чужих отзывов */
-export const deleteTea = (id: number) => http<void>(`/teas/${id}`, { method: 'DELETE' })
 
 /** POST /api/teas/{id}/offers — этот чай есть ещё и в магазине shopId */
 export const addOffer = (teaId: number, data: OfferInput & { shopId: number }) =>
   http<TeaDetails>(`/teas/${teaId}/offers`, { method: 'POST', body: data })
 
-/** DELETE /api/teas/{id}/offers/{shopId} */
-export const deleteOffer = (teaId: number, shopId: number) =>
-  http<void>(`/teas/${teaId}/offers/${shopId}`, { method: 'DELETE' })
 
 // ---------- отзывы ----------
 
@@ -157,6 +163,10 @@ export const getUserReviews = (userId: number) => http<Review[]>(`/users/${userI
 
 /** POST /api/teas/{teaId}/reviews — повторный отзыв на тот же чай из того же магазина заменяет прежний */
 export const addReview = (teaId: number, data: ReviewInput) => http<Review>(`/teas/${teaId}/reviews`, { method: 'POST', body: data })
+
+/** PUT /api/reviews/{id} — автор правит свой отзыв; магазин не меняется, дата прежняя */
+export const editReview = (reviewId: number, data: Omit<ReviewInput, 'shopId'>) =>
+  http<Review>(`/reviews/${reviewId}`, { method: 'PUT', body: data })
 
 /** DELETE /api/reviews/{id} */
 export const deleteReview = (reviewId: number) => http<void>(`/reviews/${reviewId}`, { method: 'DELETE' })
@@ -187,19 +197,33 @@ export const voteReview = (reviewId: number, helpful: boolean) =>
   http<Review>(`/reviews/${reviewId}/vote`, { method: 'PUT', body: { helpful } })
 
 /** POST /api/reviews/{id}/photos — multipart, поле file */
-export async function uploadReviewPhoto(reviewId: number, file: File): Promise<Review> {
+/** Отправить файл multipart-формой (поле file). */
+async function sendFile<T>(url: string, method: 'POST' | 'PUT', file: File): Promise<T> {
   const form = new FormData()
   form.append('file', file)
   let res: Response
   try {
-    res = await fetch(`/api/reviews/${reviewId}/photos`, { method: 'POST', body: form, credentials: 'same-origin' })
+    res = await fetch(`/api${url}`, { method, body: form, credentials: 'same-origin' })
   } catch {
     throw new ApiError('Нет связи с сервером', 0)
   }
   const body = (await res.json().catch(() => null)) as { detail?: unknown } | null
   if (!res.ok) throw new ApiError(typeof body?.detail === 'string' ? body.detail : `Не удалось загрузить фото (${res.status})`, res.status)
-  return body as unknown as Review
+  return body as unknown as T
 }
+
+export const uploadReviewPhoto = (reviewId: number, file: File) => sendFile<Review>(`/reviews/${reviewId}/photos`, 'POST', file)
+
+export interface UploadedImage {
+  url: string
+  thumbUrl: string
+}
+
+/** PUT /api/teas/{id}/image — любой вошедший, пока фото нет; заменить нельзя */
+export const uploadTeaImage = (teaId: number, file: File) => sendFile<UploadedImage>(`/teas/${teaId}/image`, 'PUT', file)
+
+/** PUT /api/shops/{id}/logo — любой вошедший, пока логотипа нет; заменить нельзя */
+export const uploadShopLogo = (shopId: number, file: File) => sendFile<UploadedImage>(`/shops/${shopId}/logo`, 'PUT', file)
 
 /** DELETE /api/reviews/{id}/photos/{photoId} */
 export const deleteReviewPhoto = (reviewId: number, photoId: number) =>
@@ -239,3 +263,9 @@ export const getFollowing = () => http<{ id: number; name: string }[]>('/me/foll
 
 /** GET /api/me/feed — свежие отзывы тех, на кого подписан */
 export const getFeed = (limit = 12) => http<Review[]>(`/me/feed${query({ limit })}`)
+
+// ---------- обратная связь ----------
+
+/** Сообщение о баге или идея; page — путь страницы, с которой пишут. */
+export const sendFeedback = (data: { text: string; email: string | null; page: string; website: string }) =>
+  http<void>('/feedback', { method: 'POST', body: data })

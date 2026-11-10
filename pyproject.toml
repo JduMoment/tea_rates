@@ -6,7 +6,7 @@ authors = [
     {name = "Курагин Иван",email = "i.kuragin@ssphere.ru"}
 ]
 readme = "README.md"
-requires-python = "^3.12"
+requires-python = ">=3.12"
 dependencies = [
     "fastapi (>=0.141.1,<0.142.0)",
     "sqlalchemy (>=2.0.52,<3.0.0)",
@@ -17,10 +17,27 @@ dependencies = [
     "python-dotenv (>=1.2.2,<2.0.0)",
     "httpx (>=0.28,<0.29)",
     "pillow (>=12,<13)",
-    "python-multipart (>=0.0.20,<0.1)"
+    "python-multipart (>=0.0.20,<0.1)",
+    "alembic (>=1.16,<2)"
 ]
 
 
 [build-system]
 requires = ["poetry-core>=2.0.0,<3.0.0"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.group.dev.dependencies]
+pytest = ">=8.4,<9"
+pytest-asyncio = ">=1.2,<2"
+
+
+[tool.ruff]
+line-length = 120
+target-version = "py312"
+
+[tool.pytest.ini_options]
+testpaths = ["back/tests"]
+asyncio_mode = "auto"
+# Один цикл событий на всю сессию: движок SQLAlchemy создаётся один раз при импорте приложения
+asyncio_default_fixture_loop_scope = "session"
+asyncio_default_test_loop_scope = "session"

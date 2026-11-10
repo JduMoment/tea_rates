@@ -61,11 +61,11 @@ class DiaryService:
         return DiaryItem(entry=entry, tea=rated)
 
     async def _shelve(self, user: User, tea_id: int) -> None:
-        """Заварил чай из «хочу попробовать» или не из шкафа вовсе — значит, он есть дома."""
+        """Заварил чай из «хочу попробовать», «хочу повторить» или не из шкафа вовсе — значит, он есть дома."""
         item = await self.db.get(ShelfItem, (user.id, tea_id))
         if item is None:
             self.db.add(ShelfItem(user_id=user.id, tea_id=tea_id, status=ShelfStatus.HAVE))
-        elif item.status == ShelfStatus.WANT:
+        elif item.status in (ShelfStatus.WANT, ShelfStatus.REPEAT):
             item.status = ShelfStatus.HAVE
 
     async def delete(self, user: User, entry_id: int) -> None:

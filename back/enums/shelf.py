@@ -7,6 +7,8 @@ class ShelfStatus(StrEnum):
     WANT = "Хочу попробовать"
     HAVE = "Есть дома"
     FINISHED = "Закончился"
+    #: Понравился — купить ещё раз; заодно список любимых чаёв.
+    REPEAT = "Хочу повторить"
 
     @property
     def slug(self) -> str:

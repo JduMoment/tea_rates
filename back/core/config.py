@@ -64,3 +64,18 @@ YANDEX_CLIENT_SECRET = os.getenv("YANDEX_CLIENT_SECRET", "")
 MEDIA_DIR = Path(os.getenv("MEDIA_DIR", BASE_DIR / "media")).resolve()
 #: Префикс адресов файлов. Если позже переедем в облако (S3) — сюда пойдёт адрес бакета или CDN.
 MEDIA_URL = os.getenv("MEDIA_URL", "/media").rstrip("/")
+
+# --- почта (восстановление пароля) ---
+#: SMTP-сервер. Пусто — письма не отправляются, а пишутся в лог бэкенда (удобно при разработке).
+SMTP_HOST = os.getenv("SMTP_HOST", "")
+SMTP_PORT = int(os.getenv("SMTP_PORT", "465"))
+SMTP_USER = os.getenv("SMTP_USER", "")
+SMTP_PASSWORD = os.getenv("SMTP_PASSWORD", "")
+#: Шифрование: ssl (порт 465) или starttls (порт 587).
+SMTP_SECURITY = os.getenv("SMTP_SECURITY", "ssl")
+#: Отправитель: «5 листов <noreply@5listov.ru>».
+MAIL_FROM = os.getenv("MAIL_FROM", "5 листов <noreply@5listov.ru>")
+#: Куда слать письма об ошибках на сайте (см. core/logs.py). Пусто — не слать, ошибки только в логе.
+ALERT_EMAIL = os.getenv("ALERT_EMAIL", "")
+#: Сколько живёт ссылка для сброса пароля.
+PASSWORD_RESET_TTL_MINUTES = int(os.getenv("PASSWORD_RESET_TTL_MINUTES", "60"))

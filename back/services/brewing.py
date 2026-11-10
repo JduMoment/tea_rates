@@ -32,11 +32,13 @@ class Typical:
 TYPICAL: dict[TeaKind, Typical] = {
     TeaKind.GREEN: Typical((75, 80), (3, 4), (3, 4)),
     TeaKind.WHITE: Typical((85, 90), (4, 5), (5, 6)),
+    TeaKind.YELLOW: Typical((80, 85), (4, 5), (4, 5)),
     TeaKind.OOLONG: Typical((90, 95), (6, 7), (7, 8)),
     TeaKind.GABA: Typical((90, 95), (5, 6), (6, 7)),
     TeaKind.RED: Typical((90, 95), (4, 5), (5, 6)),
     TeaKind.SHU: Typical((95, 100), (6, 7), (8, 10)),
     TeaKind.SHENG: Typical((90, 95), (6, 7), (8, 10)),
+    TeaKind.HEICHA: Typical((95, 100), (5, 6), (6, 8)),
     TeaKind.HERBAL: Typical((95, 100), (3, 4), (2, 3)),
 }
 assert set(TYPICAL) == set(TeaKind), "У каждого вида чая должны быть типичные параметры"

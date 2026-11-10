@@ -21,7 +21,7 @@ from sqlalchemy.dialects.postgresql import ARRAY
 from sqlalchemy.orm import Mapped, column_property, mapped_column, relationship
 
 from back.core.db import Base
-from back.enums.flavor import Flavor
+from back.enums.flavor import Flavor, Taste
 from back.enums.season import Season
 from back.models.catalog import Offer, price_label
 
@@ -32,6 +32,8 @@ if TYPE_CHECKING:
 #: Дескрипторы в БД — массив строк с именами членов Flavor (HONEY). Не нативный enum Postgres:
 #: дескрипторы будут добавляться, а ALTER TYPE ... ADD VALUE неудобен.
 FlavorArray = ARRAY(SAEnum(Flavor, native_enum=False, length=32, validate_strings=True))
+#: Базовые вкусы, которые автор отметил сам (SWEET, UMAMI) — так же строками.
+TasteArray = ARRAY(SAEnum(Taste, native_enum=False, length=16, validate_strings=True))
 
 
 class Review(Base):
@@ -49,6 +51,7 @@ class Review(Base):
         CheckConstraint("body BETWEEN 1 AND 5", name="ck_reviews_body"),
         CheckConstraint("strength BETWEEN 1 AND 5", name="ck_reviews_strength"),
         CheckConstraint("aftertaste BETWEEN 1 AND 5", name="ck_reviews_aftertaste"),
+        CheckConstraint("astringency BETWEEN 1 AND 5", name="ck_reviews_astringency"),
         ForeignKeyConstraint(
             ["tea_id", "shop_id"], ["offers.tea_id", "offers.shop_id"], ondelete="CASCADE", name="fk_reviews_offer"
         ),
@@ -63,6 +66,8 @@ class Review(Base):
     text: Mapped[str] = mapped_column(Text)
     #: Дескрипторы, которые услышал автор. Группа и вкус выводятся из них (Flavor.group / .taste).
     flavors: Mapped[list[Flavor]] = mapped_column(FlavorArray, default=list)
+    #: Вкус, отмеченный автором. Пусто — не отмечал (или отзыв старше этого поля): тогда вкус выводится из нот.
+    tastes: Mapped[list[Taste]] = mapped_column(TasteArray, default=list, server_default="{}")
     # Покупка: сколько заплатил и какую партию взял. Необязательно; цена — вместе с весом.
     price: Mapped[int | None] = mapped_column(Integer, comment="Цена покупки, ₽ за weight граммов")
     weight: Mapped[int | None] = mapped_column(SmallInteger, comment="Вес в граммах для price")
@@ -73,7 +78,11 @@ class Review(Base):
     body: Mapped[int | None] = mapped_column(SmallInteger)
     strength: Mapped[int | None] = mapped_column(SmallInteger)
     aftertaste: Mapped[int | None] = mapped_column(SmallInteger)
+    #: Терпкость: мягкий → вяжущий.
+    astringency: Mapped[int | None] = mapped_column(SmallInteger)
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now(), index=True)
+    #: Когда автор поправил отзыв («изменён»). Дата отзыва при правке не меняется. None — не правили.
+    edited_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
 
     # Имя автора и магазин показываем у каждого отзыва — грузим сразу
     user: Mapped["User"] = relationship(back_populates="reviews", lazy="joined")
@@ -95,21 +104,49 @@ class Review(Base):
         parts = [self.harvest_season.value if self.harvest_season else None, self.harvest_year]
         return " ".join(str(p) for p in parts if p)
 
+    @property
+    def effective_tastes(self) -> set[Taste]:
+        """Вкус отзыва: отмеченный автором, а если не отмечал — выведенный из нот."""
+        return set(self.tastes) or {f.taste for f in self.flavors}
+
     def rewrite(
-        self, rating: int, text: str, flavors: list[Flavor], purchase: "Purchase", infusion: "Infusion"
+        self,
+        rating: int,
+        text: str,
+        flavors: list[Flavor],
+        purchase: "Purchase",
+        infusion: "Infusion",
+        tastes: list[Taste] = (),
     ) -> None:
-        """Повторный отзыв на тот же чай из того же магазина заменяет старый и поднимается наверх как свежий."""
+        """Повторный отзыв на тот же чай из того же магазина (новая покупка) заменяет старый
+        и поднимается наверх как свежий."""
+        self.edit(rating, text, flavors, purchase, infusion, tastes)
+        self.created_at = datetime.now(UTC)
+        self.edited_at = None
+
+    def edit(
+        self,
+        rating: int,
+        text: str,
+        flavors: list[Flavor],
+        purchase: "Purchase",
+        infusion: "Infusion",
+        tastes: list[Taste] = (),
+    ) -> None:
+        """Правка отзыва автором: дата остаётся прежней (и цена в истории — на дату покупки), ставим «изменён»."""
         self.rating = rating
         self.text = text
         self.flavors = flavors
+        self.tastes = list(tastes)
         self.set_purchase(purchase)
         self.set_infusion(infusion)
-        self.created_at = datetime.now(UTC)
+        self.edited_at = datetime.now(UTC)
 
     def set_infusion(self, infusion: "Infusion") -> None:
         self.body = infusion.body
         self.strength = infusion.strength
         self.aftertaste = infusion.aftertaste
+        self.astringency = infusion.astringency
 
     def set_purchase(self, purchase: "Purchase") -> None:
         self.price = purchase.price
@@ -135,6 +172,7 @@ class Infusion:
     body: int | None = None
     strength: int | None = None
     aftertaste: int | None = None
+    astringency: int | None = None
 
 
 class ReviewVote(Base):

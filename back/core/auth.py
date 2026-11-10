@@ -87,6 +87,7 @@ async def get_current_user(request: Request, auth: AuthServiceDep) -> User:
     user = await auth.user_by_token(SessionCookie.read(request))
     if not user:
         raise HTTPException(status.HTTP_401_UNAUTHORIZED, detail="Нужно войти")
+    request.state.user_id = user.id  # для письма об ошибке, если запрос упадёт
     return user
 
 
@@ -95,7 +96,10 @@ CurrentUser = Annotated[User, Depends(get_current_user)]
 
 async def get_optional_user(request: Request, auth: AuthServiceDep) -> User | None:
     """Текущий пользователь или None — для публичных страниц, где вошедшим показываем чуть больше."""
-    return await auth.user_by_token(SessionCookie.read(request))
+    user = await auth.user_by_token(SessionCookie.read(request))
+    if user:
+        request.state.user_id = user.id
+    return user
 
 
 OptionalUser = Annotated[User | None, Depends(get_optional_user)]

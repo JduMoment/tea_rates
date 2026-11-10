@@ -39,6 +39,27 @@ class RegisterIn(BaseModel):
         return v
 
 
+class ForgotPasswordIn(BaseModel):
+    email: str
+
+    @field_validator("email")
+    @classmethod
+    def check_email(cls, v: str) -> str:
+        return _clean_email(v)
+
+
+class ResetPasswordIn(BaseModel):
+    token: str = Field(max_length=128)
+    password: str = Field(max_length=128)
+
+    @field_validator("password")
+    @classmethod
+    def check_password(cls, v: str) -> str:
+        if len(v) < 6:
+            raise ValueError("Пароль — минимум 6 символов")
+        return v
+
+
 class LoginIn(BaseModel):
     email: str
     password: str = Field(max_length=128)

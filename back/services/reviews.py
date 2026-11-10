@@ -6,11 +6,12 @@ from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import selectinload
 
-from back.enums.flavor import Flavor
+from back.enums.flavor import Flavor, Taste
 from back.models import Review, ReviewVote, User
 from back.models.review import Infusion, Purchase
 from back.services.catalog import CatalogService, RatedTea
 from back.services.errors import OwnReviewVoteError, ReviewNotFoundError
+from back.services.experience import ExperienceRepository, ReviewerExperience
 from back.services.photos import remove_files
 
 
@@ -44,6 +45,7 @@ class ReviewService:
         flavors: list[Flavor],
         purchase: Purchase,
         infusion: Infusion,
+        tastes: list[Taste] = (),
     ) -> Review:
         """Пишет отзыв на чай из магазина shop_id. Если пользователь уже оценивал этот чай
         из этого магазина — заменяет прежний отзыв. Отзывы на тот же чай из других магазинов не трогает."""
@@ -52,10 +54,31 @@ class ReviewService:
             select(Review).where(Review.tea_id == tea_id, Review.shop_id == shop_id, Review.user_id == user.id)
         )
         if review:
-            review.rewrite(rating, text, flavors, purchase, infusion)
+            review.rewrite(rating, text, flavors, purchase, infusion, tastes)
         else:
-            review = user.write_review(offer, rating, text, flavors, purchase, infusion)
+            review = user.write_review(offer, rating, text, flavors, purchase, infusion, tastes)
             self.db.add(review)
+        await self.db.commit()
+        await self.db.refresh(review)
+        return review
+
+    async def edit(
+        self,
+        user: User,
+        review_id: int,
+        *,
+        rating: int,
+        text: str,
+        flavors: list[Flavor],
+        purchase: Purchase,
+        infusion: Infusion,
+        tastes: list[Taste] = (),
+    ) -> Review:
+        """Автор правит свой отзыв. Магазин не меняется: отзыв — о покупке в конкретном магазине."""
+        review = await self.db.get(Review, review_id)
+        if not review or not user.owns(review):
+            raise ReviewNotFoundError
+        review.edit(rating, text, flavors, purchase, infusion, tastes)
         await self.db.commit()
         await self.db.refresh(review)
         return review
@@ -96,6 +119,10 @@ class ReviewService:
             return set()
         query = select(ReviewVote.review_id).where(ReviewVote.user_id == user.id, ReviewVote.review_id.in_(review_ids))
         return set(await self.db.scalars(query))
+
+    async def experience(self, review_ids: list[int]) -> dict[int, ReviewerExperience]:
+        """Опыт авторов отзывов — для строки под именем."""
+        return await ExperienceRepository(self.db).for_reviews(review_ids)
 
     async def with_teas(self, query) -> list[ReviewWithTea]:
         reviews = list(await self.db.scalars(query.options(selectinload(Review.tea))))

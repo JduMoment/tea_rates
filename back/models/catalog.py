@@ -27,9 +27,10 @@ from sqlalchemy import (
     text,
 )
 from sqlalchemy import Enum as SAEnum
-from sqlalchemy.orm import Mapped, mapped_column, relationship
+from sqlalchemy.orm import Mapped, mapped_column, relationship, validates
 
 from back.core.db import Base
+from back.core.shop_url import shop_key
 from back.enums.tea_kind import TeaKind
 
 if TYPE_CHECKING:
@@ -62,11 +63,23 @@ class Shop(Base):
     country: Mapped[str] = mapped_column(String(64))
     city: Mapped[str] = mapped_column(String(64))
     site: Mapped[str] = mapped_column(String(512))
+    #: Нормализованный сайт («shop.ru», «vk.com/teashop») — уникален: один магазин не заведут дважды.
+    #: Заполняется сам при записи site (см. _fill_site_key).
+    site_key: Mapped[str] = mapped_column(String(255), unique=True)
+    #: Кто добавил магазин (None — из сида).
+    author_id: Mapped[int | None] = mapped_column(ForeignKey("users.id", ondelete="SET NULL"), index=True)
     founded_year: Mapped[int | None] = mapped_column(SmallInteger, comment="Дата основания")
     description: Mapped[str | None] = mapped_column(Text)
+    #: Логотип в хранилище (back.core.storage), WebP до 256 px. None — показываем первую букву названия.
+    logo_key: Mapped[str | None] = mapped_column(String(255))
     offers: Mapped[list["Offer"]] = relationship(
         back_populates="shop", lazy="raise", cascade="all, delete-orphan", passive_deletes=True
     )
+
+    @validates("site")
+    def _fill_site_key(self, _key: str, site: str) -> str:
+        self.site_key = shop_key(site)
+        return site
 
 
 class Tea(Base):
@@ -86,6 +99,9 @@ class Tea(Base):
     description: Mapped[str | None] = mapped_column(Text)
     author_id: Mapped[int | None] = mapped_column(ForeignKey("users.id", ondelete="SET NULL"), index=True)
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
+    #: Фото чая в хранилище: большое и превью для карточек. None — рисуем чашку цвета вида.
+    image_key: Mapped[str | None] = mapped_column(String(255))
+    image_thumb_key: Mapped[str | None] = mapped_column(String(255))
 
     # Вид и предложения нужны почти всегда, когда показываем чай, — грузим сразу
     category: Mapped[Category] = relationship(back_populates="teas", lazy="joined")

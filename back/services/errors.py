@@ -62,15 +62,11 @@ class ForbiddenError(Exception):
 
 
 class TeaLockedError(ForbiddenError):
-    message = "Менять и удалять чай может только тот, кто его добавил, и только пока на него нет чужих отзывов"
-
-
-class LastOfferError(ForbiddenError):
-    message = "Это единственный магазин с этим чаем — удалите сам чай"
+    message = "Менять чай может только тот, кто его добавил, и только пока на него нет чужих отзывов"
 
 
 class OfferLockedError(ForbiddenError):
-    message = "Менять и убирать магазин у чая может только тот, кто его добавил, и только пока нет чужих отзывов на покупку там"
+    message = "Менять магазин у чая может только тот, кто его добавил, и только пока нет чужих отзывов на покупку там"
 
 
 class OwnReviewVoteError(ForbiddenError):

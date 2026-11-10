@@ -1,9 +1,10 @@
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router'
 import { AuthProvider } from './auth/AuthContext'
 import { AddTea } from './pages/AddTea'
+import { AddShop } from './pages/AddShop'
 import { AuthorPage } from './pages/AuthorPage'
 import { Layout, NotFoundBlock, RequireAuth } from './components/Layout'
-import { Login, Register } from './pages/Auth'
+import { ForgotPassword, Login, Register, ResetPassword } from './pages/Auth'
 import { Diary } from './pages/Diary'
 import { Home } from './pages/Home'
 import { ProducerPage } from './pages/ProducerPage'
@@ -24,6 +25,7 @@ export default function App() {
             <Route path="teas/new" element={<RequireAuth><AddTea /></RequireAuth>} />
             <Route path="teas/:id" element={<TeaPage />} />
             <Route path="shops" element={<Producers />} />
+            <Route path="shops/new" element={<RequireAuth><AddShop /></RequireAuth>} />
             <Route path="shops/:id" element={<ProducerPage />} />
             <Route path="rankings" element={<RankingsLayout />}>
               <Route index element={<Navigate to="teas" replace />} />
@@ -40,6 +42,8 @@ export default function App() {
             <Route path="where-to-buy/:category" element={<LegacyRedirect to={(p) => `/rankings/categories/${p.category}`} />} />
             <Route path="login" element={<Login />} />
             <Route path="register" element={<Register />} />
+            <Route path="forgot-password" element={<ForgotPassword />} />
+            <Route path="reset-password" element={<ResetPassword />} />
             <Route path="diary" element={<RequireAuth><Diary /></RequireAuth>} />
             <Route path="profile" element={<RequireAuth><Profile /></RequireAuth>} />
             <Route path="users/:id" element={<AuthorPage />} />

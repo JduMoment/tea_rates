@@ -42,7 +42,8 @@ class Processed:
     height: int
 
 
-def process(data: bytes) -> Processed:
+def decode(data: bytes) -> Image.Image:
+    """Проверяет, что это JPEG/PNG/WebP не больше MAX_BYTES, и поворачивает по EXIF."""
     if len(data) > MAX_BYTES:
         raise PhotoError("Файл больше 10 МБ")
     try:
@@ -55,17 +56,23 @@ def process(data: bytes) -> Processed:
         raise PhotoError("Это не похоже на фото — подойдут JPEG, PNG или WebP") from exc
     if fmt not in FORMATS:
         raise PhotoError("Подойдут JPEG, PNG или WebP")
-    img = ImageOps.exif_transpose(img).convert("RGB")
+    return ImageOps.exif_transpose(img)
 
-    def webp(side: int) -> tuple[bytes, int, int]:
-        copy = img.copy()
-        copy.thumbnail((side, side), Image.Resampling.LANCZOS)
-        out = BytesIO()
-        copy.save(out, "WEBP", quality=82, method=4)  # без exif= — метаданные не сохраняются
-        return out.getvalue(), copy.width, copy.height
 
-    big, width, height = webp(MAX_SIDE)
-    thumb, _, _ = webp(THUMB_SIDE)
+def to_webp(img: Image.Image, side: int, *, keep_alpha: bool = False) -> tuple[bytes, int, int]:
+    """Вписывает в квадрат side×side и пересохраняет в WebP. keep_alpha — для логотипов с прозрачным фоном."""
+    transparent = img.mode in ("RGBA", "LA") or (img.mode == "P" and "transparency" in img.info)
+    copy = img.convert("RGBA" if keep_alpha and transparent else "RGB")
+    copy.thumbnail((side, side), Image.Resampling.LANCZOS)
+    out = BytesIO()
+    copy.save(out, "WEBP", quality=82, method=4)  # без exif= — метаданные не сохраняются
+    return out.getvalue(), copy.width, copy.height
+
+
+def process(data: bytes) -> Processed:
+    img = decode(data)
+    big, width, height = to_webp(img, MAX_SIDE)
+    thumb, _, _ = to_webp(img, THUMB_SIDE)
     return Processed(big=big, thumb=thumb, width=width, height=height)
 
 

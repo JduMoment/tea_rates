@@ -1,22 +1,35 @@
 from back.core.views import Routes
-from back.views.auth import LoginView, LogoutView, MeView, OAuthCallbackView, OAuthStartView, RegisterView
+from back.views.auth import (
+    ForgotPasswordView,
+    LoginView,
+    LogoutView,
+    MeView,
+    OAuthCallbackView,
+    OAuthStartView,
+    RegisterView,
+    ResetPasswordView,
+)
 from back.views.catalog import (
     CategoriesView,
     FlavorWheelView,
     OffersView,
     OfferView,
     RecommendationsView,
+    ShopCheckView,
+    ShopLogoView,
     ShopsView,
     ShopView,
     TeaBrewingView,
     TeaFlavorsView,
+    TeaImageView,
     TeaPricesView,
     TeasView,
     TeaView,
     UserFlavorsView,
 )
 from back.views.diary import DiaryEntryView, DiaryView
-from back.views.frontend import AssetView, MediaView, NotFoundView, PublicFileView, SpaView
+from back.views.feedback import FeedbackView
+from back.views.frontend import AssetView, MediaView, NotFoundView, OgImageView, PublicFileView, SpaView
 from back.views.health import HealthView
 from back.views.rankings import CategoryLeadersView, CategoryRankingView, ShopRankingView, TopTeasView
 from back.views.reviews import (
@@ -34,13 +47,22 @@ from back.views.social import AuthorView, FeedView, FollowingView, FollowView, S
 class ApiRoutes(Routes):
     prefix = "/api"
     tags = ("api",)
-    views = (HealthView,)
+    views = (HealthView, FeedbackView)
 
 
 class AuthRoutes(Routes):
     prefix = "/api/auth"
     tags = ("auth",)
-    views = (RegisterView, LoginView, LogoutView, MeView, OAuthStartView, OAuthCallbackView)
+    views = (
+        RegisterView,
+        LoginView,
+        LogoutView,
+        MeView,
+        OAuthStartView,
+        OAuthCallbackView,
+        ForgotPasswordView,
+        ResetPasswordView,
+    )
 
 
 class CatalogRoutes(Routes):
@@ -50,9 +72,12 @@ class CatalogRoutes(Routes):
         CategoriesView,
         FlavorWheelView,
         ShopsView,
+        ShopCheckView,  # раньше ShopView: иначе «check» примут за имя магазина
         ShopView,
+        ShopLogoView,
         TeasView,
         TeaView,
+        TeaImageView,
         TeaFlavorsView,
         TeaBrewingView,
         TeaPricesView,
@@ -97,7 +122,7 @@ class DiaryRoutes(Routes):
 
 class FrontendRoutes(Routes):
     # NotFoundView ловит всё подряд — он обязан быть последним
-    views = (AssetView, MediaView, PublicFileView, SpaView, NotFoundView)
+    views = (AssetView, MediaView, OgImageView, PublicFileView, SpaView, NotFoundView)
 
 
 #: Порядок подключения: сначала API, потом фронт с его catch-all.

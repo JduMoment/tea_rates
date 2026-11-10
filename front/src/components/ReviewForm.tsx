@@ -13,29 +13,37 @@ import { SearchSelect } from './SearchSelect'
 export function ReviewForm({
   teaId,
   offers,
-  mine,
+  editing,
   onSaved,
+  onCancelEdit,
 }: {
   teaId: number
-  /** Магазины, где продаётся чай, — отзыв только на покупку в одном из них. */
+  /** Магазины, где продаётся чай и где я его ещё не оценивал, — отзыв на покупку в одном из них. */
   offers: Offer[]
-  /** Мои отзывы на этот чай — чтобы предупредить о замене. */
-  mine: Review[]
+  /** Правим этот отзыв: форма заполнена им, магазин не меняется, дата остаётся. Форму пересоздают по key. */
+  editing?: Review | null
   onSaved: () => void
+  onCancelEdit?: () => void
 }) {
   const { user } = useAuth()
   const location = useLocation()
   const wheel = useFlavorWheel()
-  const [shopId, setShopId] = useState(offers.length === 1 ? offers[0].shopId : 0)
-  const [rating, setRating] = useState(0)
-  const [text, setText] = useState('')
-  const [flavors, setFlavors] = useState<string[]>([])
+  const str = (n: number | null | undefined) => (n == null ? '' : String(n))
+  const [shopId, setShopId] = useState(editing?.shopId ?? (offers.length === 1 ? offers[0].shopId : 0))
+  const [rating, setRating] = useState(editing?.rating ?? 0)
+  const [text, setText] = useState(editing?.text ?? '')
+  const [flavors, setFlavors] = useState<string[]>(editing?.flavors ?? [])
+  const [tastes, setTastes] = useState<string[]>(editing?.tastes ?? [])
   // Покупка — необязательно: цена (вместе с весом) и партия
-  const [price, setPrice] = useState('')
-  const [weight, setWeight] = useState('')
-  const [harvestYear, setHarvestYear] = useState('')
-  const [harvestSeason, setHarvestSeason] = useState<Season | ''>('')
-  const [infusion, setInfusion] = useState(emptyInfusion())
+  const [price, setPrice] = useState(str(editing?.price))
+  const [weight, setWeight] = useState(str(editing?.weight))
+  const [harvestYear, setHarvestYear] = useState(str(editing?.harvestYear))
+  const [harvestSeason, setHarvestSeason] = useState<Season | ''>(editing?.harvestSeason ?? '')
+  const [infusion, setInfusion] = useState(
+    editing
+      ? { body: editing.body, strength: editing.strength, aftertaste: editing.aftertaste, astringency: editing.astringency }
+      : emptyInfusion(),
+  )
   // Новые фото — загружаются после сохранения отзыва (нужен его id)
   const [files, setFiles] = useState<File[]>([])
   const [error, setError] = useState<string | null>(null)
@@ -54,7 +62,7 @@ export function ReviewForm({
     )
   }
 
-  const replacing = mine.find((r) => r.shopId === shopId)
+  const replacing = editing
   const year = new Date().getFullYear()
   const kept = replacing?.photos ?? []
   const room = MAX_PHOTOS - kept.length
@@ -74,17 +82,18 @@ export function ReviewForm({
     setBusy(true)
     setError(null)
     try {
-      const review = await api.addReview(teaId, {
-        shopId,
+      const data = {
         rating,
         text,
         flavors,
+        tastes,
         price: priced ? Number(price) : null,
         weight: priced ? Number(weight) : null,
         harvestYear: harvestYear ? Number(harvestYear) : null,
         harvestSeason: harvestSeason || null,
         ...infusion,
-      })
+      }
+      const review = editing ? await api.editReview(editing.id, data) : await api.addReview(teaId, { shopId, ...data })
       // Фото — по одному: если одно не подошло, остальные всё равно загрузятся
       const failed: string[] = []
       for (const f of files) {
@@ -97,6 +106,7 @@ export function ReviewForm({
       setRating(0)
       setText('')
       setFlavors([])
+      setTastes([])
       setPrice('')
       setWeight('')
       setHarvestYear('')
@@ -105,6 +115,7 @@ export function ReviewForm({
       setFiles([])
       if (failed.length) setError(`Отзыв сохранён, но не все фото загрузились. ${failed.join('; ')}`)
       onSaved()
+      if (editing && !failed.length) onCancelEdit?.()
     } catch (err) {
       setError((err as Error).message)
     } finally {
@@ -113,28 +124,57 @@ export function ReviewForm({
   }
 
   return (
-    <form className="card review-form" onSubmit={submit}>
+    <form className="card review-form" id="review-form" onSubmit={submit}>
       {/* Слева — поля и кнопка (липкие, чтобы кнопка была под рукой), справа — колесо нот */}
       <div className="stack review-form-main">
-        <h3>Ваш отзыв</h3>
-        <label className="field">
-          Где купили
-          <SearchSelect
-            options={offers.map((o) => ({ value: o.shopId, label: o.shop.title }))}
-            value={shopId}
-            onChange={setShopId}
-            placeholder="Выберите магазин…"
-          />
-        </label>
-        <p className="small muted" style={{ marginTop: -6 }}>
-          Нет нужного магазина? <a href="#add-offer">Добавьте его</a> в блоке «Где купить».
-        </p>
-        {replacing && <p className="small muted">Вы уже оценивали этот чай из этого магазина — новый отзыв заменит прежний.</p>}
+        <h3>{editing ? 'Правка отзыва' : 'Ваш отзыв'}</h3>
+        {editing ? (
+          <p className="small">
+            <span className="muted">Куплен в </span>
+            <strong>{editing.shop.title}</strong>
+            <span className="muted"> · дата отзыва не изменится, рядом появится пометка «изменён»</span>
+          </p>
+        ) : (
+          <>
+            <label className="field">
+              Где купили
+              <SearchSelect
+                options={offers.map((o) => ({ value: o.shopId, label: o.shop.title }))}
+                value={shopId}
+                onChange={setShopId}
+                placeholder="Выберите магазин…"
+              />
+            </label>
+            <p className="small muted" style={{ marginTop: -6 }}>
+              Нет нужного магазина? <a href="#add-offer">Добавьте его</a> в блоке «Где купить».
+            </p>
+          </>
+        )}
         <LeafInput value={rating} onChange={setRating} />
         <label className="field">
           Впечатления
           <textarea className="textarea" rows={6} value={text} onChange={(e) => setText(e.target.value)} placeholder="Как раскрывался, сколько проливов держит, стоит ли своих денег…" />
         </label>
+        <fieldset className="stack purchase" style={{ gap: 8 }}>
+          <legend className="field" style={{ display: 'block' }}>
+            Вкус <span className="muted" style={{ fontWeight: 500 }}>· что чувствуется на языке, можно несколько</span>
+          </legend>
+          <div className="row" style={{ gap: 8 }} role="group" aria-label="Вкус">
+            {wheel?.wheel.tastes.map((t) => (
+              <button
+                key={t.slug}
+                type="button"
+                className="chip"
+                aria-pressed={tastes.includes(t.slug)}
+                onClick={() => setTastes((cur) => (cur.includes(t.slug) ? cur.filter((x) => x !== t.slug) : [...cur, t.slug]))}
+              >
+                <span className="dot" style={{ background: t.color }} aria-hidden="true" />
+                {t.title}
+              </button>
+            ))}
+          </div>
+          <span className="small muted">Умами — «бульонность», насыщенный вкус, как у водорослей или хорошего зелёного чая.</span>
+        </fieldset>
         <fieldset className="stack purchase" style={{ gap: 10 }}>
           <legend className="field" style={{ display: 'block' }}>
             Покупка <span className="muted" style={{ fontWeight: 500 }}>· необязательно</span>
@@ -205,13 +245,16 @@ export function ReviewForm({
           <span className="small muted">JPEG, PNG или WebP до 10 МБ. Геопозицию и другие данные камеры мы удаляем.</span>
         </div>
         {error && <p className="error" role="alert">{error}</p>}
-        <div>
-          <button className="btn" disabled={busy || rating === 0}>{busy ? 'Сохраняем…' : 'Опубликовать'}</button>
+        <div className="row">
+          <button className="btn" disabled={busy || rating === 0}>{busy ? 'Сохраняем…' : editing ? 'Сохранить' : 'Опубликовать'}</button>
+          {editing && (
+            <button type="button" className="btn btn-ghost" onClick={onCancelEdit}>Отмена</button>
+          )}
         </div>
       </div>
       <div className="stack review-form-wheel">
         <div className="field" style={{ display: 'block' }}>
-          Ноты вкуса <span className="muted" style={{ fontWeight: 500 }}>· необязательно</span>
+          Аромат и ноты <span className="muted" style={{ fontWeight: 500 }}>· необязательно</span>
         </div>
         {wheel ? <FlavorPicker index={wheel} value={flavors} onChange={setFlavors} /> : <div className="skeleton" style={{ aspectRatio: '1' }} />}
       </div>

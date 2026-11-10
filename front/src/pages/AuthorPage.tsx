@@ -3,6 +3,7 @@ import { Link, Navigate, useParams } from 'react-router'
 import * as api from '../api'
 import { useAuth } from '../auth/AuthContext'
 import { useAsync } from '../hooks/useAsync'
+import { usePageTitle } from '../hooks/usePageTitle'
 import { useFlavorWheel } from '../hooks/useCatalog'
 import { FlavorProfileView } from '../components/FlavorWheel'
 import { Loading, NotFoundBlock } from '../components/Layout'
@@ -15,6 +16,7 @@ export function AuthorPage() {
   const { id = '' } = useParams()
   const { user } = useAuth()
   const author = useAsync(() => api.getAuthor(id), [id, user?.id])
+  usePageTitle(author.data?.name)
   const reviews = useAsync(() => api.getUserReviews(Number(id)), [id])
   const taste = useAsync(() => api.getUserFlavors(Number(id)), [id])
   const wheel = useFlavorWheel()
@@ -30,7 +32,19 @@ export function AuthorPage() {
         <span className="avatar" style={{ width: 72, height: 72, fontSize: 30, background: 'var(--surface)' }} aria-hidden="true">{a.name.slice(0, 1)}</span>
         <span className="eyebrow">Автор отзывов</span>
         <h1>{a.name}</h1>
-        <p>С нами с {fmtDate(a.joined)} · {reviewsWord(a.reviews)} · попробовал(а) {teasWord(a.teas)}</p>
+        <p>
+          С нами с {fmtDate(a.joined)} · {reviewsWord(a.reviews)} · попробовал(а) {teasWord(a.teas)}
+          {a.shops > 1 && <> из {a.shops} {plural(a.shops, 'магазина', 'магазинов', 'магазинов')}</>}
+        </p>
+        {a.kinds.length > 0 && (
+          <div className="row" style={{ gap: 6 }} aria-label="Сколько чаёв каждого вида оценил автор">
+            {a.kinds.map((k) => (
+              <Link key={k.slug} to={`/rankings/categories/${k.slug}`} className="tag" style={{ background: k.color, color: k.ink, textDecoration: 'none', boxShadow: `inset 0 0 0 1px ${k.ink}40` }}>
+                {k.name} · {k.teas}
+              </Link>
+            ))}
+          </div>
+        )}
         <div className="row">
           <span className="sticker" style={{ transform: 'rotate(-3deg)' }}>
             {a.followers} {plural(a.followers, 'подписчик', 'подписчика', 'подписчиков')}
@@ -54,7 +68,7 @@ export function AuthorPage() {
         <h2 id="a-reviews-h">Отзывы</h2>
         {reviews.data?.length ? (
           <div className="grid" style={{ gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))' }}>
-            {reviews.data.map((r) => <ReviewItem key={r.id} review={r} showTea />)}
+            {reviews.data.map((r) => <ReviewItem key={r.id} review={r} showTea hideExperience />)}
           </div>
         ) : reviews.loading ? (
           <Loading />

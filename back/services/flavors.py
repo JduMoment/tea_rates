@@ -1,8 +1,11 @@
 """Вкусовой профиль чая: как часто в отзывах звучит каждый дескриптор, группа и вкус.
 
-Доля — какая часть отзывов упомянула дескриптор. Для группы и вкуса — какая часть отзывов
-упомянула хотя бы один их дескриптор (а не сумма долей: иначе выходило бы больше 100%).
-Отзывы без дескрипторов в знаменатель не входят — они ничего не говорят о вкусе.
+Доля — какая часть отзывов упомянула дескриптор. Для группы — какая часть отзывов
+упомянула хотя бы один её дескриптор (а не сумма долей: иначе выходило бы больше 100%).
+Отзывы без дескрипторов в знаменатель нот не входят — они ничего не говорят об аромате.
+
+Вкус (сладкий, умами…) автор отмечает сам; если не отметил — вкус выводится из нот (так у старых
+отзывов). Доля вкуса — от отзывов, где вкус известен хоть так, хоть так.
 """
 
 from collections import Counter, defaultdict
@@ -35,22 +38,28 @@ class FlavorProfile:
     tastes: list[Share[Taste]]
 
     @classmethod
-    def of(cls, picks: list[list[Flavor]]) -> "FlavorProfile":
-        """Профиль из списков дескрипторов отдельных отзывов."""
-        picks = [p for p in picks if p]
+    def of(cls, picks: list[list[Flavor]], marked: list[list[Taste]] | None = None) -> "FlavorProfile":
+        """Профиль из дескрипторов отдельных отзывов; marked — отмеченные авторами вкусы, по отзыву
+        на каждый элемент picks (None — вкус везде выводится из нот)."""
+        marked = marked or [[] for _ in picks]
         flavors: Counter[Flavor] = Counter()
         groups: Counter[FlavorGroup] = Counter()
         tastes: Counter[Taste] = Counter()
-        for p in picks:
-            flavors.update(set(p))
-            groups.update({f.group for f in p})
-            tastes.update({f.taste for f in p})
-        total = len(picks)
+        with_notes = with_tastes = 0
+        for p, t in zip(picks, marked, strict=True):
+            if p:
+                with_notes += 1
+                flavors.update(set(p))
+                groups.update({f.group for f in p})
+            review_tastes = set(t) or {f.taste for f in p}
+            if review_tastes:
+                with_tastes += 1
+                tastes.update(review_tastes)
         return cls(
-            reviews=total,
-            flavors=_shares(flavors, list(Flavor), total),
-            groups=_shares(groups, list(FlavorGroup), total),
-            tastes=_shares(tastes, list(Taste), total),
+            reviews=with_notes,
+            flavors=_shares(flavors, list(Flavor), with_notes),
+            groups=_shares(groups, list(FlavorGroup), with_notes),
+            tastes=_shares(tastes, list(Taste), with_tastes),
         )
 
 
@@ -104,12 +113,16 @@ class FlavorStatsService:
 
     async def for_user(self, user_id: int) -> FlavorProfile:
         """Что пользователь слышит в чаях — по его собственным отзывам."""
-        query = select(Review.flavors).where(Review.user_id == user_id, func.cardinality(Review.flavors) > 0)
-        return FlavorProfile.of(list(await self.db.scalars(query)))
+        return await self._profile(Review.user_id == user_id)
 
     async def for_tea(self, tea_id: int, shop_id: int | None = None) -> FlavorProfile:
         """Профиль чая по отзывам из всех магазинов или только из shop_id."""
-        query = select(Review.flavors).where(Review.tea_id == tea_id, func.cardinality(Review.flavors) > 0)
-        if shop_id is not None:
-            query = query.where(Review.shop_id == shop_id)
-        return FlavorProfile.of(list(await self.db.scalars(query)))
+        where = [Review.tea_id == tea_id] + ([Review.shop_id == shop_id] if shop_id is not None else [])
+        return await self._profile(*where)
+
+    async def _profile(self, *where) -> FlavorProfile:
+        query = select(Review.flavors, Review.tastes).where(
+            *where, (func.cardinality(Review.flavors) > 0) | (func.cardinality(Review.tastes) > 0)
+        )
+        rows = list(await self.db.execute(query))
+        return FlavorProfile.of([r.flavors for r in rows], [r.tastes for r in rows])

@@ -5,7 +5,7 @@ from fastapi import HTTPException, Query, UploadFile, status
 from back.core.auth import CurrentUser, OptionalUser
 from back.core.deps import PhotosDep, ReviewsDep
 from back.core.views import View
-from back.schemas.reviews import ReviewIn, ReviewOut, VoteIn
+from back.schemas.reviews import ReviewEditIn, ReviewIn, ReviewOut, VoteIn
 from back.services.photos import MAX_BYTES, PhotoError
 
 
@@ -44,15 +44,31 @@ class TeaReviewsView(View):
             rating=data.rating,
             text=data.text,
             flavors=data.flavors,
+            tastes=data.tastes,
             purchase=data.purchase(),
             infusion=data.infusion(),
         )
-        return ReviewOut.of(review)
+        return ReviewOut.of(review, experience=await reviews.experience([review.id]))
 
 
 class ReviewView(View):
+    """PUT — автор правит свой отзыв (дата прежняя, появляется editedAt). DELETE — удаляет."""
+
     paths = ("/reviews/{review_id}",)
-    route_options: ClassVar[dict] = {"status_code": status.HTTP_204_NO_CONTENT}
+    method_options: ClassVar[dict] = {"delete": {"status_code": status.HTTP_204_NO_CONTENT}}
+
+    async def put(self, review_id: int, data: ReviewEditIn, user: CurrentUser, reviews: ReviewsDep) -> ReviewOut:
+        review = await reviews.edit(
+            user,
+            review_id,
+            rating=data.rating,
+            text=data.text,
+            flavors=data.flavors,
+            tastes=data.tastes,
+            purchase=data.purchase(),
+            infusion=data.infusion(),
+        )
+        return ReviewOut.of(review, experience=await reviews.experience([review.id]))
 
     async def delete(self, review_id: int, user: CurrentUser, reviews: ReviewsDep) -> None:
         await reviews.delete(user, review_id)
@@ -65,7 +81,8 @@ class ReviewVoteView(View):
 
     async def put(self, review_id: int, data: VoteIn, user: CurrentUser, reviews: ReviewsDep) -> ReviewOut:
         review = await reviews.vote(user, review_id, data.helpful)
-        return ReviewOut.of(review, voted={review.id} if data.helpful else set())
+        voted = {review.id} if data.helpful else set()
+        return ReviewOut.of(review, voted=voted, experience=await reviews.experience([review.id]))
 
 
 class ReviewPhotosView(View):
@@ -74,13 +91,15 @@ class ReviewPhotosView(View):
     paths = ("/reviews/{review_id}/photos",)
     route_options: ClassVar[dict] = {"status_code": status.HTTP_201_CREATED}
 
-    async def post(self, review_id: int, file: UploadFile, user: CurrentUser, photos: PhotosDep) -> ReviewOut:
+    async def post(
+        self, review_id: int, file: UploadFile, user: CurrentUser, photos: PhotosDep, reviews: ReviewsDep
+    ) -> ReviewOut:
         data = await file.read(MAX_BYTES + 1)
         try:
             review = await photos.add(user, review_id, data)
         except PhotoError as exc:
             raise HTTPException(status.HTTP_422_UNPROCESSABLE_CONTENT, detail=str(exc)) from None
-        return ReviewOut.of(review)
+        return ReviewOut.of(review, experience=await reviews.experience([review.id]))
 
 
 class ReviewPhotoView(View):
@@ -92,5 +111,7 @@ class ReviewPhotoView(View):
 
 
 async def _out(reviews: ReviewsDep, user, items) -> list[ReviewOut]:
-    voted = await reviews.voted(user, [x.review.id for x in items])
-    return [ReviewOut.of(x.review, x.tea, voted) for x in items]
+    ids = [x.review.id for x in items]
+    voted = await reviews.voted(user, ids)
+    experience = await reviews.experience(ids)
+    return [ReviewOut.of(x.review, x.tea, voted, experience) for x in items]

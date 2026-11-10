@@ -1,12 +1,14 @@
-import { useState, type FormEvent } from 'react'
-import { Link, useNavigate, useParams } from 'react-router'
+import { useEffect, useState, type FormEvent } from 'react'
+import { Link, useParams, useSearchParams } from 'react-router'
 import * as api from '../api'
 import { useAuth } from '../auth/AuthContext'
 import type { RatedOffer, ShopBrief, TeaDetails } from '../data/types'
 import { useAsync } from '../hooks/useAsync'
+import { usePageTitle } from '../hooks/usePageTitle'
 import { useFlavorWheel } from '../hooks/useCatalog'
 import { FlavorProfileView } from '../components/FlavorWheel'
 import { CupIcon } from '../components/Icons'
+import { ImageUpload, ShopLogo } from '../components/CatalogImage'
 import { Leaves } from '../components/Leaves'
 import { Loading, NotFoundBlock } from '../components/Layout'
 import { OfferFields } from '../components/OfferFields'
@@ -23,20 +25,42 @@ import { fmtPerGram, fmtScore, reviewsWord } from '../utils/format'
 
 export function TeaPage() {
   const { id = '' } = useParams()
-  const navigate = useNavigate()
   const { user } = useAuth()
   const wheel = useFlavorWheel()
   const res = useAsync(() => api.getTea(id), [id])
+  usePageTitle(res.data?.title)
   const brewing = useAsync(() => api.getBrewing(Number(id)), [id])
   const prices = useAsync(() => api.getPrices(Number(id)), [id])
-  const [error, setError] = useState<string | null>(null)
   const [reviewSort, setReviewSort] = useState<'new' | 'helpful'>('new')
+  // «Купили в другом магазине?» — открыть форму, хотя свой отзыв на чай уже есть
+  const [anotherShop, setAnotherShop] = useState(false)
+  // ?edit=<id отзыва> — пришли из профиля по «Изменить»
+  const [params, setParams] = useSearchParams()
+  const editingId = Number(params.get('edit')) || null
+  function editReview(id: number | null) {
+    setParams((p) => {
+      if (id) p.set('edit', String(id))
+      else p.delete('edit')
+      return p
+    }, { replace: true })
+  }
+  // Открыли правку — показываем форму (и когда пришли из профиля, как только чай загрузился)
+  const loaded = Boolean(res.data)
+  useEffect(() => {
+    if (editingId && loaded) document.getElementById('review-form')?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+  }, [editingId, loaded])
 
   if (res.loading && !res.data) return <Loading />
   const tea = res.data
   if (!tea) return <NotFoundBlock text="Чай не найден" />
 
   const mine = user ? tea.reviews.filter((r) => r.userId === user.id) : []
+  const editing = mine.find((r) => r.id === editingId) ?? null
+  // Свой отзыв уже есть — форму не показываем (свой правят через «Изменить»). Новый отзыв — только
+  // о покупке в магазине, где этот чай ещё не оценивали, и по кнопке.
+  const reviewed = new Set(mine.map((r) => r.shopId))
+  const freeOffers = tea.offers.filter((o) => !reviewed.has(o.shopId))
+  const showForm = Boolean(editing) || !user || mine.length === 0 || anotherShop
   const reviews =
     reviewSort === 'helpful' ? [...tea.reviews].sort((a, b) => b.helpful - a.helpful) : tea.reviews
   const pricePoints = prices.data?.reduce((n, s) => n + s.points.length, 0) ?? 0
@@ -44,16 +68,6 @@ export function TeaPage() {
   const best = tea.offers
     .filter((o) => o.shopRank)
     .reduce<RatedOffer | undefined>((a, o) => (!a || o.shopRank! < a.shopRank! ? o : a), undefined)
-
-  async function removeTea() {
-    if (!tea || !confirm(`Удалить «${tea.title}» из каталога?`)) return
-    try {
-      await api.deleteTea(tea.id)
-      navigate(`/teas?category=${tea.category.slug}`)
-    } catch (e) {
-      setError((e as Error).message)
-    }
-  }
 
   return (
     <div className="page">
@@ -65,7 +79,7 @@ export function TeaPage() {
         <div className="main panel" style={{ background: tea.category.color }}>
           <div className="tea-art">
             <span className="sticker" style={{ fontSize: 22, background: tea.category.color }}>{fmtScore(tea.stats.avg)}</span>
-            <CupIcon size={150} color={tea.category.ink} />
+            {tea.imageUrl ? <img src={tea.imageUrl} alt={tea.title} className="tea-photo" /> : <CupIcon size={150} color={tea.category.ink} />}
           </div>
           <div className="stack" style={{ flex: '1 1 300px' }}>
             <div className="row" style={{ gap: 8 }}>
@@ -96,12 +110,11 @@ export function TeaPage() {
             <div className="row">
               <a href="#offers" className="btn">Где купить · {tea.offers.length}</a>
               {user && <Link to={`/diary?add=${tea.id}`} className="btn btn-ghost">В дневник</Link>}
-              {user && tea.authorId === user.id && (
-                <button type="button" className="btn btn-ghost" onClick={removeTea}>Удалить чай</button>
-              )}
             </div>
             {user && <ShelfButtons teaId={tea.id} />}
-            {error && <p className="error" role="alert">{error}</p>}
+            {user && !tea.imageUrl && (
+              <ImageUpload label="Загрузить фото чая" upload={(f) => api.uploadTeaImage(tea.id, f)} onDone={res.reload} />
+            )}
           </div>
           {/* Вкусовой профиль — главное о чае, поэтому прямо в шапке, отдельной строкой */}
           <section style={{ flexBasis: '100%', minWidth: 0 }} aria-label="Вкусовой профиль">
@@ -147,6 +160,7 @@ export function TeaPage() {
               <ReviewItem
                 key={r.id}
                 review={r}
+                onEdit={user && r.userId === user.id ? () => editReview(r.id) : undefined}
                 onDelete={
                   user && r.userId === user.id
                     ? async () => {
@@ -158,7 +172,28 @@ export function TeaPage() {
               />
             ))}
         </div>
-        <ReviewForm key={tea.id} teaId={tea.id} offers={tea.offers} mine={mine} onSaved={res.reload} />
+        {showForm && (editing || freeOffers.length > 0) ? (
+          <ReviewForm
+            key={`${tea.id}-${editing?.id ?? 'new'}`}
+            teaId={tea.id}
+            offers={freeOffers}
+            editing={editing}
+            onSaved={() => {
+              setAnotherShop(false)
+              res.reload()
+            }}
+            onCancelEdit={() => editReview(null)}
+          />
+        ) : (
+          mine.length > 0 &&
+          freeOffers.length > 0 && (
+            <div>
+              <button type="button" className="btn btn-ghost" onClick={() => setAnotherShop(true)}>
+                Купили в другом магазине? Написать отзыв
+              </button>
+            </div>
+          )
+        )}
       </section>
 
       {tea.alternatives.length > 0 && (
@@ -179,18 +214,9 @@ export function TeaPage() {
 /** «Где купить»: магазины с ценой и оценкой этого чая именно у них + добавить ещё один. */
 function Offers({ tea, onChanged }: { tea: TeaDetails; onChanged: () => void }) {
   const { user } = useAuth()
-  const [adding, setAdding] = useState(false)
-  const [error, setError] = useState<string | null>(null)
-
-  async function remove(o: RatedOffer) {
-    if (!confirm(`Убрать ${o.shop.title} из магазинов с этим чаем?`)) return
-    try {
-      await api.deleteOffer(tea.id, o.shopId)
-      onChanged()
-    } catch (e) {
-      setError((e as Error).message)
-    }
-  }
+  // ?shop=<name> — вернулись после «Добавить магазин»: сразу открываем форму с ним
+  const [params] = useSearchParams()
+  const [adding, setAdding] = useState(Boolean(params.get('shop')))
 
   return (
     <section className="stack" id="offers" aria-labelledby="offers-h">
@@ -202,7 +228,10 @@ function Offers({ tea, onChanged }: { tea: TeaDetails; onChanged: () => void }) 
         {tea.offers.map((o, i) => (
           <li key={o.id} className="rank-row" style={i === 0 && o.stats.reviews ? { background: tea.category.color } : undefined}>
             <div style={{ flex: '2 1 220px', minWidth: 0 }} className="stack">
-              <Link to={`/shops/${o.shop.name}`} className="rank-name">{o.shop.title}</Link>
+              <span className="row" style={{ gap: 10, flexWrap: 'nowrap' }}>
+                <ShopLogo shop={o.shop} size={32} />
+                <Link to={`/shops/${o.shop.name}`} className="rank-name">{o.shop.title}</Link>
+              </span>
               <span className="small muted">
                 {[
                   offerPriceText(o),
@@ -220,14 +249,10 @@ function Offers({ tea, onChanged }: { tea: TeaDetails; onChanged: () => void }) 
             </div>
             <div className="row" style={{ flex: '0 1 auto' }}>
               {o.url && <a href={o.url} target="_blank" rel="noreferrer" style={{ fontWeight: 700 }}>Купить ↗</a>}
-              {user && o.authorId === user.id && tea.offers.length > 1 && (
-                <button type="button" className="btn btn-ghost btn-sm" onClick={() => remove(o)}>Убрать</button>
-              )}
             </div>
           </li>
         ))}
       </ol>
-      {error && <p className="error" role="alert">{error}</p>}
       {user &&
         (adding ? (
           <AddOfferForm
@@ -249,7 +274,10 @@ function Offers({ tea, onChanged }: { tea: TeaDetails; onChanged: () => void }) 
 
 function AddOfferForm({ tea, onSaved, onCancel }: { tea: TeaDetails; onSaved: () => void; onCancel: () => void }) {
   const shops = useAsync(() => api.getShops(), [])
-  const [draft, setDraft] = useState(emptyOffer())
+  const [params] = useSearchParams()
+  const [offer, setDraft] = useState(emptyOffer())
+  const preset = shops.data?.find((s) => s.name === params.get('shop'))
+  const draft = offer.shopId === 0 && preset ? { ...offer, shopId: preset.id } : offer
   const [error, setError] = useState<string | null>(null)
   const [busy, setBusy] = useState(false)
   const taken = new Set(tea.offers.map((o) => o.shopId))
@@ -274,9 +302,12 @@ function AddOfferForm({ tea, onSaved, onCancel }: { tea: TeaDetails; onSaved: ()
     <form id="add-offer" className="card stack" onSubmit={submit} style={{ maxWidth: 560 }}>
       <h3>Где ещё продаётся «{tea.title}»</h3>
       {shops.data && free.length === 0 ? (
-        <p className="muted">Этот чай уже есть во всех магазинах каталога.</p>
+        <p className="muted">
+          Этот чай уже есть во всех магазинах каталога.{' '}
+          <Link to={`/shops/new?${new URLSearchParams({ back: `/teas/${tea.id}` })}`}>Добавить новый магазин</Link>
+        </p>
       ) : (
-        <OfferFields value={draft} onChange={setDraft} shops={free} />
+        <OfferFields value={draft} onChange={setDraft} shops={free} backTo={`/teas/${tea.id}`} />
       )}
       {error && <p className="error" role="alert">{error}</p>}
       <div className="row">

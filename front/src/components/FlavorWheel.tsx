@@ -1,11 +1,11 @@
 /**
- * Колесо вкусов: в центре — группы, внешнее кольцо — дескрипторы.
+ * Колесо ароматов: в центре — группы, внешнее кольцо — дескрипторы.
  * Всё по часовой стрелке от «12 часов», в порядке из GET /api/flavors.
  *
- * Базовых вкусов на колесе нет: у соседних нот они чередуются, и кольцо вкусов рассыпалось
- * на два десятка цветных обрывков. Вкус ноты — в подсказке при наведении, сводка — под колесом.
+ * Базовых вкусов на колесе нет: вкус (сладкий, умами…) автор отмечает отдельно в форме отзыва,
+ * сводка по вкусу — под колесом.
  *
- * Пользователь выбирает только дескрипторы; группа и вкус подсвечиваются сами.
+ * Пользователь выбирает дескрипторы; группа подсвечивается сама.
  * FlavorPicker — выбор в форме отзыва, FlavorProfileView — профиль чая по отзывам.
  */
 import { useEffect, useMemo, useState, type ReactNode } from 'react'
@@ -52,7 +52,7 @@ function radial(r: number, deg: number, anchor: 'outer' | 'middle') {
 
 interface Layout {
   step: number
-  flavors: { slug: string; title: string; taste: string; color: string; a0: number; a1: number }[]
+  flavors: { slug: string; title: string; color: string; a0: number; a1: number }[]
   groups: { slug: string; title: string; color: string; a0: number; a1: number }[]
 }
 
@@ -66,8 +66,7 @@ function layout(index: WheelIndex): Layout {
     for (const f of g.flavors) {
       const a0 = i * step
       const a1 = a0 + step
-      const taste = index.taste(f.taste)?.title ?? ''
-      flavors.push({ slug: f.slug, title: f.title, taste, color: g.color, a0, a1 })
+      flavors.push({ slug: f.slug, title: f.title, color: g.color, a0, a1 })
       i++
     }
     groups.push({ slug: g.slug, title: g.title, color: g.color, a0: start, a1: i * step })
@@ -163,7 +162,6 @@ export function FlavorWheel({
           >
             <title>
               {flavorHint ? flavorHint(f.slug, f.title) : f.title}
-              {f.taste && ` · ${f.taste.toLowerCase()}`}
             </title>
             <path
               d={sector(R.group + 2, R.flavor, f.a0, f.a1)}
@@ -276,7 +274,7 @@ export function FlavorPicker({
 
       {/* Группы кнопками — для телефона и клавиатуры, где по тонким секторам не попасть */}
       {!needle && (
-        <div className="row" style={{ gap: 6 }} role="group" aria-label="Группы вкусов">
+        <div className="row chip-row" style={{ gap: 6 }} role="group" aria-label="Группы вкусов">
           {index.wheel.groups.map((g) => (
             <button key={g.slug} type="button" className="chip chip-sm" aria-pressed={groupSelect ? groupFull(g.slug) : focused === g.slug} onClick={() => onGroup(g.slug)}>
               <span className="dot" style={{ background: g.color }} aria-hidden="true" />

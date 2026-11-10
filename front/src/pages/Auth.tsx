@@ -1,6 +1,6 @@
 import { useEffect, useState, type FormEvent, type ReactNode } from 'react'
 import { Link, Navigate, useLocation, useNavigate, useSearchParams } from 'react-router'
-import { OAUTH_ERRORS, yandexLoginUrl } from '../api/auth'
+import { forgotPassword, OAUTH_ERRORS, yandexLoginUrl } from '../api/auth'
 import { useAuth } from '../auth/AuthContext'
 import { LeafIcon, YandexIcon } from '../components/Icons'
 import { Loading } from '../components/Layout'
@@ -99,7 +99,10 @@ export function Login() {
           <input className="input" type="email" autoComplete="email" required value={email} onChange={(e) => setEmail(e.target.value)} />
         </label>
         <label className="field">
-          Пароль
+          <span className="row between">
+            Пароль
+            <Link to="/forgot-password" state={{ email }} className="small" style={{ fontWeight: 600 }}>Забыли пароль?</Link>
+          </span>
           <input className="input" type="password" autoComplete="current-password" required value={password} onChange={(e) => setPassword(e.target.value)} />
         </label>
         <FormError error={error} />
@@ -167,6 +170,111 @@ export function Register() {
         <p className="small muted">
           Уже есть аккаунт? <Link to="/login" state={{ from: target }} style={{ fontWeight: 700 }}>Войти</Link>
         </p>
+      </form>
+    </AuthLayout>
+  )
+}
+
+/** «Забыли пароль?» — письмо со ссылкой. Ответ одинаковый для любой почты: не подсказываем, кто зарегистрирован. */
+export function ForgotPassword() {
+  const location = useLocation()
+  const [email, setEmail] = useState((location.state as { email?: string } | null)?.email ?? '')
+  const [sent, setSent] = useState(false)
+  const [error, setError] = useState<string | null>(null)
+  const [busy, setBusy] = useState(false)
+
+  async function submit(e: FormEvent) {
+    e.preventDefault()
+    setBusy(true)
+    setError(null)
+    try {
+      await forgotPassword(email)
+      setSent(true)
+    } catch (err) {
+      setError((err as Error).message)
+    } finally {
+      setBusy(false)
+    }
+  }
+
+  return (
+    <AuthLayout title={<>Вспомним<br />пароль</>} lead="Пришлём ссылку, по которой можно задать новый." color="var(--butter)">
+      <form className="auth-form" onSubmit={submit} noValidate>
+        <h2>Новый пароль</h2>
+        {sent ? (
+          <>
+            <p role="status">
+              Если аккаунт с почтой <strong>{email}</strong> есть, мы отправили на неё письмо со ссылкой. Она действует час.
+            </p>
+            <p className="small muted">Письма нет? Проверьте «Спам» или запросите ещё раз через пару минут.</p>
+            <Link to="/login" className="btn">Ко входу</Link>
+          </>
+        ) : (
+          <>
+            <label className="field">
+              Почта, с которой регистрировались
+              <input className="input" type="email" autoComplete="email" required value={email} onChange={(e) => setEmail(e.target.value)} />
+            </label>
+            <FormError error={error} />
+            <button className="btn" disabled={busy || !email}>{busy ? 'Отправляем…' : 'Прислать ссылку'}</button>
+            <p className="small muted">
+              Вспомнили? <Link to="/login" style={{ fontWeight: 700 }}>Войти</Link>
+            </p>
+          </>
+        )}
+      </form>
+    </AuthLayout>
+  )
+}
+
+/** Страница из письма: /reset-password?token=… */
+export function ResetPassword() {
+  const { resetPassword } = useAuth()
+  const navigate = useNavigate()
+  const [params] = useSearchParams()
+  const token = params.get('token') ?? ''
+  const [password, setPassword] = useState('')
+  const [password2, setPassword2] = useState('')
+  const [error, setError] = useState<string | null>(null)
+  const [busy, setBusy] = useState(false)
+
+  async function submit(e: FormEvent) {
+    e.preventDefault()
+    if (password !== password2) return setError('Пароли не совпадают')
+    setBusy(true)
+    setError(null)
+    try {
+      await resetPassword(token, password)
+      navigate('/profile', { replace: true })
+    } catch (err) {
+      setError((err as Error).message)
+      setBusy(false)
+    }
+  }
+
+  return (
+    <AuthLayout title={<>Новый<br />пароль</>} lead="После смены пароля все остальные устройства выйдут из аккаунта." color="var(--butter)">
+      <form className="auth-form" onSubmit={submit} noValidate>
+        <h2>Задайте пароль</h2>
+        {!token ? (
+          <p>
+            В ссылке нет кода. Откройте ссылку из письма целиком или <Link to="/forgot-password">запросите новую</Link>.
+          </p>
+        ) : (
+          <>
+            <label className="field">
+              Новый пароль <span className="muted" style={{ fontWeight: 500 }}>минимум 6 символов</span>
+              <input className="input" type="password" autoComplete="new-password" required minLength={6} maxLength={128} value={password} onChange={(e) => setPassword(e.target.value)} />
+            </label>
+            <label className="field">
+              Ещё раз
+              <input className="input" type="password" autoComplete="new-password" required value={password2} onChange={(e) => setPassword2(e.target.value)} />
+            </label>
+            <FormError error={error} />
+            {error && <Link to="/forgot-password" className="small">Запросить новую ссылку</Link>}
+            <button className="btn" disabled={busy || !password || !password2}>{busy ? 'Сохраняем…' : 'Сохранить и войти'}</button>
+          </>
+        )}
       </form>
     </AuthLayout>
   )

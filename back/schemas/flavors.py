@@ -24,6 +24,19 @@ def _flavors(v: list[str]) -> list[Flavor]:
     return flavors
 
 
+def _tastes(v: list[str]) -> list[Taste]:
+    tastes = []
+    for x in v:
+        taste = Taste.from_slug(x)
+        if taste is None:
+            raise ValueError(f"Неизвестный вкус: {x}")
+        tastes.append(taste)
+    return list(dict.fromkeys(tastes))
+
+
+#: Отмеченные вкусы: ["sweet", "umami"] → [Taste.SWEET, Taste.UMAMI].
+TastesIn = Annotated[list[str], AfterValidator(_tastes)]
+
 #: Дескрипторы во входящих данных: ["honey", "citrus"] → [Flavor.HONEY, Flavor.CITRUS].
 #: В схеме — список строк (так он и выглядит в /docs), после проверки — список Flavor.
 FlavorsIn = Annotated[list[str], AfterValidator(_flavors)]

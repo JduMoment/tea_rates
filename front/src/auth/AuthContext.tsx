@@ -9,6 +9,8 @@ interface AuthValue {
   login: (email: string, password: string) => Promise<void>
   register: (name: string, email: string, password: string) => Promise<void>
   logout: () => Promise<void>
+  /** Новый пароль по ссылке из письма — после него пользователь сразу вошёл */
+  resetPassword: (token: string, password: string) => Promise<void>
 }
 
 const AuthContext = createContext<AuthValue | null>(null)
@@ -30,6 +32,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     ready,
     login: async (email, password) => setUser(await auth.login(email, password)),
     register: async (name, email, password) => setUser(await auth.register(name, email, password)),
+    resetPassword: async (token, password) => setUser(await auth.resetPassword(token, password)),
     logout: async () => {
       await auth.logout()
       setUser(null)

@@ -1,0 +1,29 @@
+# Образ для прода: фронт собирается внутри, бэкенд без --reload, миграции — при старте.
+# Собирать из корня проекта: docker build -f deploy/Dockerfile.prod -t tea_rates:prod .
+
+# ---------- фронт ----------
+FROM node:22-slim AS front
+WORKDIR /front
+COPY front/package.json front/package-lock.json ./
+RUN npm ci --no-audit --no-fund
+COPY front/ ./
+RUN npm run build
+
+# ---------- бэкенд ----------
+FROM python:3.12-slim
+ENV PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONUNBUFFERED=1 \
+    POETRY_VIRTUALENVS_CREATE=false \
+    FRONT_DIST=/app/front/dist \
+    MEDIA_DIR=/app/media
+RUN pip install --no-cache-dir poetry
+WORKDIR /app
+COPY pyproject.toml poetry.lock ./
+RUN poetry install --no-root --no-interaction && pip cache purge
+COPY alembic.ini ./
+COPY back ./back
+COPY --from=front /front/dist ./front/dist
+
+EXPOSE 8000
+# Сначала схема БД, потом сервер. --proxy-headers: за Caddy видим настоящий IP и https.
+CMD ["sh", "-c", "alembic upgrade head && exec uvicorn back.main:app --host 0.0.0.0 --port 8000 --workers 2 --proxy-headers --forwarded-allow-ips='*'"]

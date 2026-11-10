@@ -1,14 +1,18 @@
 """Вьюхи, которые отдают собранный фронт (SPA на React из front/dist)."""
 
+import html
 import mimetypes
+import re
 from pathlib import Path
 from typing import ClassVar
 
 from fastapi import HTTPException, Request
 from fastapi.responses import FileResponse, HTMLResponse, Response
 
-from back.core.config import FRONT_DIST, MEDIA_DIR
+from back.core.config import FRONT_DIST, MEDIA_DIR, PUBLIC_URL
+from back.core.db import DbSession
 from back.core.views import View
+from back.services.previews import DEFAULT, SITE, Preview, PreviewService, cached_render
 
 # Шрифты из сборки (@fontsource) и WebP-фото: стандартная таблица Python может их не знать (octet-stream)
 mimetypes.add_type("font/woff2", ".woff2")
@@ -35,6 +39,7 @@ class SpaView(View):
         "/teas",
         "/teas/{tea_id}",
         "/shops",
+        "/shops/new",
         "/shops/{shop_id}",
         "/rankings",
         "/rankings/categories",
@@ -49,6 +54,8 @@ class SpaView(View):
         "/where-to-buy/{category}",
         "/login",
         "/register",
+        "/forgot-password",
+        "/reset-password",
         "/diary",
         "/profile",
         "/users/{user_id}",
@@ -62,12 +69,58 @@ class SpaView(View):
     def index_file() -> Path:
         return FRONT_DIST / "index.html"
 
-    async def get(self) -> Response:
+    async def get(self, request: Request, db: DbSession) -> Response:
         index = self.index_file()
         if not index.is_file():
             return HTMLResponse(NOT_BUILT_HTML.format(index=index), status_code=503)
+        # Превью для мессенджеров и поисковиков: они не выполняют JS, поэтому теги вставляем на сервере
+        preview = DEFAULT if self.status_code == 404 else await PreviewService(db).for_path(request.url.path)
+        page = with_preview(index.read_text(encoding="utf-8"), preview, request.url.path)
         # index.html не кэшируем: после пересборки в нём новые имена бандлов
-        return FileResponse(index, status_code=self.status_code, headers={"Cache-Control": "no-cache"})
+        return HTMLResponse(page, status_code=self.status_code, headers={"Cache-Control": "no-cache"})
+
+
+def with_preview(page: str, p: Preview, path: str) -> str:
+    """Подставляет в index.html заголовок и теги Open Graph / Twitter."""
+    e = lambda v: html.escape(v, quote=True)
+    url, image = f"{PUBLIC_URL}{path}", f"{PUBLIC_URL}{p.image}"
+    tags = "\n".join(
+        [
+            f'<meta name="description" content="{e(p.description)}" />',
+            f'<meta property="og:site_name" content="{SITE}" />',
+            '<meta property="og:locale" content="ru_RU" />',
+            '<meta property="og:type" content="website" />',
+            f'<meta property="og:url" content="{e(url)}" />',
+            f'<meta property="og:title" content="{e(p.title)}" />',
+            f'<meta property="og:description" content="{e(p.description)}" />',
+            f'<meta property="og:image" content="{e(image)}" />',
+            '<meta property="og:image:width" content="1200" />',
+            '<meta property="og:image:height" content="630" />',
+            '<meta name="twitter:card" content="summary_large_image" />',
+            f'<link rel="canonical" href="{e(url)}" />',
+        ]
+    )
+    page = re.sub(r"<title>.*?</title>", f"<title>{e(p.title)}</title>", page, count=1, flags=re.DOTALL)
+    return page.replace("</head>", f"{tags}\n</head>", 1)
+
+
+class OgImageView(View):
+    """Картинка 1200×630 для превью ссылки: /og/default.png, /og/teas/12.png, /og/shops/daochain.png, /og/users/3.png."""
+
+    paths = ("/og/default.png", "/og/teas/{tea_id}.png", "/og/shops/{name}.png", "/og/users/{user_id}.png")
+    include_in_schema = False
+
+    async def get(self, request: Request, db: DbSession) -> Response:
+        path = request.url.path.removeprefix("/og").removesuffix(".png")
+        if path == "/default":
+            preview = DEFAULT
+        else:
+            preview = await PreviewService(db).for_path(path)
+            if preview is DEFAULT:
+                raise HTTPException(status_code=404)
+        return Response(
+            cached_render(path, preview), media_type="image/png", headers={"Cache-Control": "public, max-age=3600"}
+        )
 
 
 class AssetView(View):
@@ -127,7 +180,7 @@ class NotFoundView(SpaView):
     paths = ("/{unknown_path:path}",)
     status_code = 404
 
-    async def get(self, unknown_path: str) -> Response:  # type: ignore[override]
+    async def get(self, unknown_path: str, request: Request, db: DbSession) -> Response:  # type: ignore[override]
         if unknown_path == "api" or unknown_path.startswith("api/"):
             raise HTTPException(status_code=404, detail="Not Found")
-        return await super().get()
+        return await super().get(request, db)

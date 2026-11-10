@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import * as api from '../api'
 import { SHELF_STATUSES, type ShelfStatus } from '../data/types'
 
-/** «Хочу попробовать / Есть дома / Закончился» на странице чая. Повторный клик убирает из шкафа. */
+/** «Хочу попробовать / Есть дома / Закончился / Хочу повторить» на странице чая. Повторный клик убирает из шкафа. */
 export function ShelfButtons({ teaId }: { teaId: number }) {
   const [status, setStatus] = useState<ShelfStatus | null | undefined>(undefined)
   const [busy, setBusy] = useState(false)

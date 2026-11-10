@@ -67,7 +67,7 @@ export function Teas() {
         lead={
           shopInfo
             ? 'Выберите чай, чтобы прочитать отзывы на него и посмотреть, почём он в других магазинах.'
-            : 'Один и тот же чай продают разные магазины. На странице чая видно, где он лучше по отзывам и почём.'
+            : 'Выбирайте по вкусу, сравнивайте по магазинам. У каждого чая — оценки, цены и ноты из отзывов.'
         }
         stickers={[
           { text: 'Габа · 2 магазина', bg: 'var(--butter)', style: { right: '8%', top: 48 } },
@@ -80,7 +80,7 @@ export function Teas() {
       </PageHero>
 
       <div className="toolbar">
-        <div className="row" role="group" aria-label="Категория">
+        <div className="row chip-row" role="group" aria-label="Категория">
           <button type="button" className="chip" aria-pressed={!category} onClick={() => set('category', '')}>Все</button>
           {categories.list.map((c) => (
             <button key={c.slug} type="button" className="chip" aria-pressed={category === c.slug} onClick={() => set('category', c.slug)}>

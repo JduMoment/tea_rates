@@ -1,0 +1,19 @@
+# Caddy сам получает и продлевает сертификат Let's Encrypt — нужно только, чтобы домен смотрел на сервер.
+5listov.ru {
+	encode zstd gzip
+	# Фото к отзывам — до 10 МБ, с запасом на multipart
+	request_body {
+		max_size 12MB
+	}
+	header {
+		Strict-Transport-Security "max-age=31536000"
+		X-Content-Type-Options "nosniff"
+		Referrer-Policy "strict-origin-when-cross-origin"
+	}
+	reverse_proxy backend:8000
+}
+
+# www → без www (redirect URI в кабинете Яндекса — на 5listov.ru)
+www.5listov.ru {
+	redir https://5listov.ru{uri} permanent
+}

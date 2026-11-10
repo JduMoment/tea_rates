@@ -26,7 +26,7 @@ const HERO: Record<Tab, { color: string; title: string; lead: string; stickers: 
   shops: {
     color: 'var(--butter)',
     title: 'Лучшие магазины',
-    lead: 'Общая оценка по всем чаям магазина. Рядом — в каких категориях он на первом месте и как оценены остальные.',
+    lead: 'Общая оценка по всем чаям магазина — с учётом опыта авторов. Рядом — в каких категориях он на первом месте и как оценены остальные.',
     stickers: [
       { text: '№1 в габе', style: { right: '8%', top: 52 } },
       { text: 'общий зачёт', bg: 'var(--peach)', style: { right: '16%', bottom: 56 } },
@@ -35,7 +35,7 @@ const HERO: Record<Tab, { color: string; title: string; lead: string; stickers: 
   teas: {
     color: 'var(--peach)',
     title: 'Топ-20 чаёв',
-    lead: 'Конкретные чаи, которые пользователи оценили выше всего. Отметьте один или несколько видов, чтобы сравнить только их.',
+    lead: 'Чаи, которые пользователи оценили выше всего. Отзывы тех, кто перепробовал много чая, весят больше.',
     stickers: [
       { text: '♥ выбор сообщества', style: { right: '9%', top: 56 } },
       { text: 'по отзывам', bg: 'var(--lilac)', style: { right: '18%', bottom: 60 } },
@@ -93,7 +93,7 @@ export function LegacyRedirect({ to }: { to: (params: Record<string, string | un
 function CategoryChips({ selected, href, withAll = false }: { selected: string[]; href: (slug: string) => string; withAll?: boolean }) {
   const categories = useCategories()
   return (
-    <nav className="toolbar" style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 8 }} aria-label="Категории">
+    <nav className="toolbar chip-row" style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 8 }} aria-label="Категории">
       {withAll && (
         <Link to={href('')} className="chip" aria-pressed={selected.length === 0}>
           Все виды

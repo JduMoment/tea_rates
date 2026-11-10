@@ -1,4 +1,4 @@
-import { Link } from 'react-router'
+import { Link, useNavigate } from 'react-router'
 import * as api from '../api'
 import { useAuth } from '../auth/AuthContext'
 import { useAsync } from '../hooks/useAsync'
@@ -11,6 +11,7 @@ import { fmtDate, reviewsWord } from '../utils/format'
 
 export function Profile() {
   const { user } = useAuth()
+  const navigate = useNavigate()
   const reviews = useAsync(() => api.getUserReviews(user!.id), [user?.id])
   const diary = useAsync(() => api.getDiary(), [user?.id])
   const taste = useAsync(() => api.getUserFlavors(user!.id), [user?.id])
@@ -89,9 +90,11 @@ export function Profile() {
           <div className="grid" style={{ gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))' }}>
             {reviews.data.map((r) => (
               <ReviewItem
+                hideExperience
                 key={r.id}
                 review={r}
                 showTea
+                onEdit={() => navigate(`/teas/${r.teaId}?edit=${r.id}`)}
                 onDelete={async () => {
                   await api.deleteReview(r.id)
                   reviews.reload()

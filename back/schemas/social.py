@@ -9,6 +9,16 @@ from back.services.shelf import Shelved
 from back.services.social import AuthorProfile
 
 
+class KindCountOut(ApiModel):
+    """Сколько чаёв одного вида оценил автор."""
+
+    slug: str
+    name: str
+    color: str
+    ink: str
+    teas: int
+
+
 class AuthorOut(ApiModel):
     """Публичный профиль автора отзывов (без почты и дневника)."""
 
@@ -17,6 +27,8 @@ class AuthorOut(ApiModel):
     joined: date
     reviews: int
     teas: int
+    kinds: list[KindCountOut]
+    shops: int
     followers: int
     following: int
     followed_by_me: bool
@@ -29,6 +41,11 @@ class AuthorOut(ApiModel):
             joined=p.user.created_at.date(),
             reviews=p.reviews,
             teas=p.teas,
+            kinds=[
+                KindCountOut(slug=k.slug, name=k.value, color=k.color, ink=k.ink, teas=n)
+                for k, n in p.experience.by_kind
+            ],
+            shops=p.experience.shops,
             followers=p.followers,
             following=p.following,
             followed_by_me=p.followed_by_me,

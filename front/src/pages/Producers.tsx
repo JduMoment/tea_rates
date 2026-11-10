@@ -2,14 +2,16 @@ import { Link } from 'react-router'
 import { PageHero } from '../components/PageHero'
 import * as api from '../api'
 import { useAsync } from '../hooks/useAsync'
+import { useAuth } from '../auth/AuthContext'
 import { useCategories } from '../hooks/useCatalog'
-import { StoreIcon } from '../components/Icons'
+import { ShopLogo } from '../components/CatalogImage'
 import { Leaves } from '../components/Leaves'
 import { TeaGridSkeleton } from '../components/TeaCard'
 import { fmtScore, reviewsWord, teasWord } from '../utils/format'
 
 export function Producers() {
   const list = useAsync(() => api.getShops(), [])
+  const { user } = useAuth()
   const categories = useCategories()
 
   return (
@@ -23,7 +25,11 @@ export function Producers() {
           { text: '★ Габы', bg: 'var(--lilac)', style: { right: '9%', top: 52 } },
           { text: '★ Красные', bg: 'var(--peach)', style: { right: '20%', bottom: 52 } },
         ]}
-      />
+      >
+        <Link to={user ? '/shops/new' : '/login'} state={user ? undefined : { from: '/shops/new' }} className="btn">
+          + Добавить магазин
+        </Link>
+      </PageHero>
       {list.loading ? (
         <TeaGridSkeleton count={4} />
       ) : (
@@ -32,7 +38,7 @@ export function Producers() {
             <Link key={p.name} to={`/shops/${p.name}`} className="card stack" style={{ textDecoration: 'none', color: 'inherit' }}>
               <div className="row between">
                 <span className="row" style={{ gap: 10 }}>
-                  <span className="cat-dot" style={{ background: 'var(--accent)' }}><StoreIcon size={20} /></span>
+                  <ShopLogo shop={p} />
                   <span style={{ display: 'flex', flexDirection: 'column' }}>
                     <span style={{ fontFamily: 'var(--display)', fontSize: 26, lineHeight: 1.1 }}>{p.title}</span>
                     <span className="small muted">{p.city}{p.founded ? ` · с ${p.founded}` : ''}</span>

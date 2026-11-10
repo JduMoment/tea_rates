@@ -4,14 +4,22 @@ from sqlalchemy import delete, select
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from back.core.config import SESSION_TTL_DAYS
+from back.core.config import PASSWORD_RESET_TTL_MINUTES, SESSION_TTL_DAYS
 from back.core.security import DUMMY_HASH, NO_PASSWORD, SessionTokens, password_hasher
-from back.models import User, UserIdentity, UserSession
+from back.models import PasswordReset, User, UserIdentity, UserSession
 from back.services.oauth import OAuthProfile
 
 
 class EmailTakenError(Exception):
     pass
+
+
+class ResetLinkInvalidError(Exception):
+    """Ссылка для сброса пароля неверная, устарела или уже использована."""
+
+
+#: Не чаще одного письма о сбросе пароля на аккаунт за это время — чтобы форму не превращали в спам-пушку.
+RESET_COOLDOWN = timedelta(minutes=2)
 
 
 class AuthService:
@@ -88,3 +96,44 @@ class AuthService:
             return
         await self.db.execute(delete(UserSession).where(UserSession.token_hash == SessionTokens.digest(token)))
         await self.db.commit()
+
+    # ---------- восстановление пароля ----------
+
+    async def request_reset(self, email: str) -> tuple[User, str] | None:
+        """Создаёт ссылку для сброса. None — нет такого пользователя или письмо уже отправляли только что
+        (снаружи эти случаи не различаем, чтобы по ответу нельзя было узнать, зарегистрирована ли почта)."""
+        user = await self.db.scalar(select(User).where(User.email == email))
+        if not user:
+            return None
+        now = datetime.now(UTC)
+        recent = await self.db.scalar(
+            select(PasswordReset).where(
+                PasswordReset.user_id == user.id, PasswordReset.created_at > now - RESET_COOLDOWN
+            )
+        )
+        if recent:
+            return None
+        token = SessionTokens.new()
+        self.db.add(
+            PasswordReset(
+                token_hash=SessionTokens.digest(token),
+                user_id=user.id,
+                created_at=now,
+                expires_at=now + timedelta(minutes=PASSWORD_RESET_TTL_MINUTES),
+            )
+        )
+        await self.db.commit()
+        return user, token
+
+    async def reset_password(self, token: str, password: str) -> User:
+        """Меняет пароль по ссылке и завершает все сессии пользователя (вдруг доступ был у кого-то ещё)."""
+        reset = await self.db.get(PasswordReset, SessionTokens.digest(token))
+        now = datetime.now(UTC)
+        if not reset or reset.used_at or reset.expires_at < now:
+            raise ResetLinkInvalidError
+        user = await self.db.get(User, reset.user_id)
+        user.password_hash = password_hasher.hash(password)
+        reset.used_at = now
+        await self.db.execute(delete(UserSession).where(UserSession.user_id == user.id))
+        await self.db.commit()
+        return user

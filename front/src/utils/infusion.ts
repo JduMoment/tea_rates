@@ -5,12 +5,13 @@ export const SCALES = [
   { key: 'body', title: 'Тело', low: 'лёгкое', high: 'плотное' },
   { key: 'strength', title: 'Насыщенность', low: 'пустой', high: 'крепкий' },
   { key: 'aftertaste', title: 'Послевкусие', low: 'короткое', high: 'долгое' },
+  { key: 'astringency', title: 'Терпкость', low: 'мягкий', high: 'вяжущий' },
 ] as const
 
 export type ScaleKey = (typeof SCALES)[number]['key']
 export type InfusionValue = Record<ScaleKey, number | null>
 
-export const emptyInfusion = (): InfusionValue => ({ body: null, strength: null, aftertaste: null })
+export const emptyInfusion = (): InfusionValue => ({ body: null, strength: null, aftertaste: null, astringency: null })
 
 /** Строка в отзыве: «тело 4/5 · насыщенность 3/5». */
 export function infusionText(r: Pick<Review, ScaleKey>) {

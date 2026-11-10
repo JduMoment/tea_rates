@@ -9,8 +9,8 @@ from back.core.db import Base
 from back.enums.shelf import ShelfStatus
 
 if TYPE_CHECKING:
-    from back.enums.flavor import Flavor
-    from back.models.catalog import Offer, Tea
+    from back.enums.flavor import Flavor, Taste
+    from back.models.catalog import Offer, Shop, Tea
     from back.models.diary import DiaryEntry
     from back.models.review import Infusion, Purchase, Review
 
@@ -39,12 +39,19 @@ class User(Base):
         flavors: list["Flavor"],
         purchase: "Purchase",
         infusion: "Infusion | None" = None,
+        tastes: "list[Taste]" = (),
     ) -> "Review":
         """Новый отзыв этого пользователя на чай, купленный в магазине offer.shop."""
         from back.models.review import Infusion, Review
 
         review = Review(
-            user=self, tea_id=offer.tea_id, shop_id=offer.shop_id, rating=rating, text=text, flavors=flavors
+            user=self,
+            tea_id=offer.tea_id,
+            shop_id=offer.shop_id,
+            rating=rating,
+            text=text,
+            flavors=flavors,
+            tastes=list(tastes),
         )
         review.set_purchase(purchase)
         review.set_infusion(infusion or Infusion())
@@ -60,8 +67,8 @@ class User(Base):
         """Принадлежит ли отзыв или запись дневника этому пользователю."""
         return obj.user_id == self.id
 
-    def created(self, obj: "Tea | Offer") -> bool:
-        """Этот ли пользователь добавил чай или предложение."""
+    def created(self, obj: "Tea | Offer | Shop") -> bool:
+        """Этот ли пользователь добавил чай, предложение или магазин."""
         return obj.author_id == self.id
 
 
@@ -120,3 +127,15 @@ class Follow(Base):
     follower_id: Mapped[int] = mapped_column(ForeignKey("users.id", ondelete="CASCADE"), primary_key=True)
     followee_id: Mapped[int] = mapped_column(ForeignKey("users.id", ondelete="CASCADE"), primary_key=True, index=True)
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
+
+
+class PasswordReset(Base):
+    """Ссылка для сброса пароля. В письме — случайный токен, здесь — только его SHA-256."""
+
+    __tablename__ = "password_resets"
+
+    token_hash: Mapped[str] = mapped_column(String(64), primary_key=True)
+    user_id: Mapped[int] = mapped_column(ForeignKey("users.id", ondelete="CASCADE"), index=True)
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
+    expires_at: Mapped[datetime] = mapped_column(DateTime(timezone=True))
+    used_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))

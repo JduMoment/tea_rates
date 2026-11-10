@@ -1,3 +1,5 @@
+import type { Experience } from '../data/types'
+
 export const fmtScore = (v: number) => (v ? v.toFixed(1).replace('.', ',') : '—')
 
 export function plural(n: number, one: string, few: string, many: string) {
@@ -10,6 +12,16 @@ export function plural(n: number, one: string, few: string, many: string) {
 
 export const reviewsWord = (n: number) => `${n} ${plural(n, 'отзыв', 'отзыва', 'отзывов')}`
 export const teasWord = (n: number) => `${n} ${plural(n, 'чай', 'чая', 'чаёв')}`
+
+/** Опыт автора под именем в отзыве: «23 чая · 6 видов · 4 магазина · из них шу пуэров — 8».
+ *  Единицы не пишем («1 вид»), приписку про вид — только если оценивал и другие. */
+export function experienceLine(e: Experience) {
+  const parts = [teasWord(e.teas)]
+  if (e.kinds > 1) parts.push(`${e.kinds} ${plural(e.kinds, 'вид', 'вида', 'видов')}`)
+  if (e.shops > 1) parts.push(`${e.shops} ${plural(e.shops, 'магазин', 'магазина', 'магазинов')}`)
+  if (e.sameKind < e.teas) parts.push(`из\u00a0них ${e.kindGenitive.replace(/ /g, '\u00a0')}\u00a0—\u00a0${e.sameKind}`)
+  return parts.join(' · ')
+}
 
 export function fmtDate(iso: string) {
   return new Date(iso).toLocaleDateString('ru-RU', { day: 'numeric', month: 'long', year: 'numeric' })

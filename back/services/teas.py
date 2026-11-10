@@ -1,7 +1,8 @@
 """Пользователи пополняют каталог: добавляют чаи и магазины, где их купить.
 
-Модерации пока нет: добавленное видно сразу. Править и удалять может только автор
+Модерации пока нет: добавленное видно сразу. Править может только автор
 и только пока на это нет чужих отзывов — чтобы нельзя было «переименовать» чай под чужими оценками.
+Удалять чаи и магазины у чая нельзя никому: каталог только пополняется.
 Новые магазины пользователи не заводят — только выбирают из существующих.
 """
 
@@ -14,7 +15,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from back.core.slug import slugify, unique_slug
 from back.models import Offer, Review, Tea, User
 from back.services.catalog import CatalogService, TeaDetails
-from back.services.errors import LastOfferError, OfferExistsError, OfferLockedError, TeaExistsError, TeaLockedError
+from back.services.errors import OfferExistsError, OfferLockedError, TeaExistsError, TeaLockedError
 
 
 @dataclass(frozen=True, slots=True)
@@ -73,12 +74,6 @@ class TeaEditorService:
         await self._commit(TeaExistsError)
         return await self.catalog.tea(tea.id)
 
-    async def delete(self, user: User, tea_id: int) -> None:
-        tea = await self.catalog.get_tea(tea_id)
-        await self._check_editable(user, tea)
-        await self.db.delete(tea)
-        await self.db.commit()
-
     # ---------- магазины чая ----------
 
     async def add_offer(self, user: User, tea_id: int, shop_id: int, fields: OfferFields) -> TeaDetails:
@@ -98,15 +93,6 @@ class TeaEditorService:
             setattr(offer, attr, value)
         await self.db.commit()
         return await self.catalog.tea(tea_id)
-
-    async def delete_offer(self, user: User, tea_id: int, shop_id: int) -> None:
-        offer = await self.catalog.get_offer(tea_id, shop_id)
-        await self._check_offer_editable(user, offer)
-        tea = await self.catalog.get_tea(tea_id)
-        if len(tea.offers) == 1:
-            raise LastOfferError
-        await self.db.delete(offer)
-        await self.db.commit()
 
     # ---------- проверки ----------
 

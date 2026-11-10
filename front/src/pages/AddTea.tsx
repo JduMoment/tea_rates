@@ -3,6 +3,7 @@ import { Link, useNavigate, useSearchParams } from 'react-router'
 import * as api from '../api'
 import { PageHero } from '../components/PageHero'
 import { OfferFields } from '../components/OfferFields'
+import { ImageField } from '../components/CatalogImage'
 import { emptyOffer, offerInput } from '../utils/offer'
 import { useAsync } from '../hooks/useAsync'
 import { useCategories } from '../hooks/useCatalog'
@@ -21,6 +22,7 @@ export function AddTea() {
   const [region, setRegion] = useState('')
   const [description, setDescription] = useState('')
   const [offer, setOffer] = useState(emptyOffer())
+  const [image, setImage] = useState<File | null>(null)
   const [error, setError] = useState<string | null>(null)
   const [busy, setBusy] = useState(false)
 
@@ -46,6 +48,8 @@ export function AddTea() {
     try {
       const { shopId, ...rest } = offerInput(draft)
       const tea = await api.createTea({ category, title, region: region || null, description, shopId, offer: rest })
+      // Фото не загрузилось — чай всё равно создан; загрузить можно на его странице
+      if (image) await api.uploadTeaImage(tea.id, image).catch(() => undefined)
       navigate(fromDiary ? `/diary?add=${tea.id}` : `/teas/${tea.id}`)
     } catch (err) {
       setError((err as Error).message)
@@ -69,7 +73,7 @@ export function AddTea() {
       <form className="card stack add-tea" onSubmit={submit} style={{ gap: 20 }}>
         <div className="field">
           Вид чая
-          <div className="row" style={{ gap: 8 }} role="group" aria-label="Вид чая">
+          <div className="row chip-row" style={{ gap: 8 }} role="group" aria-label="Вид чая">
             {categories.list.map((c) => (
               <button key={c.slug} type="button" className="chip" aria-pressed={category === c.slug} onClick={() => setCategory(c.slug)}>
                 <span className="dot" style={{ background: c.ink }} aria-hidden="true" />
@@ -108,8 +112,15 @@ export function AddTea() {
           <textarea className="textarea" maxLength={4000} value={description} onChange={(e) => setDescription(e.target.value)} placeholder="Что это за чай, чем примечателен" />
         </label>
 
+        <ImageField label="Фото чая" hint="Сухой лист, настой или упаковка. JPEG, PNG или WebP до 10 МБ." file={image} onChange={setImage} />
+
         <h3>Где продаётся</h3>
-        <OfferFields value={draft} onChange={setOffer} shops={sortedShops} />
+        <OfferFields
+          value={draft}
+          onChange={setOffer}
+          shops={sortedShops}
+          backTo={`/teas/new?${new URLSearchParams({ ...(category && { category }), ...(title && { title }), ...(fromDiary && { next: 'diary' }) })}`}
+        />
 
         {error && <p className="error" role="alert">{error}</p>}
         <div className="row">

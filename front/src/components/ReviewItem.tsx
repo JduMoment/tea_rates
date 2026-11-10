@@ -4,12 +4,25 @@ import * as api from '../api'
 import { useAuth } from '../auth/AuthContext'
 import type { Photo, Review } from '../data/types'
 import { useFlavorWheel } from '../hooks/useCatalog'
-import { fmtDate } from '../utils/format'
+import { experienceLine, fmtDate } from '../utils/format'
 import { FlavorTags } from './FlavorWheel'
 import { infusionText } from '../utils/infusion'
 import { Leaves } from './Leaves'
 
-export function ReviewItem({ review, showTea = false, onDelete }: { review: Review; showTea?: boolean; onDelete?: () => void }) {
+/** hideExperience — на странице автора: там все отзывы его, а опыт показан в шапке. */
+export function ReviewItem({
+  review,
+  showTea = false,
+  hideExperience = false,
+  onEdit,
+  onDelete,
+}: {
+  review: Review
+  showTea?: boolean
+  hideExperience?: boolean
+  onEdit?: () => void
+  onDelete?: () => void
+}) {
   const wheel = useFlavorWheel()
   const infusion = infusionText(review)
   const [photo, setPhoto] = useState<Photo | null>(null)
@@ -20,7 +33,15 @@ export function ReviewItem({ review, showTea = false, onDelete }: { review: Revi
           <span className="avatar" aria-hidden="true">{review.user.name.slice(0, 1)}</span>
           <div style={{ display: 'flex', flexDirection: 'column' }}>
             <Link to={`/users/${review.user.id}`} className="review-author">{review.user.name}</Link>
-            <span className="small muted">{fmtDate(review.createdAt)}</span>
+            {review.user.experience && !hideExperience && (
+              <span className="small muted" title="Сколько разных чаёв, видов чая и магазинов автор оценил на сайте">
+                {experienceLine(review.user.experience)}
+              </span>
+            )}
+            <span className="small muted">
+              {fmtDate(review.createdAt)}
+              {review.editedAt && <span title={`Изменён ${fmtDate(review.editedAt)}`}> · изменён</span>}
+            </span>
           </div>
         </div>
         <Leaves value={review.rating} size={17} />
@@ -49,11 +70,19 @@ export function ReviewItem({ review, showTea = false, onDelete }: { review: Revi
           ))}
         </div>
       )}
+      {wheel && review.tastes.length > 0 && (
+        <p className="small muted" style={{ margin: 0 }}>
+          Вкус: {review.tastes.map((t) => wheel.taste(t)?.title.toLowerCase()).filter(Boolean).join(', ')}
+        </p>
+      )}
       {infusion && <p className="small muted" style={{ margin: 0 }}>Настой: {infusion}</p>}
       <div className="row between">
         <FlavorTags index={wheel} slugs={review.flavors} />
         <div className="row" style={{ gap: 6, marginLeft: 'auto' }}>
           <HelpfulButton review={review} />
+          {onEdit && (
+            <button type="button" className="btn btn-ghost btn-sm" onClick={onEdit}>Изменить</button>
+          )}
           {onDelete && (
             <button type="button" className="btn btn-ghost btn-sm" onClick={onDelete}>Удалить</button>
           )}

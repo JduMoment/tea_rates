@@ -1,0 +1,70 @@
+# Прод на VPS: Postgres + бэкенд (с собранным фронтом) + Caddy (HTTPS от Let's Encrypt).
+# Запуск из корня проекта:  docker compose -f deploy/docker-compose.prod.yml up -d --build
+# Настройки — в .env в корне (шаблон .env.example, что поменять для прода — deploy/README.md).
+name: tea_rates_prod
+
+# Логи контейнеров: не больше 5 файлов по 10 МБ на сервис, старые удаляются — диск не забьётся.
+x-logging: &logging
+  driver: json-file
+  options:
+    max-size: "10m"
+    max-file: "5"
+
+services:
+  db:
+    logging: *logging
+    image: postgres:16-alpine
+    restart: unless-stopped
+    env_file: ../.env
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U \"$${POSTGRES_USER}\" -d \"$${POSTGRES_DB}\""]
+      interval: 5s
+      timeout: 3s
+      retries: 30
+    # Наружу порт не публикуем: база доступна только бэкенду
+
+  backend:
+    logging: *logging
+    build:
+      context: ..
+      dockerfile: deploy/Dockerfile.prod
+    restart: unless-stopped
+    env_file: ../.env
+    environment:
+      POSTGRES_HOST: db
+      POSTGRES_PORT: "5432"
+      # Время в логах и письмах об ошибках — московское
+      TZ: Europe/Moscow
+    volumes:
+      - media:/app/media
+    depends_on:
+      db:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/api/health')"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+
+  caddy:
+    logging: *logging
+    image: caddy:2-alpine
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+      - "443:443/udp"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
+    depends_on:
+      - backend
+
+volumes:
+  pgdata:
+  media:
+  caddy_data:
+  caddy_config:

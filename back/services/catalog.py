@@ -73,6 +73,7 @@ class InfusionStats:
     body: float | None
     strength: float | None
     aftertaste: float | None
+    astringency: float | None
     reviews: int
 
     @classmethod
@@ -81,11 +82,12 @@ class InfusionStats:
             marked = [v for v in values if v is not None]
             return round(sum(marked) / len(marked), 1) if marked else None
 
-        rated = [r for r in reviews if r.body or r.strength or r.aftertaste]
+        rated = [r for r in reviews if r.body or r.strength or r.aftertaste or r.astringency]
         return cls(
             body=avg([r.body for r in rated]),
             strength=avg([r.strength for r in rated]),
             aftertaste=avg([r.aftertaste for r in rated]),
+            astringency=avg([r.astringency for r in rated]),
             reviews=len(rated),
         )
 
@@ -142,7 +144,7 @@ class CatalogService:
             )
             for shop in shops
         ]
-        return sorted(summaries, key=lambda s: s.score.avg, reverse=True)
+        return best_first(summaries, lambda s: s.score)
 
     async def get_shop(self, name: str) -> Shop:
         """Магазин по техническому имени из адреса: «art-of-tea»."""
@@ -161,10 +163,7 @@ class CatalogService:
         shop = await self.get_shop(name)
         scores = rank_shops(await self.scores.by_shop_and_category(shop_id=shop.id))
         teas = await self.teas(shop_id=shop.id)
-        total = Score.of(
-            avg=_mean([s.score for s in scores]),
-            reviews=sum(s.score.reviews for s in scores),
-        )
+        total = Score.combine([s.score for s in scores])
         summary = ShopSummary(
             shop=shop,
             score=total,
@@ -258,7 +257,7 @@ class CatalogService:
             offers=best_first(offers, lambda r: r.score),
             reviews=reviews,
             alternatives=[r for r in same_category if r.tea.id != tea.id][: self.ALTERNATIVES_LIMIT],
-            flavors=FlavorProfile.of([r.flavors for r in reviews]),
+            flavors=FlavorProfile.of([r.flavors for r in reviews], [r.tastes for r in reviews]),
             infusion=InfusionStats.of(reviews),
         )
 
@@ -286,12 +285,6 @@ def _search(q: str):
     if flavors:
         conditions.append(Tea.id.in_(select(Review.tea_id).where(Review.flavors.overlap(flavors))))
     return or_(*conditions)
-
-
-def _mean(scores: list[Score]) -> float:
-    """Средняя по всем отзывам (а не средняя средних)."""
-    total = sum(s.reviews for s in scores)
-    return sum(s.avg * s.reviews for s in scores) / total if total else 0.0
 
 
 def _escape_like(value: str) -> str:

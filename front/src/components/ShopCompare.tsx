@@ -59,7 +59,15 @@ function ShopColumn({ tea, offer, index }: { tea: TeaDetails; offer: RatedOffer;
       </div>
       <dl className="compare-facts">
         <dt>Цена</dt>
-        <dd>{perGram != null ? `${fmtPerGram(perGram)} · ${offer.priceLabel}` : '—'}</dd>
+        <dd>
+          {perGram != null ? (
+            <>
+              <span className="nowrap">{fmtPerGram(perGram)}</span> · <span className="nowrap">{offer.priceLabel}</span>
+            </>
+          ) : (
+            '—'
+          )}
+        </dd>
         {SCALES.map((s) => {
           const marked = reviews.map((r: Review) => r[s.key]).filter((v): v is number => v != null)
           return [

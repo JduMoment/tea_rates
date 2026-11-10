@@ -50,8 +50,10 @@ class FeedView(View):
         limit: Annotated[int, Query(ge=1, le=50)] = 12,
     ) -> list[ReviewOut]:
         items = await social.feed(viewer, limit)
-        voted = await reviews.voted(viewer, [x.review.id for x in items])
-        return [ReviewOut.of(x.review, x.tea, voted) for x in items]
+        ids = [x.review.id for x in items]
+        voted = await reviews.voted(viewer, ids)
+        experience = await reviews.experience(ids)
+        return [ReviewOut.of(x.review, x.tea, voted, experience) for x in items]
 
 
 class ShelfView(View):
@@ -64,7 +66,7 @@ class ShelfView(View):
 
 
 class ShelfItemView(View):
-    """Положить чай в шкаф или сменить статус (PUT {"status": "want"|"have"|"finished"}), убрать — DELETE."""
+    """Положить чай в шкаф или сменить статус (PUT {"status": "want"|"have"|"finished"|"repeat"}), убрать — DELETE."""
 
     paths = ("/me/shelf/{tea_id}",)
     method_options: ClassVar[dict] = {"delete": {"status_code": status.HTTP_204_NO_CONTENT}}

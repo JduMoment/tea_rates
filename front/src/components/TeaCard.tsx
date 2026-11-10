@@ -12,9 +12,9 @@ export function TeaCard({ tea, rank, showShops = true, note }: { tea: Tea; rank?
   return (
     <Link to={`/teas/${tea.id}`} className="tea-card">
       <span className="tea-art" style={{ background: tea.category.color }}>
+        {tea.thumbUrl ? <img src={tea.thumbUrl} alt="" className="tea-photo" loading="lazy" /> : <CupIcon size={100} color={tea.category.ink} />}
         {rank !== undefined && <span className="rank">{rank}</span>}
         <span className="sticker">{fmtScore(tea.stats.avg)}</span>
-        <CupIcon size={100} color={tea.category.ink} />
       </span>
       <span className="row between" style={{ gap: 8 }}>
         <span className="small muted" style={{ fontWeight: 600 }}>{tea.category.name}</span>

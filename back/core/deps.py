@@ -8,13 +8,16 @@ from back.core.db import DbSession
 from back.services.brewing import BrewingService
 from back.services.catalog import CatalogService
 from back.services.diary import DiaryService
+from back.services.feedback import FeedbackService
 from back.services.flavors import FlavorStatsService
+from back.services.images import CatalogImageService
 from back.services.photos import PhotoService
 from back.services.prices import PriceHistoryService
 from back.services.rankings import RankingService
 from back.services.recommendations import RecommendationService
 from back.services.reviews import ReviewService
 from back.services.shelf import ShelfService
+from back.services.shops import ShopEditorService
 from back.services.social import SocialService
 from back.services.teas import TeaEditorService
 
@@ -67,6 +70,18 @@ def get_photos(db: DbSession) -> PhotoService:
     return PhotoService(db)
 
 
+def get_catalog_images(db: DbSession) -> CatalogImageService:
+    return CatalogImageService(db)
+
+
+def get_shop_editor(db: DbSession) -> ShopEditorService:
+    return ShopEditorService(db)
+
+
+def get_feedback(db: DbSession) -> FeedbackService:
+    return FeedbackService(db)
+
+
 CatalogDep = Annotated[CatalogService, Depends(get_catalog)]
 RankingsDep = Annotated[RankingService, Depends(get_rankings)]
 ReviewsDep = Annotated[ReviewService, Depends(get_reviews)]
@@ -79,3 +94,6 @@ PricesDep = Annotated[PriceHistoryService, Depends(get_prices)]
 ShelfDep = Annotated[ShelfService, Depends(get_shelf)]
 SocialDep = Annotated[SocialService, Depends(get_social)]
 PhotosDep = Annotated[PhotoService, Depends(get_photos)]
+CatalogImagesDep = Annotated[CatalogImageService, Depends(get_catalog_images)]
+ShopEditorDep = Annotated[ShopEditorService, Depends(get_shop_editor)]
+FeedbackDep = Annotated[FeedbackService, Depends(get_feedback)]

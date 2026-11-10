@@ -35,3 +35,11 @@ export const OAUTH_ERRORS: Record<string, string> = {
   unavailable: 'Вход через Яндекс сейчас недоступен',
   provider: 'Не удалось войти через Яндекс — попробуйте ещё раз',
 }
+
+/** POST /api/auth/password/forgot — письмо со ссылкой (ответ одинаковый, есть такая почта или нет) */
+export const forgotPassword = (email: string) =>
+  http<void>('/auth/password/forgot', { method: 'POST', body: { email } })
+
+/** POST /api/auth/password/reset — новый пароль по ссылке; сразу входим */
+export const resetPassword = (token: string, password: string) =>
+  http<User>('/auth/password/reset', { method: 'POST', body: { token, password } })

@@ -1,15 +1,15 @@
-"""Колесо вкусов: базовый вкус → группа → дескриптор.
+"""Колесо ароматов: группа → дескриптор. Базовый вкус (сладкий, умами…) автор отзыва отмечает сам.
 
 Середина между нашим первым колесом (подробным, в духе кофейного) и колесом Art of Tea:
 групп и нот меньше, названия житейские («малина, клубника», а не «красные ягоды»),
 без нот, которые в чае не различить (бергамот против лайма, краб, сера).
 
-Пользователь в отзыве выбирает только дескрипторы (Flavor). Группа и вкус выводятся отсюда:
-справочник целиком живёт в коде, в БД хранятся лишь выбранные Flavor.
+Пользователь в отзыве выбирает дескрипторы (Flavor) на колесе и отдельно — базовые вкусы (Taste).
+Группа дескриптора выводится отсюда: справочник целиком живёт в коде, в БД хранятся лишь выбранные Flavor.
 
-Вкус задаётся у дескриптора, а не у группы: на колесе внутреннее кольцо не совпадает
-с группами (во «фруктовом» есть и сладкое, и кислое). Поэтому у группы есть вкус
-по умолчанию, а отдельные дескрипторы его переопределяют.
+У дескриптора есть и вкус — по нему выводится вкус отзыва, где автор вкус сам не отметил
+(старые отзывы, до отдельного выбора вкуса). Вкус задаётся у группы по умолчанию,
+отдельные дескрипторы его переопределяют (во «фруктовом» есть и сладкое, и кислое).
 
 Порядок членов FlavorGroup и порядок дескрипторов в _WHEEL — это порядок на колесе
 по часовой стрелке от «12 часов».
@@ -53,7 +53,7 @@ class FlavorGroup(_Slugged):
     WOODY = "Древесный, дымный"
     SPICY = "Пряный"
     ROASTED = "Жареный"
-    NUTTY = "Ореховый"
+    NUTTY = "Орехи, семечки"
     CONFECTIONERY = "Кондитерский"
     DRIED_FRUIT = "Сухофрукты, варенье"
     BERRY = "Ягодный"
@@ -82,14 +82,18 @@ class Flavor(_Slugged):
     LINDEN = "липа"
     ORCHID = "орхидея"
     MEADOW_FLOWERS = "луговые цветы"
+    OSMANTHUS = "османтус"
     # Травянистый
     CUT_GRASS = "свежая трава"
     HAY = "сено"
     MINT = "мята"
+    MENTHOL = "ментол"
     HERBS = "пряные травы"
     # Овощной
     SPINACH = "шпинат"
     PEA = "зелёный горошек"
+    ASPARAGUS = "спаржа"
+    GREEN_BEANS = "стручковая фасоль"
     PUMPKIN = "тыква"
     SWEET_POTATO = "батат"
     # Морской, минеральный
@@ -120,11 +124,15 @@ class Flavor(_Slugged):
     CHOCOLATE = "шоколад"
     COFFEE = "кофе"
     ROASTED_GRAIN = "жареное зерно"
+    ROASTED_RICE = "жареный рис"
+    ROASTED_BEANS = "жареные бобы, соя"
     # Ореховый
     HAZELNUT = "лесной орех"
     ALMOND = "миндаль"
     WALNUT = "грецкий орех"
     CHESTNUT = "каштан"
+    SEEDS = "жареные семечки"
+    SESAME = "кунжут"
     # Кондитерский
     HONEY = "мёд"
     CARAMEL = "карамель"
@@ -132,25 +140,32 @@ class Flavor(_Slugged):
     CREAM = "сливки"
     BREAD = "хлеб, злаки"
     COOKIE = "печенье"
+    MALT = "солод"
     # Сухофрукты, варенье
     RAISIN = "изюм"
     DRIED_APRICOT = "курага"
     PRUNE = "чернослив"
+    FIG = "инжир"
+    DATE = "финик"
     JAM = "варенье"
-    WINE = "вино"
     # Ягодный
     RED_BERRIES = "малина, клубника"
+    BLACKBERRY = "ежевика"
     DARK_BERRIES = "смородина, черника"
     SOUR_BERRIES = "клюква, брусника"
+    CHERRY = "вишня"
+    ROSEHIP = "шиповник"
+    SEA_BUCKTHORN = "облепиха"
     # Фруктовый
     APPLE = "яблоко"
     PEAR = "груша"
     PEACH = "персик, абрикос"
     PLUM = "слива"
-    CHERRY = "вишня"
     GRAPE = "виноград"
+    MUSCAT = "мускат"
     MELON = "дыня"
     CITRUS = "цитрус"
+    LYCHEE = "личи"
     TROPICAL = "тропические фрукты"
 
     @property
@@ -191,18 +206,18 @@ _WHEEL: dict[FlavorGroup, _Group] = {
     FlavorGroup.FLOWERS: _Group(
         "#F2B8C6",
         Taste.SWEET,
-        (Flavor.JASMINE, Flavor.ROSE, Flavor.LINDEN, Flavor.ORCHID, Flavor.MEADOW_FLOWERS),
+        (Flavor.JASMINE, Flavor.ROSE, Flavor.LINDEN, Flavor.ORCHID, Flavor.MEADOW_FLOWERS, Flavor.OSMANTHUS),
     ),
     FlavorGroup.HERBAL: _Group(
         "#BCD9A0",
         Taste.SWEET,
-        (Flavor.CUT_GRASS, Flavor.HAY, Flavor.MINT, Flavor.HERBS),
+        (Flavor.CUT_GRASS, Flavor.HAY, Flavor.MINT, Flavor.MENTHOL, Flavor.HERBS),
         {Flavor.HERBS: Taste.BITTER},
     ),
     FlavorGroup.VEGETABLE: _Group(
         "#D6D59A",
         Taste.UMAMI,
-        (Flavor.SPINACH, Flavor.PEA, Flavor.PUMPKIN, Flavor.SWEET_POTATO),
+        (Flavor.SPINACH, Flavor.PEA, Flavor.ASPARAGUS, Flavor.GREEN_BEANS, Flavor.PUMPKIN, Flavor.SWEET_POTATO),
         {Flavor.PUMPKIN: Taste.SWEET, Flavor.SWEET_POTATO: Taste.SWEET},
     ),
     FlavorGroup.MINERAL: _Group(
@@ -231,31 +246,45 @@ _WHEEL: dict[FlavorGroup, _Group] = {
     FlavorGroup.ROASTED: _Group(
         "#C9A592",
         Taste.BITTER,
-        (Flavor.COCOA, Flavor.CHOCOLATE, Flavor.COFFEE, Flavor.ROASTED_GRAIN),
-        {Flavor.CHOCOLATE: Taste.SWEET},
+        (
+            Flavor.COCOA,
+            Flavor.CHOCOLATE,
+            Flavor.COFFEE,
+            Flavor.ROASTED_GRAIN,
+            Flavor.ROASTED_RICE,
+            Flavor.ROASTED_BEANS,
+        ),
+        {Flavor.CHOCOLATE: Taste.SWEET, Flavor.ROASTED_RICE: Taste.SWEET},
     ),
     FlavorGroup.NUTTY: _Group(
         "#E2C29A",
         Taste.SWEET,
-        (Flavor.HAZELNUT, Flavor.ALMOND, Flavor.WALNUT, Flavor.CHESTNUT),
+        (Flavor.HAZELNUT, Flavor.ALMOND, Flavor.WALNUT, Flavor.CHESTNUT, Flavor.SEEDS, Flavor.SESAME),
         {Flavor.WALNUT: Taste.BITTER},
     ),
     FlavorGroup.CONFECTIONERY: _Group(
         "#F0D3A8",
         Taste.SWEET,
-        (Flavor.HONEY, Flavor.CARAMEL, Flavor.VANILLA, Flavor.CREAM, Flavor.BREAD, Flavor.COOKIE),
+        (Flavor.HONEY, Flavor.CARAMEL, Flavor.VANILLA, Flavor.CREAM, Flavor.BREAD, Flavor.COOKIE, Flavor.MALT),
     ),
     FlavorGroup.DRIED_FRUIT: _Group(
         "#D9A3A0",
         Taste.SWEET,
-        (Flavor.RAISIN, Flavor.DRIED_APRICOT, Flavor.PRUNE, Flavor.JAM, Flavor.WINE),
-        {Flavor.WINE: Taste.SOUR},
+        (Flavor.RAISIN, Flavor.DRIED_APRICOT, Flavor.PRUNE, Flavor.FIG, Flavor.DATE, Flavor.JAM),
     ),
     FlavorGroup.BERRY: _Group(
         "#E7A3B4",
         Taste.SWEET,
-        (Flavor.RED_BERRIES, Flavor.DARK_BERRIES, Flavor.SOUR_BERRIES),
-        {Flavor.SOUR_BERRIES: Taste.SOUR},
+        (
+            Flavor.RED_BERRIES,
+            Flavor.BLACKBERRY,
+            Flavor.DARK_BERRIES,
+            Flavor.SOUR_BERRIES,
+            Flavor.CHERRY,
+            Flavor.ROSEHIP,
+            Flavor.SEA_BUCKTHORN,
+        ),
+        {Flavor.SOUR_BERRIES: Taste.SOUR, Flavor.CHERRY: Taste.SOUR, Flavor.SEA_BUCKTHORN: Taste.SOUR},
     ),
     FlavorGroup.FRUIT: _Group(
         "#F5BE9A",
@@ -265,13 +294,14 @@ _WHEEL: dict[FlavorGroup, _Group] = {
             Flavor.PEAR,
             Flavor.PEACH,
             Flavor.PLUM,
-            Flavor.CHERRY,
             Flavor.GRAPE,
+            Flavor.MUSCAT,
             Flavor.MELON,
             Flavor.CITRUS,
+            Flavor.LYCHEE,
             Flavor.TROPICAL,
         ),
-        {Flavor.CHERRY: Taste.SOUR, Flavor.CITRUS: Taste.SOUR},
+        {Flavor.CITRUS: Taste.SOUR},
     ),
 }
 

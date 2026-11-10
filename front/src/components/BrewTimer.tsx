@@ -4,11 +4,13 @@ import { useEffect, useRef, useState } from 'react'
 const PRESETS: Record<string, [number, number]> = {
   green: [30, 10],
   white: [20, 10],
+  yellow: [25, 10],
   oolong: [15, 5],
   gaba: [15, 5],
   red: [15, 5],
   shu: [10, 5],
   sheng: [10, 5],
+  heicha: [10, 5],
   herbal: [120, 30],
 }
 

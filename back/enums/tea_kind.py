@@ -14,11 +14,13 @@ class TeaKind(StrEnum):
 
     GREEN = "Зелёный"
     WHITE = "Белый"
+    YELLOW = "Жёлтый"
     OOLONG = "Улун"
     GABA = "Габа"
     RED = "Красный"
     SHU = "Шу пуэр"
     SHENG = "Шен пуэр"
+    HEICHA = "Хэй Ча"
     HERBAL = "Травяной"
 
     @property
@@ -41,6 +43,11 @@ class TeaKind(StrEnum):
         return _LOOKS[self].instrumental
 
     @property
+    def genitive(self) -> str:
+        """«шу пуэров» — фразы «из них шу пуэров — 8»."""
+        return _LOOKS[self].genitive
+
+    @property
     def color(self) -> str:
         """Светлый фон плашек и карточек."""
         return _LOOKS[self].color
@@ -57,19 +64,23 @@ class _Look:
     instrumental: str
     color: str
     ink: str
+    genitive: str
 
 
 # Русские формы не выводятся по правилу (шу пуэр → шу пуэрами, травяной → травяными сборами),
 # поэтому — словарь. Новый член TeaKind без записи здесь упадёт на импорте (проверка ниже).
 _LOOKS: dict[TeaKind, _Look] = {
-    TeaKind.GREEN: _Look("Зелёные", "зелёными", "#DCEBC4", "#3F6B1F"),
-    TeaKind.WHITE: _Look("Белые", "белыми", "#F1ECDD", "#7A6A3A"),
-    TeaKind.OOLONG: _Look("Улуны", "улунами", "#FFE3A6", "#8A6212"),
-    TeaKind.GABA: _Look("Габы", "габами", "#E4DDF7", "#4A3D78"),
-    TeaKind.RED: _Look("Красные", "красными", "#FFD0BE", "#A3401C"),
-    TeaKind.SHU: _Look("Шу пуэры", "шу пуэрами", "#F2D5C8", "#7A3F28"),
-    TeaKind.SHENG: _Look("Шен пуэры", "шен пуэрами", "#E3EDD9", "#4F6B3A"),
-    TeaKind.HERBAL: _Look("Травяные", "травяными сборами", "#DDEFF2", "#2F6670"),
+    TeaKind.GREEN: _Look("Зелёные", "зелёными", "#DCEBC4", "#3F6B1F", "зелёных"),
+    TeaKind.WHITE: _Look("Белые", "белыми", "#F1ECDD", "#7A6A3A", "белых"),
+    TeaKind.YELLOW: _Look("Жёлтые", "жёлтыми", "#F7F0B5", "#6E6410", "жёлтых"),
+    TeaKind.OOLONG: _Look("Улуны", "улунами", "#FFE3A6", "#8A6212", "улунов"),
+    TeaKind.GABA: _Look("Габы", "габами", "#E4DDF7", "#4A3D78", "габ"),
+    TeaKind.RED: _Look("Красные", "красными", "#FFD0BE", "#A3401C", "красных"),
+    TeaKind.SHU: _Look("Шу пуэры", "шу пуэрами", "#F2D5C8", "#7A3F28", "шу пуэров"),
+    TeaKind.SHENG: _Look("Шен пуэры", "шен пуэрами", "#E3EDD9", "#4F6B3A", "шен пуэров"),
+    # Хэй Ча не склоняется
+    TeaKind.HEICHA: _Look("Хэй Ча", "хэй ча", "#E2D8CD", "#4A3A2C", "хэй ча"),
+    TeaKind.HERBAL: _Look("Травяные", "травяными сборами", "#DDEFF2", "#2F6670", "травяных сборов"),
 }
 assert set(_LOOKS) == set(TeaKind), "У каждого TeaKind должно быть описание в _LOOKS"
 
@@ -78,11 +89,13 @@ assert set(_LOOKS) == set(TeaKind), "У каждого TeaKind должно бы
 DEFAULT_ORDER: tuple[TeaKind, ...] = (
     TeaKind.GREEN,
     TeaKind.WHITE,
+    TeaKind.YELLOW,
     TeaKind.OOLONG,
     TeaKind.GABA,
     TeaKind.RED,
     TeaKind.SHU,
     TeaKind.SHENG,
+    TeaKind.HEICHA,
     TeaKind.HERBAL,
 )
 

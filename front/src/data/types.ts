@@ -16,6 +16,19 @@ export interface ShopBrief {
   /** Для адресов и фильтров: art-of-tea */
   name: string
   title: string
+  /** Логотип (WebP до 256 px); null — не загружен */
+  logoUrl: string | null
+}
+
+/** Проверка перед добавлением магазина */
+export interface ShopCheck {
+  /** Нормализованный сайт: shop.ru, vk.com/teashop */
+  siteKey: string | null
+  siteError: string | null
+  /** Магазин с тем же сайтом — второй такой не создать */
+  sameSite: ShopBrief | null
+  /** Похожие названия — стоит проверить */
+  similar: ShopBrief[]
 }
 
 export interface Shop extends ShopBrief {
@@ -24,6 +37,7 @@ export interface Shop extends ShopBrief {
   site: string
   founded: number | null
   description: string
+  authorId: number | null
 }
 
 export interface Stats {
@@ -73,6 +87,9 @@ export interface Tea {
   region: string | null
   description: string
   authorId: number | null
+  /** Фото чая и превью для карточек; null — не загружено (рисуем чашку). */
+  imageUrl: string | null
+  thumbUrl: string | null
   category: Category
   /** Где продаётся, дешёвые первыми. */
   offers: Offer[]
@@ -113,7 +130,11 @@ export interface Review {
   text: string
   /** slug'и дескрипторов колеса */
   flavors: string[]
+  /** Вкусы, отмеченные автором (sweet, umami…); пусто — не отмечал */
+  tastes: string[]
   createdAt: string // ISO
+  /** Когда автор поправил отзыв (ISO); null — не правили. Дата отзыва при правке не меняется. */
+  editedAt: string | null
   /** Покупка: цена за weight граммов и партия. Всё необязательно. */
   price: number | null
   weight: number | null
@@ -125,14 +146,24 @@ export interface Review {
   body: number | null
   strength: number | null
   aftertaste: number | null
+  astringency: number | null
   /** Сколько отметили полезным; voted — отметил ли я */
   helpful: number
   voted: boolean
   photos: Photo[]
-  user: Pick<User, 'id' | 'name'>
+  user: Pick<User, 'id' | 'name'> & { experience?: Experience | null }
   shop: ShopBrief
   /** Есть в лентах, на странице чая — нет. */
   tea?: Tea | null
+}
+
+/** Опыт автора: сколько разных чаёв, видов и магазинов он оценил; sameKind — чаёв того же вида, что в отзыве. */
+export interface Experience {
+  teas: number
+  kinds: number
+  shops: number
+  sameKind: number
+  kindGenitive: string // «шу пуэров»
 }
 
 export interface Photo {
@@ -148,6 +179,7 @@ export interface InfusionStats {
   body: number | null
   strength: number | null
   aftertaste: number | null
+  astringency: number | null
   reviews: number
 }
 
@@ -182,17 +214,21 @@ export interface Author {
   joined: string
   reviews: number
   teas: number
+  /** Сколько чаёв каждого вида оценил — больше первыми */
+  kinds: { slug: string; name: string; color: string; ink: string; teas: number }[]
+  shops: number
   followers: number
   following: number
   followedByMe: boolean
 }
 
-export type ShelfStatus = 'want' | 'have' | 'finished'
+export type ShelfStatus = 'want' | 'have' | 'finished' | 'repeat'
 
 export const SHELF_STATUSES: { id: ShelfStatus; label: string }[] = [
   { id: 'want', label: 'Хочу попробовать' },
   { id: 'have', label: 'Есть дома' },
   { id: 'finished', label: 'Закончился' },
+  { id: 'repeat', label: 'Хочу повторить' },
 ]
 
 export interface ShelfItem {

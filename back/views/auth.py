@@ -7,10 +7,12 @@ from fastapi import HTTPException, Request, Response, status
 from fastapi.responses import RedirectResponse
 
 from back.core.auth import AuthServiceDep, CurrentUser, OAuthState, OAuthStateCookie, SessionCookie
+from back.core.config import PASSWORD_RESET_TTL_MINUTES, PUBLIC_URL
+from back.core.mail import send_mail
 from back.core.security import Pkce, SessionTokens
 from back.core.views import View
-from back.schemas.auth import LoginIn, RegisterIn, UserOut
-from back.services.auth import EmailTakenError
+from back.schemas.auth import ForgotPasswordIn, LoginIn, RegisterIn, ResetPasswordIn, UserOut
+from back.services.auth import EmailTakenError, ResetLinkInvalidError
 from back.services.oauth import PROVIDERS, OAuthError, YandexOAuth
 
 log = logging.getLogger(__name__)
@@ -129,3 +131,41 @@ class OAuthCallbackView(View):
         SessionCookie.set(response, await auth.start_session(user))
         OAuthStateCookie.clear(response)
         return response
+
+
+class ForgotPasswordView(View):
+    """Письмо со ссылкой для смены пароля. Ответ всегда 204 — не подсказываем, есть ли такая почта."""
+
+    paths = ("/password/forgot",)
+    route_options: ClassVar[dict] = {"status_code": status.HTTP_204_NO_CONTENT}
+
+    async def post(self, data: ForgotPasswordIn, auth: AuthServiceDep) -> None:
+        found = await auth.request_reset(data.email)
+        if not found:
+            return
+        user, token = found
+        link = f"{PUBLIC_URL}/reset-password?{urlencode({'token': token})}"
+        await send_mail(
+            user.email,
+            "Смена пароля — 5 листов",
+            f"Здравствуйте, {user.name}!\n\n"
+            f"Чтобы задать новый пароль, откройте ссылку:\n{link}\n\n"
+            f"Ссылка действует {PASSWORD_RESET_TTL_MINUTES} минут и сработает один раз.\n"
+            "Если вы не просили сменить пароль — просто проигнорируйте это письмо.\n",
+        )
+
+
+class ResetPasswordView(View):
+    """Новый пароль по ссылке из письма. Все прежние сессии завершаются, текущая — входит заново."""
+
+    paths = ("/password/reset",)
+
+    async def post(self, data: ResetPasswordIn, response: Response, auth: AuthServiceDep) -> UserOut:
+        try:
+            user = await auth.reset_password(data.token, data.password)
+        except ResetLinkInvalidError:
+            raise HTTPException(
+                status.HTTP_400_BAD_REQUEST, detail="Ссылка устарела или уже использована — запросите новую"
+            ) from None
+        SessionCookie.set(response, await auth.start_session(user))
+        return UserOut.from_user(user)
