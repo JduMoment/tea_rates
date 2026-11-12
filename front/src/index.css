@@ -690,6 +690,13 @@ p {
   }
 }
 
+/* Ссылки в подвале: «Поддержать проект», «Конфиденциальность» */
+.footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 20px;
+}
+
 .footer {
   border-top: 1px solid var(--line);
   padding: 28px 0 40px;
@@ -1540,4 +1547,65 @@ p {
   .header-menu > .row > .feedback-btn {
     flex-basis: 100%;
   }
+}
+
+/* Плашка согласия на cookie */
+.cookie-banner {
+  position: fixed;
+  left: 16px;
+  right: 16px;
+  bottom: 16px;
+  z-index: 90;
+  max-width: 720px;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px 20px;
+  padding: 16px 20px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-m);
+  box-shadow: 0 12px 32px rgba(34, 48, 26, 0.16);
+  font-size: 14px;
+}
+.cookie-banner p {
+  margin: 0;
+  flex: 1 1 320px;
+}
+.cookie-banner-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+/* Текстовые страницы (политика конфиденциальности) */
+.prose {
+  max-width: 760px;
+}
+.prose h2 {
+  font-family: var(--display);
+  font-weight: 400;
+  font-size: 24px;
+  margin: 32px 0 8px;
+}
+.prose h2:first-child {
+  margin-top: 0;
+}
+.prose ul {
+  padding-left: 20px;
+}
+.prose li + li {
+  margin-top: 6px;
+}
+
+/* «Спасибо» после нового отзыва */
+.review-thanks {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 16px 20px;
+  background: var(--accent-soft);
+  border-radius: var(--radius-m);
 }

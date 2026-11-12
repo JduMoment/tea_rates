@@ -9,15 +9,18 @@ import { Diary } from './pages/Diary'
 import { Home } from './pages/Home'
 import { ProducerPage } from './pages/ProducerPage'
 import { Producers } from './pages/Producers'
+import { Privacy } from './pages/Privacy'
 import { Profile } from './pages/Profile'
 import { CategoryRanking, LegacyRedirect, ProducerRanking, RankingsLayout, TeaRanking } from './pages/Rankings'
 import { TeaPage } from './pages/TeaPage'
+import { MetrikaTracker } from './metrika'
 import { Teas } from './pages/Teas'
 
 export default function App() {
   return (
     <AuthProvider>
       <BrowserRouter>
+        <MetrikaTracker />
         <Routes>
           <Route element={<Layout />}>
             <Route index element={<Home />} />
@@ -47,6 +50,7 @@ export default function App() {
             <Route path="diary" element={<RequireAuth><Diary /></RequireAuth>} />
             <Route path="profile" element={<RequireAuth><Profile /></RequireAuth>} />
             <Route path="users/:id" element={<AuthorPage />} />
+            <Route path="privacy" element={<Privacy />} />
             <Route path="*" element={<NotFoundBlock />} />
           </Route>
         </Routes>

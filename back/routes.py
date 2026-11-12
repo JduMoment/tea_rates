@@ -29,7 +29,17 @@ from back.views.catalog import (
 )
 from back.views.diary import DiaryEntryView, DiaryView
 from back.views.feedback import FeedbackView
-from back.views.frontend import AssetView, MediaView, NotFoundView, OgImageView, PublicFileView, SpaView
+from back.views.frontend import (
+    AssetView,
+    MediaView,
+    NotFoundView,
+    OgImageView,
+    PublicFileView,
+    RobotsView,
+    SitemapView,
+    SpaView,
+    YandexVerificationView,
+)
 from back.views.health import HealthView
 from back.views.rankings import CategoryLeadersView, CategoryRankingView, ShopRankingView, TopTeasView
 from back.views.reviews import (
@@ -122,7 +132,17 @@ class DiaryRoutes(Routes):
 
 class FrontendRoutes(Routes):
     # NotFoundView ловит всё подряд — он обязан быть последним
-    views = (AssetView, MediaView, OgImageView, PublicFileView, SpaView, NotFoundView)
+    views = (
+        AssetView,
+        MediaView,
+        OgImageView,
+        PublicFileView,
+        RobotsView,
+        SitemapView,
+        YandexVerificationView,
+        SpaView,
+        NotFoundView,
+    )
 
 
 #: Порядок подключения: сначала API, потом фронт с его catch-all.

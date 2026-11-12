@@ -22,7 +22,8 @@ export function ReviewForm({
   offers: Offer[]
   /** Правим этот отзыв: форма заполнена им, магазин не меняется, дата остаётся. Форму пересоздают по key. */
   editing?: Review | null
-  onSaved: () => void
+  /** created — опубликован новый отзыв (не правка и не удаление фото). */
+  onSaved: (created?: boolean) => void
   onCancelEdit?: () => void
 }) {
   const { user } = useAuth()
@@ -114,7 +115,7 @@ export function ReviewForm({
       setInfusion(emptyInfusion())
       setFiles([])
       if (failed.length) setError(`Отзыв сохранён, но не все фото загрузились. ${failed.join('; ')}`)
-      onSaved()
+      onSaved(!editing)
       if (editing && !failed.length) onCancelEdit?.()
     } catch (err) {
       setError((err as Error).message)

@@ -1,6 +1,8 @@
 import { useEffect, useState, type ReactNode } from 'react'
 import { Link, NavLink, Navigate, Outlet, useLocation, useNavigate } from 'react-router'
 import { useAuth } from '../auth/AuthContext'
+import { DONATE_URL } from '../donate'
+import { CookieBanner } from './CookieBanner'
 import { FeedbackButton } from './FeedbackDialog'
 import { PageHero } from './PageHero'
 
@@ -14,6 +16,7 @@ const SECTION_TITLES: [string, string][] = [
   ['/register', 'Регистрация'],
   ['/forgot-password', 'Восстановление пароля'],
   ['/reset-password', 'Новый пароль'],
+  ['/privacy', 'Конфиденциальность'],
 ]
 
 export function Layout() {
@@ -87,8 +90,15 @@ export function Layout() {
         </main>
         <footer className="footer">
           <span>© {new Date().getFullYear()} 5 листов — рейтинг чаёв по магазинам</span>
+          <span className="footer-links">
+            <a href={DONATE_URL} target="_blank" rel="noopener noreferrer">
+              Поддержать проект ☕
+            </a>
+            <Link to="/privacy">Конфиденциальность и cookie</Link>
+          </span>
         </footer>
       </div>
+      <CookieBanner />
     </>
   )
 }

@@ -7,12 +7,13 @@ from pathlib import Path
 from typing import ClassVar
 
 from fastapi import HTTPException, Request
-from fastapi.responses import FileResponse, HTMLResponse, Response
+from fastapi.responses import FileResponse, HTMLResponse, PlainTextResponse, Response
 
 from back.core.config import FRONT_DIST, MEDIA_DIR, PUBLIC_URL
 from back.core.db import DbSession
 from back.core.views import View
 from back.services.previews import DEFAULT, SITE, Preview, PreviewService, cached_render
+from back.services.seo import SitemapService, robots_txt
 
 # Шрифты из сборки (@fontsource) и WebP-фото: стандартная таблица Python может их не знать (octet-stream)
 mimetypes.add_type("font/woff2", ".woff2")
@@ -37,6 +38,7 @@ class SpaView(View):
     paths = (
         "/",
         "/teas",
+        "/teas/new",
         "/teas/{tea_id}",
         "/shops",
         "/shops/new",
@@ -59,6 +61,7 @@ class SpaView(View):
         "/diary",
         "/profile",
         "/users/{user_id}",
+        "/privacy",
     )
     include_in_schema = False
     route_options: ClassVar[dict] = {"response_class": HTMLResponse}
@@ -169,6 +172,41 @@ class PublicFileView(View):
         if f"/{name}" not in self.paths or not target.is_file():
             raise HTTPException(status_code=404)
         return FileResponse(target, headers={"Cache-Control": self.cache_control})
+
+
+class RobotsView(View):
+    """robots.txt: закрываем от индексации личные и служебные страницы, указываем карту сайта."""
+
+    paths = ("/robots.txt",)
+    include_in_schema = False
+
+    async def get(self) -> PlainTextResponse:
+        return PlainTextResponse(robots_txt(), headers={"Cache-Control": "public, max-age=3600"})
+
+
+class SitemapView(View):
+    """sitemap.xml: все чаи, магазины, рейтинги и профили авторов."""
+
+    paths = ("/sitemap.xml",)
+    include_in_schema = False
+
+    async def get(self, db: DbSession) -> Response:
+        xml = await SitemapService(db).xml()
+        return Response(xml, media_type="application/xml", headers={"Cache-Control": "public, max-age=3600"})
+
+
+class YandexVerificationView(View):
+    """Подтверждение прав на сайт в Яндекс Вебмастере (файл yandex_<код>.html)."""
+
+    code: ClassVar[str] = "c783dcee21598c7b"
+    paths = (f"/yandex_{code}.html",)
+    include_in_schema = False
+
+    async def get(self) -> HTMLResponse:
+        return HTMLResponse(
+            '<html>\n    <head>\n        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">\n'
+            f"    </head>\n    <body>Verification: {self.code}</body>\n</html>\n"
+        )
 
 
 class NotFoundView(SpaView):

@@ -15,6 +15,8 @@ import { OfferFields } from '../components/OfferFields'
 import { emptyOffer, offerInput, offerPriceText } from '../utils/offer'
 import { ReviewForm } from '../components/ReviewForm'
 import { ReviewItem } from '../components/ReviewItem'
+import { ReviewThanks } from '../components/ReviewThanks'
+import { takeDonateAsk } from '../donate'
 import { TeaCard } from '../components/TeaCard'
 import { BrewingBlock } from '../components/Brewing'
 import { InfusionBars } from '../components/Infusion'
@@ -34,6 +36,9 @@ export function TeaPage() {
   const [reviewSort, setReviewSort] = useState<'new' | 'helpful'>('new')
   // «Купили в другом магазине?» — открыть форму, хотя свой отзыв на чай уже есть
   const [anotherShop, setAnotherShop] = useState(false)
+  // После нового отзыва: показать «спасибо» (askDonate — с просьбой поддержать проект)
+  // teaId — чтобы «спасибо» не переехало на другой чай при переходе по «Другие улуны»
+  const [thanks, setThanks] = useState<{ teaId: string; askDonate: boolean } | null>(null)
   // ?edit=<id отзыва> — пришли из профиля по «Изменить»
   const [params, setParams] = useSearchParams()
   const editingId = Number(params.get('edit')) || null
@@ -172,14 +177,16 @@ export function TeaPage() {
               />
             ))}
         </div>
+        {thanks?.teaId === id && <ReviewThanks askDonate={thanks.askDonate} onClose={() => setThanks(null)} />}
         {showForm && (editing || freeOffers.length > 0) ? (
           <ReviewForm
             key={`${tea.id}-${editing?.id ?? 'new'}`}
             teaId={tea.id}
             offers={freeOffers}
             editing={editing}
-            onSaved={() => {
+            onSaved={(created) => {
               setAnotherShop(false)
+              if (created) setThanks({ teaId: id, askDonate: takeDonateAsk() })
               res.reload()
             }}
             onCancelEdit={() => editReview(null)}
